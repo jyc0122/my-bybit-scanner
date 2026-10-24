@@ -1,0 +1,16 @@
+{
+  "name": "bybit-ema-touch-scanner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local read-only Bybit EMA touch scanner",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check public/app.js",
+    "test": "node --test test/*.test.mjs",
+    "symbols:validate": "node scripts/validate-symbols.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

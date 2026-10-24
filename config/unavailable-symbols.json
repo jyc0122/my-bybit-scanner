@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-20T08:14:57.084Z",
+  "market": "Bybit linear",
+  "symbols": [
+    { "requested": "COPPERUSDT", "reason": "No matching Trading contract on Bybit" },
+    { "requested": "GTCUSDT", "reason": "No matching Trading contract on Bybit" },
+    { "requested": "FETUSDT", "reason": "No matching Trading contract on Bybit" },
+    { "requested": "龙虾USDT", "reason": "No matching Bybit contract; LONGXIA-USDT is a KuCoin API symbol" },
+    { "requested": "SYNUSDT", "reason": "No matching Trading contract on Bybit" },
+    { "requested": "币安人生USDT", "reason": "Binance contract; no matching Bybit contract" },
+    { "requested": "ONEUSDT", "reason": "No matching Trading contract on Bybit" }
+  ],
+  "aliasesApplied": [
+    { "requested": "SKNYUSDT", "bybit": "SKHYNIXUSDT" },
+    { "requested": "AMDUSDT", "bybit": "AMDSTOCKUSDT" },
+    { "requested": "PUMPUSDT", "bybit": "PUMPFUNUSDT" },
+    { "requested": "1000SHIBUSDT", "bybit": "SHIB1000USDT" },
+    { "requested": "RAYSOLUSDT", "bybit": "RAYDIUMUSDT" }
+  ],
+  "duplicatesRemoved": ["MUUSDT", "GLWUSDT"]
+}

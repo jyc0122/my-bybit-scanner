@@ -1,0 +1,4 @@
+.scanner-cache/
+logs/
+.env
+npm-debug.log*

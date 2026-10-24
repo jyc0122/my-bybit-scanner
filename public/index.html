@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071019">
+  <title>Bybit EMA Touch Scanner</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="eyebrow">BYBIT · PUBLIC MARKET DATA · DAILY</span>
+        <h1>EMA Touch Scanner</h1>
+        <p>用自定义 Bybit 交易对清单扫描日线 EMA21 方向，并在 15m、30m、1H、2H、4H 中寻找 EMA144/169 回踩。</p>
+      </div>
+      <div class="connection-card" id="connectionCard">
+        <span class="status-dot" id="statusDot"></span>
+        <div>
+          <strong id="connectionLabel">正在检测 Bybit</strong>
+          <small id="connectionHint">api.bybit.com · Public V5</small>
+        </div>
+        <button class="icon-button" id="retryButton" type="button" aria-label="重新检测连接">↻</button>
+      </div>
+    </header>
+
+    <section class="rule-strip" aria-label="扫描规则">
+      <div><span>周期</span><strong>1D + 15m / 30m / 1H / 2H / 4H</strong></div>
+      <div><span>多头</span><strong class="positive">D1 近两根不触 EMA21 · C &gt; EMA21</strong></div>
+      <div><span>空头</span><strong class="negative">D1 近两根不触 EMA21 · C &lt; EMA21</strong></div>
+      <div><span>回踩确认</span><strong>任一周期近 3 根触 EMA144 / 169</strong></div>
+      <div><span>模式</span><strong>只读扫描</strong></div>
+    </section>
+
+    <main class="workspace">
+      <aside class="sidebar">
+        <section class="panel scan-panel">
+          <div class="panel-head">
+            <div>
+              <span class="kicker">UNIVERSE</span>
+              <h2>扫描范围</h2>
+            </div>
+            <span class="universe-count" id="universeCount">—</span>
+          </div>
+          <div class="category-list" id="categoryList">
+            <div class="skeleton wide"></div><div class="skeleton"></div><div class="skeleton"></div>
+          </div>
+          <button class="scan-button" id="scanButton" type="button" disabled>
+            <span id="scanButtonLabel">等待 Bybit 行情</span><span aria-hidden="true">→</span>
+          </button>
+          <div class="progress" id="progress" hidden>
+            <div class="progress-track"><i id="progressBar"></i></div>
+            <div class="progress-copy"><span id="progressText">准备扫描</span><span id="progressValue">0%</span></div>
+          </div>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="summary-grid">
+            <div><strong id="candidateCount">0</strong><span>入选</span></div>
+            <div><strong class="positive" id="longCount">0</strong><span>多头</span></div>
+            <div><strong class="negative" id="shortCount">0</strong><span>空头</span></div>
+            <div><strong id="scannedCount">0</strong><span>已扫</span></div>
+          </div>
+          <label class="search-wrap">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="搜索交易品种" autocomplete="off">
+          </label>
+          <div class="filter-row">
+            <div class="segmented" id="sideFilters">
+              <button class="active" type="button" data-side="all">全部</button>
+              <button type="button" data-side="long">多头</button>
+              <button type="button" data-side="short">空头</button>
+            </div>
+            <button class="sort-button" id="sortButton" type="button">|距 EMA21| ↑</button>
+          </div>
+          <div class="result-list" id="resultList">
+            <div class="empty-mini">连接 Bybit 公共行情后开始扫描</div>
+          </div>
+        </section>
+      </aside>
+
+      <section class="detail" id="detailPanel">
+        <div class="empty-state" id="emptyState">
+          <div class="radar"><i></i><i></i><i></i><span></span></div>
+          <span class="kicker">WAITING FOR SIGNAL</span>
+          <h2>扫描结果会在这里展开</h2>
+          <p>选择交易对分组并开始扫描。数据来自 Bybit 公共行情接口，扫描器不需要 API Key，也不会调用任何交易接口。</p>
+        </div>
+
+        <div class="detail-content" id="detailContent" hidden>
+          <section class="hero-card">
+            <div class="symbol-block">
+              <span class="kicker" id="detailCategory">USDT PERPETUAL</span>
+              <h2 id="detailSymbol">BTCUSDT</h2>
+              <p id="detailName">Bitcoin / Tether</p>
+            </div>
+            <div class="quote-block">
+              <strong id="detailClose">—</strong>
+              <span id="detailChange">—</span>
+              <small id="detailDate">日线收盘</small>
+            </div>
+            <div class="signal-badge" id="signalBadge">多头 LONG</div>
+          </section>
+
+          <section class="metric-grid">
+            <article><span>CLOSE / EMA21</span><strong id="emaDistance">—</strong><small id="emaValue">EMA21 —</small></article>
+            <article><span>D1 NO TOUCH</span><strong id="dailyNoTouch">—</strong><small>最近两根已收盘日线</small></article>
+            <article class="touch-metric"><span>15m · EMA144 / 169</span><strong id="touch15m">—</strong><small id="touch15mMeta">最近 3 根</small></article>
+            <article class="touch-metric"><span>30m · EMA144 / 169</span><strong id="touch30m">—</strong><small id="touch30mMeta">最近 3 根</small></article>
+            <article class="touch-metric"><span>1H · EMA144 / 169</span><strong id="touch1h">—</strong><small id="touch1hMeta">最近 3 根</small></article>
+            <article class="touch-metric"><span>2H · EMA144 / 169</span><strong id="touch2h">—</strong><small id="touch2hMeta">最近 3 根</small></article>
+            <article class="touch-metric"><span>4H · EMA144 / 169</span><strong id="touch4h">—</strong><small id="touch4hMeta">最近 3 根</small></article>
+            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线方向 + 任一周期回踩</small></article>
+          </section>
+
+          <section class="chart-card">
+            <div class="chart-head">
+              <div><span class="kicker">PRICE ACTION</span><h3>日线 K 线</h3></div>
+              <div class="legend"><span><i class="dot up"></i>上涨</span><span><i class="dot down"></i>下跌</span><span><i class="dot ema"></i>EMA21</span></div>
+              <div class="range-buttons" id="rangeButtons">
+                <button type="button" data-range="66">3月</button>
+                <button class="active" type="button" data-range="132">6月</button>
+                <button type="button" data-range="0">全部</button>
+              </div>
+            </div>
+            <div class="canvas-wrap price-wrap"><canvas id="priceChart" aria-label="日线 K 线与 EMA21"></canvas><div class="tooltip" id="priceTooltip" hidden></div></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>数据：Bybit V5 公共行情 · 日线 EMA21 主筛选 + 15m / 30m / 1H / 2H / 4H EMA144/169 回踩确认 · 不需要凭据</span>
+      <span>仅供研究，不构成投资建议</span>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
