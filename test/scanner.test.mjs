@@ -31,6 +31,22 @@ function touchBars(count, stepMs, close = 100) {
   }));
 }
 
+function directionalTouchBars(count, stepMs, side) {
+  const direction = side === "long" ? 1 : -1;
+  const bars = trendBars(count, direction, stepMs);
+  const pullbackClose = side === "long" ? 1_050 : 950;
+  for (let index = count - 3; index < count; index += 1) {
+    bars[index] = {
+      ...bars[index],
+      o: pullbackClose,
+      h: 1_300,
+      l: 700,
+      c: pullbackClose,
+    };
+  }
+  return bars;
+}
+
 const intradaySteps = {
   "15m": 900_000,
   "30m": 1_800_000,
@@ -39,16 +55,18 @@ const intradaySteps = {
   "4H": 14_400_000,
 };
 
-function intradayBars(touchTimeframe = null, direction = 1) {
+function intradayBars(touchTimeframe = null, side = "long") {
+  const direction = side === "long" ? 1 : -1;
   return Object.entries(intradaySteps).map(([timeframe, stepMs]) => (
-    timeframe === touchTimeframe ? touchBars(220, stepMs) : trendBars(220, direction, stepMs)
+    timeframe === touchTimeframe ? directionalTouchBars(220, stepMs, side) : trendBars(220, direction, stepMs)
   ));
 }
 
 function fourthBarOnlyTouch(count, stepMs) {
-  const bars = touchBars(count, stepMs);
+  const bars = trendBars(count, 1, stepMs);
+  bars[count - 4] = { ...bars[count - 4], o: 1_050, h: 1_300, l: 700, c: 1_050 };
   for (let index = count - 3; index < count; index += 1) {
-    bars[index] = { ...bars[index], o: 110, h: 111, l: 109, c: 110 };
+    bars[index] = { ...bars[index], o: 1_050, h: 1_051, l: 1_049, c: 1_050 };
   }
   return bars;
 }
@@ -85,9 +103,29 @@ test("classifies long when any one of all five intraday timeframes touches", () 
 
 test("classifies short when only 2H provides the EMA144/169 touch", () => {
   const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
-  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars("2H", -1));
+  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars("2H", "short"));
   assert.equal(result.side, "short");
   assert.deepEqual(result.qualifyingTimeframes, ["2H"]);
+});
+
+test("rejects a long touch timeframe when its latest close is above EMA21", () => {
+  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
+  const wrongSide15m = directionalTouchBars(220, intradaySteps["15m"], "short");
+  const [, m30, h1, h2, h4] = intradayBars();
+  const result = analyzeSymbol(symbol, trendBars(40, 1), wrongSide15m, m30, h1, h2, h4);
+  assert.equal(result.confirmations[0].touchPassed, true);
+  assert.equal(result.confirmations[0].ema21PositionPassed, false);
+  assert.equal(result.side, "neutral");
+});
+
+test("rejects a short touch timeframe when its latest close is below EMA21", () => {
+  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
+  const wrongSide15m = directionalTouchBars(220, intradaySteps["15m"], "long");
+  const [, m30, h1, h2, h4] = intradayBars(null, "short");
+  const result = analyzeSymbol(symbol, trendBars(40, -1), wrongSide15m, m30, h1, h2, h4);
+  assert.equal(result.confirmations[0].touchPassed, true);
+  assert.equal(result.confirmations[0].ema21PositionPassed, false);
+  assert.equal(result.side, "neutral");
 });
 
 test("rejects when recent daily candles touch EMA21", () => {

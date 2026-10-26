@@ -183,15 +183,22 @@ function candleTouches(bar, value) {
   return Number.isFinite(value) && bar.l <= value && bar.h >= value;
 }
 
-function evaluateTouchWindow(bars, timeframe) {
+function evaluateTouchWindow(bars, timeframe, side) {
   if (bars.length < 171) {
     throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 171 are required`);
   }
   const closes = bars.map((bar) => bar.c);
+  const ema21 = ema(closes, 21);
   const ema144 = ema(closes, 144);
   const ema169 = ema(closes, 169);
-  const enriched = bars.map((bar, index) => ({ ...bar, e144: ema144[index], e169: ema169[index] }));
+  const enriched = bars.map((bar, index) => ({
+    ...bar,
+    e21: ema21[index],
+    e144: ema144[index],
+    e169: ema169[index],
+  }));
   const recent = enriched.slice(-3);
+  const latest = recent.at(-1);
   const touches = [];
   recent.forEach((bar, index) => {
     for (const period of [144, 169]) {
@@ -207,9 +214,20 @@ function evaluateTouchWindow(bars, timeframe) {
     }
   });
   const latestTouch = touches.reduce((latest, touch) => !latest || touch.barsAgo < latest.barsAgo ? touch : latest, null);
+  const touchPassed = touches.length > 0;
+  const ema21PositionPassed = side === "short"
+    ? latest.c > latest.e21
+    : side === "long"
+      ? latest.c < latest.e21
+      : false;
   return {
     timeframe,
-    passed: touches.length > 0,
+    passed: touchPassed && ema21PositionPassed,
+    touchPassed,
+    ema21PositionPassed,
+    close: latest.c,
+    ema21: latest.e21,
+    ema21Relation: latest.c > latest.e21 ? "above" : latest.c < latest.e21 ? "below" : "equal",
     touchedPeriods: [...new Set(touches.map((touch) => touch.period))],
     lastTouchBarsAgo: latestTouch?.barsAgo ?? null,
     lastTouchAt: latestTouch?.at ?? null,
@@ -230,11 +248,11 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, m30Bars, h1Bars, h2Bar
       ? "short"
       : "neutral";
   const confirmations = [
-    evaluateTouchWindow(m15Bars, "15m"),
-    evaluateTouchWindow(m30Bars, "30m"),
-    evaluateTouchWindow(h1Bars, "1H"),
-    evaluateTouchWindow(h2Bars, "2H"),
-    evaluateTouchWindow(h4Bars, "4H"),
+    evaluateTouchWindow(m15Bars, "15m", dailySide),
+    evaluateTouchWindow(m30Bars, "30m", dailySide),
+    evaluateTouchWindow(h1Bars, "1H", dailySide),
+    evaluateTouchWindow(h2Bars, "2H", dailySide),
+    evaluateTouchWindow(h4Bars, "4H", dailySide),
   ];
   const confirmationPassed = confirmations.some((confirmation) => confirmation.passed);
   const side = dailySide !== "neutral" && confirmationPassed ? dailySide : "neutral";

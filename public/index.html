@@ -13,7 +13,7 @@
       <div class="brand">
         <span class="eyebrow">BYBIT · PUBLIC MARKET DATA · DAILY</span>
         <h1>EMA Touch Scanner</h1>
-        <p>用自定义 Bybit 交易对清单扫描日线 EMA21 方向，并在 15m、30m、1H、2H、4H 中寻找 EMA144/169 回踩。</p>
+        <p>用自定义 Bybit 交易对清单扫描日线 EMA21 方向，并在 15m、30m、1H、2H、4H 中寻找带 EMA21 方向确认的 EMA144/169 回踩。</p>
       </div>
       <div class="connection-card" id="connectionCard">
         <span class="status-dot" id="statusDot"></span>
@@ -29,7 +29,7 @@
       <div><span>周期</span><strong>1D + 15m / 30m / 1H / 2H / 4H</strong></div>
       <div><span>多头</span><strong class="positive">D1 近两根不触 EMA21 · C &gt; EMA21</strong></div>
       <div><span>空头</span><strong class="negative">D1 近两根不触 EMA21 · C &lt; EMA21</strong></div>
-      <div><span>回踩确认</span><strong>任一周期近 3 根触 EMA144 / 169</strong></div>
+      <div><span>回踩确认</span><strong>近 3 根触 EMA144 / 169，且多头价低于 EMA21 / 空头价高于 EMA21</strong></div>
       <div><span>模式</span><strong>只读扫描</strong></div>
     </section>
 
@@ -131,7 +131,7 @@
     </main>
 
     <footer>
-      <span>数据：Bybit V5 公共行情 · 日线 EMA21 主筛选 + 15m / 30m / 1H / 2H / 4H EMA144/169 回踩确认 · 不需要凭据</span>
+      <span>数据：Bybit V5 公共行情 · 日线 EMA21 主筛选 + 15m / 30m / 1H / 2H / 4H EMA144/169 回踩与 EMA21 方向确认 · 不需要凭据</span>
       <span>仅供研究，不构成投资建议</span>
     </footer>
   </div>

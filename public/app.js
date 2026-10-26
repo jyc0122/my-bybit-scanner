@@ -232,16 +232,24 @@ function renderTouchMetric(item, timeframe, valueSelector, metaSelector) {
   const confirmation = item.confirmations.find((entry) => entry.timeframe === timeframe);
   const value = $(valueSelector);
   const meta = $(metaSelector);
-  if (!confirmation?.passed) {
+  if (!confirmation?.touchPassed) {
     value.textContent = "未触碰";
     value.className = "";
     meta.textContent = `近 3 根无触碰 · ${confirmation?.asOf || "—"}`;
     return;
   }
+  if (!confirmation.ema21PositionPassed) {
+    value.textContent = "EMA21 位置不符";
+    value.className = "negative";
+    const required = item.dailySide === "long" ? "低于" : "高于";
+    meta.textContent = `收盘 ${formatPrice(confirmation.close)}，须${required} EMA21 ${formatPrice(confirmation.ema21)}`;
+    return;
+  }
   value.textContent = confirmation.touchedPeriods.map((period) => `EMA${period}`).join(" / ");
   value.className = "positive";
   const ago = confirmation.lastTouchBarsAgo === 0 ? "最近一根" : `${confirmation.lastTouchBarsAgo} 根前`;
-  meta.textContent = `${ago} · ${confirmation.lastTouchAt || confirmation.asOf}`;
+  const relation = item.dailySide === "long" ? "收盘低于 EMA21" : "收盘高于 EMA21";
+  meta.textContent = `${relation} · ${ago} · ${confirmation.lastTouchAt || confirmation.asOf}`;
 }
 
 function selectedItem() {
