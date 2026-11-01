@@ -298,12 +298,17 @@ function evaluateLrcSetup(bars, timeframe, dailySide) {
   }
   const lrc25Angle = lrcAngle(bars, 25);
   const lrc6Angle = lrcAngle(bars, 6);
+  const previousLrc6Angle = lrcAngle(bars.slice(0, -1), 6);
   const lrc25Side = lrc25Angle > 0 ? "long" : lrc25Angle < 0 ? "short" : "neutral";
   const lrc6Side = lrc6Angle > 0 ? "long" : lrc6Angle < 0 ? "short" : "neutral";
+  const previousLrc6Side = previousLrc6Angle > 0 ? "long" : previousLrc6Angle < 0 ? "short" : "neutral";
   const requiredLrc25Side = dailySide;
   const requiredLrc6Side = dailySide === "short" ? "long" : dailySide === "long" ? "short" : "neutral";
   const lrc25Passed = requiredLrc25Side !== "neutral" && lrc25Side === requiredLrc25Side;
   const lrc6Passed = requiredLrc6Side !== "neutral" && lrc6Side === requiredLrc6Side;
+  const lrc6Weakening = lrc6Passed
+    && previousLrc6Side === requiredLrc6Side
+    && Math.abs(lrc6Angle) < Math.abs(previousLrc6Angle);
   return {
     timeframe,
     passed: lrc25Passed && lrc6Passed,
@@ -311,10 +316,13 @@ function evaluateLrcSetup(bars, timeframe, dailySide) {
     lrc6Passed,
     lrc25Side,
     lrc6Side,
+    previousLrc6Side,
     requiredLrc25Side,
     requiredLrc6Side,
     lrc25Angle,
     lrc6Angle,
+    previousLrc6Angle,
+    lrc6Weakening,
     asOf: new Date(bars.at(-1).ts).toISOString().replace("T", " ").slice(0, 16) + " UTC",
   };
 }
@@ -367,10 +375,11 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
     selectedLrc6Side: selectedConfirmation?.lrc6Side || "neutral",
     selectedLrc25Angle: selectedConfirmation?.lrc25Angle ?? null,
     selectedLrc6Angle: selectedConfirmation?.lrc6Angle ?? null,
+    selectedPreviousLrc6Angle: selectedConfirmation?.previousLrc6Angle ?? null,
+    selectedLrc6Weakening: selectedConfirmation?.lrc6Weakening || false,
     matchedTimeframes: matchedTimeframes.map((item) => item.timeframe),
     qualifyingTimeframes: selectedConfirmation ? [selectedConfirmation.timeframe] : [],
     asOf: last.t,
-    bars: enriched.slice(-260),
   };
 }
 

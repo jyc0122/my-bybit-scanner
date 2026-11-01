@@ -56,11 +56,26 @@ function dualLrcBars(count, stepMs, dailySide) {
   return bars;
 }
 
+function weakeningDualLrcBars(count, stepMs, dailySide) {
+  const direction = dailySide === "long" ? 1 : -1;
+  const bars = trendBars(count, direction, stepMs);
+  const closes = dailySide === "long"
+    ? [1060, 1058, 1056, 1054, 1052, 1050, 1056]
+    : [940, 942, 944, 946, 948, 950, 944];
+  closes.forEach((close, offset) => {
+    const index = count - closes.length + offset;
+    bars[index] = { ...bars[index], o: close, h: close + 0.2, l: close - 0.2, c: close };
+  });
+  return bars;
+}
+
 function intradayBars(signals = {}) {
   return Object.entries(intradaySteps).map(([timeframe, stepMs]) => {
     const signal = signals[timeframe] || "long";
     if (signal === "shortSetup") return dualLrcBars(60, stepMs, "short");
     if (signal === "longSetup") return dualLrcBars(60, stepMs, "long");
+    if (signal === "shortWeakening") return weakeningDualLrcBars(60, stepMs, "short");
+    if (signal === "longWeakening") return weakeningDualLrcBars(60, stepMs, "long");
     return trendBars(60, signal === "short" ? -1 : 1, stepMs);
   });
 }
@@ -121,6 +136,34 @@ test("daily long qualifies when LRC25 is positive and LRC6 is negative", () => {
   assert.equal(result.selectedTimeframe, "1H");
   assert.ok(result.selectedLrc25Angle > 0);
   assert.ok(result.selectedLrc6Angle < 0);
+});
+
+test("marks a daily-short setup when positive LRC6 weakens on its qualifying timeframe", () => {
+  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars({
+    "15m": "short",
+    "1H": "shortWeakening",
+    "4H": "short",
+  }));
+  assert.equal(result.side, "short");
+  assert.equal(result.selectedTimeframe, "1H");
+  assert.ok(result.selectedLrc6Angle > 0);
+  assert.ok(result.selectedPreviousLrc6Angle > 0);
+  assert.ok(Math.abs(result.selectedLrc6Angle) < Math.abs(result.selectedPreviousLrc6Angle));
+  assert.equal(result.selectedLrc6Weakening, true);
+});
+
+test("marks a daily-long setup when negative LRC6 weakens toward zero", () => {
+  const result = analyzeSymbol(symbol, trendBars(40, 1), ...intradayBars({
+    "15m": "long",
+    "1H": "longWeakening",
+    "4H": "long",
+  }));
+  assert.equal(result.side, "long");
+  assert.equal(result.selectedTimeframe, "1H");
+  assert.ok(result.selectedLrc6Angle < 0);
+  assert.ok(result.selectedPreviousLrc6Angle < 0);
+  assert.ok(Math.abs(result.selectedLrc6Angle) < Math.abs(result.selectedPreviousLrc6Angle));
+  assert.equal(result.selectedLrc6Weakening, true);
 });
 
 test("shows only the largest qualifying timeframe when several dual-LRC setups match", () => {

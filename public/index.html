@@ -84,6 +84,20 @@
             <div class="empty-mini">选择并连接公共行情数据源后开始扫描</div>
           </div>
         </section>
+
+        <section class="panel weakening-panel">
+          <div class="panel-head">
+            <div>
+              <span class="kicker">LRC6 MOMENTUM</span>
+              <h2>LRC6 减弱</h2>
+            </div>
+            <span class="universe-count" id="weakeningCount">0</span>
+          </div>
+          <p class="panel-note">仅列出已经通过全部规则，且在最大符合周期中LRC6方向未变、绝对角度较上一根变小的品种。</p>
+          <div class="weakening-list" id="weakeningList">
+            <div class="empty-mini">扫描后显示LRC6减弱结果</div>
+          </div>
+        </section>
       </aside>
 
       <section class="detail" id="detailPanel">
@@ -116,19 +130,6 @@
             <article class="touch-metric"><span>LRC25 TREND</span><strong id="lrc25Signal">—</strong><small id="lrc25Meta">回归角度 —</small></article>
             <article class="touch-metric"><span>LRC6 TRIGGER</span><strong id="lrc6Signal">—</strong><small id="lrc6Meta">回归角度 —</small></article>
             <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线方向 + LRC25 同向 + LRC6 反向</small></article>
-          </section>
-
-          <section class="chart-card">
-            <div class="chart-head">
-              <div><span class="kicker">PRICE ACTION</span><h3>日线 K 线</h3></div>
-              <div class="legend"><span><i class="dot up"></i>上涨</span><span><i class="dot down"></i>下跌</span><span><i class="dot ema"></i>EMA21</span></div>
-              <div class="range-buttons" id="rangeButtons">
-                <button type="button" data-range="66">3月</button>
-                <button class="active" type="button" data-range="132">6月</button>
-                <button type="button" data-range="0">全部</button>
-              </div>
-            </div>
-            <div class="canvas-wrap price-wrap"><canvas id="priceChart" aria-label="日线 K 线与 EMA21"></canvas><div class="tooltip" id="priceTooltip" hidden></div></div>
           </section>
         </div>
       </section>

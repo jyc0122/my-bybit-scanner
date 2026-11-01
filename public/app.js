@@ -11,14 +11,8 @@ const state = {
   side: "all",
   search: "",
   sort: "distance",
-  range: 132,
   jobId: null,
   pollTimer: null,
-};
-
-const colors = {
-  grid: "rgba(148,174,193,.11)", text: "#718999", up: "#45d6a5", down: "#fb7185",
-  ema: "#f4c95d",
 };
 
 const els = {
@@ -29,8 +23,7 @@ const els = {
   candidateCount: $("#candidateCount"), longCount: $("#longCount"), shortCount: $("#shortCount"),
   scannedCount: $("#scannedCount"), searchInput: $("#searchInput"), sideFilters: $("#sideFilters"),
   sortButton: $("#sortButton"), resultList: $("#resultList"), emptyState: $("#emptyState"), detailContent: $("#detailContent"),
-  priceChart: $("#priceChart"), priceTooltip: $("#priceTooltip"),
-  rangeButtons: $("#rangeButtons"), toast: $("#toast"),
+  weakeningCount: $("#weakeningCount"), weakeningList: $("#weakeningList"), toast: $("#toast"),
   sourceSwitch: $("#sourceSwitch"),
 };
 
@@ -129,6 +122,7 @@ async function startScan() {
   els.progress.hidden = false;
   updateProgress({ scanned: 0, total: 0, current: `读取 ${sourceCopy[state.source].name} 交易对配置` });
   renderResults();
+  renderWeakeningResults();
   try {
     const job = await api("/api/scan", {
       method: "POST",
@@ -150,6 +144,7 @@ async function pollScan() {
     updateProgress(job);
     renderSummary(job.scanned || 0);
     renderResults();
+    renderWeakeningResults();
     if (!state.selectedSymbol && state.results.length) selectSymbol(state.results[0].symbol);
     if (job.status === "complete") {
       finishScan();
@@ -186,10 +181,12 @@ function updateProgress(job) {
 function renderSummary(scanned) {
   const longs = state.results.filter((item) => item.side === "long").length;
   const shorts = state.results.filter((item) => item.side === "short").length;
+  const weakening = state.results.filter((item) => item.selectedLrc6Weakening).length;
   els.candidateCount.textContent = state.results.length;
   els.longCount.textContent = longs;
   els.shortCount.textContent = shorts;
   els.scannedCount.textContent = scanned;
+  els.weakeningCount.textContent = weakening;
 }
 
 function filteredResults() {
@@ -219,6 +216,21 @@ function renderResults() {
   els.resultList.querySelectorAll(".result-row").forEach((row) => row.addEventListener("click", () => selectSymbol(row.dataset.symbol)));
 }
 
+function renderWeakeningResults() {
+  const rows = state.results.filter((item) => item.selectedLrc6Weakening);
+  els.weakeningCount.textContent = rows.length;
+  if (!rows.length) {
+    els.weakeningList.innerHTML = `<div class="empty-mini">${state.jobId ? "正在检测 LRC6 是否减弱…" : "暂无 LRC6 减弱结果"}</div>`;
+    return;
+  }
+  els.weakeningList.innerHTML = rows.map((item) => `
+    <button class="result-row weakening-row ${item.side === "short" ? "short" : ""} ${item.symbol === state.selectedSymbol ? "active" : ""}" type="button" data-symbol="${escapeHtml(item.symbol)}">
+      <span><strong>${escapeHtml(item.symbol)}</strong><small>D${item.side === "long" ? "多" : "空"} · ${escapeHtml(item.selectedTimeframe)}</small></span>
+      <span class="row-side"><b>LRC6 减弱</b><small>${formatAngle(item.selectedPreviousLrc6Angle)} → ${formatAngle(item.selectedLrc6Angle)}</small></span>
+    </button>`).join("");
+  els.weakeningList.querySelectorAll(".result-row").forEach((row) => row.addEventListener("click", () => selectSymbol(row.dataset.symbol)));
+}
+
 function selectSymbol(symbol) {
   const item = state.results.find((result) => result.symbol === symbol);
   if (!item) return;
@@ -246,119 +258,13 @@ function selectSymbol(symbol) {
   $("#lrc25Meta").textContent = `LRC25 角度 ${formatAngle(item.selectedLrc25Angle)}`;
   $("#lrc6Signal").textContent = item.selectedLrc6Side === "long" ? "多 LONG" : "空 SHORT";
   $("#lrc6Signal").className = item.selectedLrc6Side === "long" ? "positive" : "negative";
-  $("#lrc6Meta").textContent = `LRC6 角度 ${formatAngle(item.selectedLrc6Angle)}`;
+  $("#lrc6Meta").textContent = item.selectedLrc6Weakening
+    ? `减弱：${formatAngle(item.selectedPreviousLrc6Angle)} → ${formatAngle(item.selectedLrc6Angle)}`
+    : `前值 ${formatAngle(item.selectedPreviousLrc6Angle)} · 当前 ${formatAngle(item.selectedLrc6Angle)}`;
   $("#statusValue").textContent = `LRC25${item.selectedLrc25Side === "long" ? "多" : "空"} / LRC6${item.selectedLrc6Side === "long" ? "多" : "空"}`;
   $("#statusValue").className = item.side === "long" ? "positive" : "negative";
   renderResults();
-  requestAnimationFrame(drawCharts);
-}
-
-function selectedItem() {
-  return state.results.find((item) => item.symbol === state.selectedSymbol);
-}
-
-function visibleBars() {
-  const bars = selectedItem()?.bars || [];
-  return state.range ? bars.slice(-state.range) : bars;
-}
-
-function setupCanvas(canvas) {
-  const ratio = Math.max(1, window.devicePixelRatio || 1);
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = Math.max(1, Math.round(rect.width * ratio));
-  canvas.height = Math.max(1, Math.round(rect.height * ratio));
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  ctx.clearRect(0, 0, rect.width, rect.height);
-  return { ctx, width: rect.width, height: rect.height };
-}
-
-function chartArea(width, height) {
-  return { left: 54, right: width - 16, top: 13, bottom: height - 25 };
-}
-
-function drawGrid(ctx, area, min, max, steps = 4, formatter = formatPrice) {
-  ctx.font = "9px ui-monospace, monospace";
-  ctx.textAlign = "right";
-  ctx.textBaseline = "middle";
-  for (let index = 0; index <= steps; index += 1) {
-    const y = area.top + (area.bottom - area.top) * index / steps;
-    const value = max - (max - min) * index / steps;
-    ctx.strokeStyle = colors.grid;
-    ctx.beginPath(); ctx.moveTo(area.left, y); ctx.lineTo(area.right, y); ctx.stroke();
-    ctx.fillStyle = colors.text;
-    ctx.fillText(formatter(value), area.left - 8, y);
-  }
-}
-
-function drawLine(ctx, points, color, width = 1.3) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = width;
-  ctx.beginPath();
-  let started = false;
-  for (const [x, y] of points) {
-    if (!Number.isFinite(y)) { started = false; continue; }
-    if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
-  }
-  ctx.stroke();
-}
-
-function drawPrice() {
-  const bars = visibleBars();
-  if (!bars.length) return;
-  const { ctx, width, height } = setupCanvas(els.priceChart);
-  const area = chartArea(width, height);
-  const values = bars.flatMap((bar) => [bar.h, bar.l, bar.e21]).filter(Number.isFinite);
-  let min = Math.min(...values), max = Math.max(...values);
-  const padding = Math.max((max - min) * .07, Math.abs(max) * .001);
-  min -= padding; max += padding;
-  const x = (index) => area.left + (area.right - area.left) * (index + .5) / bars.length;
-  const y = (value) => area.top + (max - value) / (max - min) * (area.bottom - area.top);
-  drawGrid(ctx, area, min, max, 4);
-  const candleWidth = Math.max(1, Math.min(8, (area.right - area.left) / bars.length * .58));
-  bars.forEach((bar, index) => {
-    const color = bar.c >= bar.o ? colors.up : colors.down;
-    const cx = x(index);
-    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(cx, y(bar.h)); ctx.lineTo(cx, y(bar.l)); ctx.stroke();
-    const top = y(Math.max(bar.o, bar.c));
-    const bottom = y(Math.min(bar.o, bar.c));
-    ctx.fillRect(cx - candleWidth / 2, top, candleWidth, Math.max(1, bottom - top));
-  });
-  drawLine(ctx, bars.map((bar, index) => [x(index), Number.isFinite(bar.e21) ? y(bar.e21) : NaN]), colors.ema, 1.5);
-  drawDates(ctx, bars, area, x);
-  els.priceChart._chart = { bars, area, x, y };
-}
-
-function drawDates(ctx, bars, area, x) {
-  const indexes = [0, Math.floor((bars.length - 1) / 2), bars.length - 1];
-  ctx.fillStyle = colors.text;
-  ctx.font = "9px ui-monospace, monospace";
-  ctx.textBaseline = "top";
-  indexes.forEach((index, position) => {
-    ctx.textAlign = position === 0 ? "left" : position === 2 ? "right" : "center";
-    ctx.fillText(bars[index]?.t?.slice(5) || "", x(index), area.bottom + 8);
-  });
-}
-
-function drawCharts() { drawPrice(); }
-
-function bindTooltip(canvas, tooltip) {
-  canvas.addEventListener("mousemove", (event) => {
-    const chart = canvas._chart;
-    if (!chart?.bars?.length) return;
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const ratio = (mouseX - chart.area.left) / Math.max(1, chart.area.right - chart.area.left);
-    const index = Math.max(0, Math.min(chart.bars.length - 1, Math.round(ratio * (chart.bars.length - 1))));
-    const bar = chart.bars[index];
-    tooltip.innerHTML = `<b>${bar.t}</b><br>O ${formatPrice(bar.o)} · H ${formatPrice(bar.h)}<br>L ${formatPrice(bar.l)} · C ${formatPrice(bar.c)}<br><span style="color:${colors.ema}">EMA21 ${Number.isFinite(bar.e21) ? formatPrice(bar.e21) : "—"}</span>`;
-    tooltip.hidden = false;
-    const maxLeft = rect.width - tooltip.offsetWidth - 8;
-    tooltip.style.left = `${Math.max(8, Math.min(maxLeft, mouseX + 12))}px`;
-    tooltip.style.top = "10px";
-  });
-  canvas.addEventListener("mouseleave", () => { tooltip.hidden = true; });
+  renderWeakeningResults();
 }
 
 function formatPrice(value) {
@@ -385,6 +291,7 @@ els.sourceSwitch.addEventListener("click", (event) => {
   state.selectedCategories = new Set();
   renderSummary(0);
   renderResults();
+  renderWeakeningResults();
   els.emptyState.hidden = false;
   els.detailContent.hidden = true;
   connect();
@@ -402,15 +309,7 @@ els.sortButton.addEventListener("click", () => {
   state.sort = state.sort === "distance" ? "symbol" : "distance";
   els.sortButton.textContent = state.sort === "distance" ? "距D1 EMA21：近→远" : "品种 A→Z";
   renderResults();
+  renderWeakeningResults();
 });
-els.rangeButtons.addEventListener("click", (event) => {
-  const button = event.target.closest("button[data-range]");
-  if (!button) return;
-  state.range = Number(button.dataset.range);
-  $$("#rangeButtons button").forEach((item) => item.classList.toggle("active", item === button));
-  drawCharts();
-});
-bindTooltip(els.priceChart, els.priceTooltip);
-window.addEventListener("resize", () => { clearTimeout(window._chartResize); window._chartResize = setTimeout(drawCharts, 120); });
 
 connect();
