@@ -30,6 +30,7 @@ const els = {
 const sourceCopy = {
   bybit: { name: "Bybit", connected: "Bybit 公共行情已连接", waiting: "正在检测 Bybit", hint: "api.bybit.com · Public V5" },
   binance: { name: "Binance", connected: "Binance Futures 已连接", waiting: "正在检测 Binance Futures", hint: "fapi.binance.com · USDⓈ-M" },
+  okx: { name: "OKX", connected: "OKX 永续合约行情已连接", waiting: "正在检测 OKX", hint: "openapi.okx.com · USDT Perpetual" },
 };
 
 async function api(path, options = {}) {

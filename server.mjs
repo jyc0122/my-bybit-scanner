@@ -11,6 +11,7 @@ const HOST = process.env.HOST || "127.0.0.1";
 const PORT = Number(process.env.PORT || 8788);
 const BYBIT_API_BASE = String(process.env.BYBIT_API_BASE || "https://api.bybit.com").replace(/\/$/, "");
 const BINANCE_API_BASE = String(process.env.BINANCE_API_BASE || "https://fapi.binance.com").replace(/\/$/, "");
+const OKX_API_BASE = String(process.env.OKX_API_BASE || "https://openapi.okx.com").replace(/\/$/, "");
 const REQUEST_TIMEOUT_MS = Number(process.env.BYBIT_REQUEST_TIMEOUT_MS || 20_000);
 const SCAN_CONCURRENCY = Math.max(1, Math.min(8, Number(process.env.BYBIT_SCAN_CONCURRENCY || 4)));
 const REQUEST_GAP_MS = Math.max(50, Number(process.env.BYBIT_REQUEST_GAP_MS || 125));
@@ -19,6 +20,15 @@ const jobs = new Map();
 let nextRequestAt = 0;
 let requestGate = Promise.resolve();
 let binanceExchangeCache = { expiresAt: 0, symbols: new Set() };
+let okxInstrumentCache = { expiresAt: 0, symbols: new Set() };
+
+const OKX_BASE_ALIASES = new Map([
+  ["1000PEPE", "PEPE"],
+  ["1000BONK", "BONK"],
+  ["SHIB1000", "SHIB"],
+  ["PUMPFUN", "PUMP"],
+  ["RAYDIUM", "RAY"],
+]);
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -130,16 +140,48 @@ async function binanceGet(pathname, params = {}) {
   throw new Error("Binance rate limit retry budget exhausted");
 }
 
+async function okxGet(pathname, params = {}) {
+  const url = new URL(pathname, `${OKX_API_BASE}/`);
+  for (const [key, value] of Object.entries(params)) {
+    if (value != null && value !== "") url.searchParams.set(key, String(value));
+  }
+  for (let attempt = 0; attempt <= RATE_LIMIT_RETRIES; attempt += 1) {
+    await waitForRequestSlot();
+    const response = await fetch(url, {
+      headers: { accept: "application/json", "user-agent": "multi-source-lrc-scanner/1.0" },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    const text = await response.text();
+    let payload;
+    try { payload = JSON.parse(text); }
+    catch {
+      if (!response.ok) throw new Error(`OKX HTTP ${response.status}: ${text.slice(0, 240) || response.statusText}`);
+      throw new Error("OKX returned invalid JSON");
+    }
+    const rateLimited = response.status === 429 || ["50011", "50040"].includes(String(payload?.code));
+    if (rateLimited && attempt < RATE_LIMIT_RETRIES) {
+      const delay = Math.min(10_000, 500 * (2 ** attempt));
+      nextRequestAt = Math.max(nextRequestAt, Date.now() + delay);
+      await sleep(delay);
+      continue;
+    }
+    if (!response.ok) throw new Error(`OKX HTTP ${response.status}: ${payload?.msg || text.slice(0, 240) || response.statusText}`);
+    if (String(payload?.code) !== "0") throw new Error(`OKX ${payload?.code ?? "error"}: ${payload?.msg || "request failed"}`);
+    return payload;
+  }
+  throw new Error("OKX rate limit retry budget exhausted");
+}
+
 function normalizeSource(value) {
   const source = String(value || "bybit").trim().toLowerCase();
-  if (!['bybit', 'binance'].includes(source)) throw new Error(`Unsupported data source: ${source}`);
+  if (!["bybit", "binance", "okx"].includes(source)) throw new Error(`Unsupported data source: ${source}`);
   return source;
 }
 
 function sourceMetadata(source) {
-  return source === "binance"
-    ? { source, name: "Binance USDⓈ-M Futures", endpoint: BINANCE_API_BASE }
-    : { source, name: "Bybit Public V5", endpoint: BYBIT_API_BASE };
+  if (source === "binance") return { source, name: "Binance USDⓈ-M Futures", endpoint: BINANCE_API_BASE };
+  if (source === "okx") return { source, name: "OKX USDT Perpetual", endpoint: OKX_API_BASE };
+  return { source, name: "Bybit Public V5", endpoint: BYBIT_API_BASE };
 }
 
 function normalizeConfiguredSymbol(item, index) {
@@ -193,10 +235,32 @@ async function getBinanceTradingSymbols() {
   return symbols;
 }
 
+export function okxInstrumentIdForSymbol(symbol) {
+  const normalized = String(symbol || "").trim().toUpperCase();
+  const base = normalized.endsWith("USDT") ? normalized.slice(0, -4) : normalized;
+  return `${OKX_BASE_ALIASES.get(base) || base}-USDT-SWAP`;
+}
+
+async function getOkxTradingSymbols() {
+  if (okxInstrumentCache.expiresAt > Date.now()) return okxInstrumentCache.symbols;
+  const payload = await okxGet("/api/v5/public/instruments", { instType: "SWAP" });
+  const symbols = new Set((payload?.data || [])
+    .filter((item) => item?.state === "live" && item?.settleCcy === "USDT" && String(item?.instId || "").endsWith("-USDT-SWAP"))
+    .map((item) => String(item.instId).toUpperCase()));
+  okxInstrumentCache = { expiresAt: Date.now() + 5 * 60_000, symbols };
+  return symbols;
+}
+
 async function filterUniverseForSource(universe, source) {
   if (source === "bybit") return universe;
-  const tradingSymbols = await getBinanceTradingSymbols();
-  return universe.filter((item) => tradingSymbols.has(item.symbol));
+  if (source === "binance") {
+    const tradingSymbols = await getBinanceTradingSymbols();
+    return universe.filter((item) => tradingSymbols.has(item.symbol));
+  }
+  const tradingSymbols = await getOkxTradingSymbols();
+  return universe
+    .map((item) => ({ ...item, sourceSymbol: okxInstrumentIdForSymbol(item.symbol) }))
+    .filter((item) => tradingSymbols.has(item.sourceSymbol));
 }
 
 function intervalDuration(interval) {
@@ -244,6 +308,26 @@ export function normalizeBinanceKlines(payload, interval, now = Date.now()) {
     .sort((a, b) => a.ts - b.ts)
     .filter((bar, index, bars) => index === bars.length - 1 || bar.ts !== bars[index + 1].ts)
     .map(({ closeTs, ...bar }) => bar);
+}
+
+export function normalizeOkxKlines(payload) {
+  const rows = payload?.data;
+  if (!Array.isArray(rows)) throw new Error("OKX candle response does not contain data");
+  return rows
+    .filter((row) => Array.isArray(row) && row.length >= 9 && String(row[8]) === "1")
+    .map((row) => ({
+      t: new Date(Number(row[0])).toISOString().slice(0, 10),
+      ts: Number(row[0]),
+      o: Number(row[1]),
+      h: Number(row[2]),
+      l: Number(row[3]),
+      c: Number(row[4]),
+      v: Number(row[5]),
+      turnover: Number(row[7]),
+    }))
+    .filter((bar) => [bar.ts, bar.o, bar.h, bar.l, bar.c].every(Number.isFinite))
+    .sort((a, b) => a.ts - b.ts)
+    .filter((bar, index, bars) => index === bars.length - 1 || bar.ts !== bars[index + 1].ts);
 }
 
 function ema(values, period) {
@@ -394,6 +478,16 @@ async function fetchKlines(source, symbol, interval, limit) {
     });
     return normalizeBinanceKlines(payload, binanceInterval);
   }
+  if (source === "okx") {
+    const okxBar = { D: "1Dutc", 15: "15m", 60: "1H", 240: "4H" }[interval];
+    if (!okxBar) throw new Error(`Unsupported OKX interval: ${interval}`);
+    const payload = await okxGet("/api/v5/market/candles", {
+      instId: symbol.sourceSymbol || okxInstrumentIdForSymbol(symbol.symbol),
+      bar: okxBar,
+      limit: Math.min(300, limit),
+    });
+    return normalizeOkxKlines(payload);
+  }
   const payload = await bybitGet("/v5/market/kline", {
     category: symbol.market,
     symbol: symbol.symbol,
@@ -404,7 +498,7 @@ async function fetchKlines(source, symbol, interval, limit) {
 }
 
 async function getTickerMap(source, symbols) {
-  if (source === "binance") return new Map();
+  if (source === "binance" || source === "okx") return new Map();
   const markets = [...new Set(symbols.map((item) => item.market))];
   const map = new Map();
   await Promise.all(markets.map(async (market) => {
@@ -513,7 +607,9 @@ async function handleApi(request, response, url) {
       const available = await filterUniverseForSource(symbols, source);
       const timePayload = source === "binance"
         ? await binanceGet("/fapi/v1/time")
-        : await bybitGet("/v5/market/time");
+        : source === "okx"
+          ? await okxGet("/api/v5/public/time")
+          : await bybitGet("/v5/market/time");
       const metadata = sourceMetadata(source);
       sendJson(response, 200, {
         connected: true,
@@ -524,7 +620,11 @@ async function handleApi(request, response, url) {
         configuredSymbols: available.length,
         configuredTotal: symbols.length,
         unavailableSymbols: symbols.length - available.length,
-        serverTime: source === "binance" ? timePayload?.serverTime : timePayload?.time,
+        serverTime: source === "binance"
+          ? timePayload?.serverTime
+          : source === "okx"
+            ? timePayload?.data?.[0]?.ts
+            : timePayload?.time,
       });
     } catch (error) {
       let source = "bybit";
@@ -624,6 +724,7 @@ if (isMain) {
     console.log(`Multi-source LRC25/LRC6 Scanner: http://${HOST}:${PORT}`);
     console.log(`Bybit market data: ${BYBIT_API_BASE}`);
     console.log(`Binance market data: ${BINANCE_API_BASE}`);
+    console.log(`OKX market data: ${OKX_API_BASE}`);
     console.log(`Trading pairs: ${SYMBOLS_FILE}`);
   });
 }

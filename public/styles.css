@@ -55,7 +55,7 @@ button { color: inherit; }
 .panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
 .panel-head h2 { margin: 4px 0 0; font-size: 17px; }
 .universe-count { color: var(--cyan); font: 600 12px ui-monospace, monospace; }
-.source-switch { display: grid; grid-template-columns: 1fr 1.35fr; gap: 5px; margin-bottom: 12px; padding: 4px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.018); }
+.source-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-bottom: 12px; padding: 4px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.018); }
 .source-switch button { padding: 8px 9px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; font: 650 10px ui-monospace, monospace; }
 .source-switch button.active { color: var(--cyan); background: rgba(53,220,201,.1); }
 .source-switch button:disabled { opacity: .45; cursor: not-allowed; }

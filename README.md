@@ -1,6 +1,6 @@
 # Multi-Source LRC25 / LRC6 Scanner
 
-这是从本机 cTrader scanner 独立复刻出的只读行情扫描器，可在 dashboard 中切换 `Bybit` 与 `Binance USDⓈ-M Futures`。原项目 `E:\ctradermcp\site` 不会被修改；本版本默认监听另一个端口 `8788`。
+这是从本机 cTrader scanner 独立复刻出的只读行情扫描器，可在 dashboard 中切换 `Bybit`、`Binance USDⓈ-M Futures` 与 `OKX USDT Perpetual`。原项目 `E:\ctradermcp\site` 不会被修改；本版本默认监听另一个端口 `8788`。
 
 扫描逻辑：
 
@@ -15,15 +15,17 @@
 - 扫描结果默认按最新日线收盘价与日线 `EMA21` 的绝对百分比距离，从近到远排列
 - 只使用已经收盘的 K 线，所有未收盘 K 线都会被过滤
 - dashboard 不再绘制日线 K 线图，结果详情只保留筛选所需指标
-- 数据来自 Bybit V5 或 Binance USDⓈ-M Futures 公共行情接口，不需要 API Key，也不会调用交易接口
+- 数据来自 Bybit V5、Binance USDⓈ-M Futures 或 OKX 公共行情接口，不需要 API Key，也不会调用交易接口
 
 ## 数据源
 
 - `Bybit`：使用 `api.bybit.com/v5/market/*`
 - `Binance Futures`：使用 `fapi.binance.com/fapi/v1/*`
+- `OKX Perpetual`：使用 `openapi.okx.com/api/v5/*`，日线采用 UTC 日界线 `1Dutc`
 - Binance 模式会读取官方 `exchangeInfo`，只扫描配置清单中当前状态为 `TRADING`、合约类型为 `PERPETUAL`、报价资产为 `USDT` 的品种
+- OKX 模式会读取官方 `SWAP` 合约清单，只扫描当前 `live`、以 USDT 结算的永续合约；常见的千倍币命名会自动映射到 OKX 标的
 - 当前数据源不存在的配置品种会被计为“不可用并跳过”，不会被误记为扫描失败
-- 两个数据源使用相同的日线 EMA21、LRC25/LRC6、最大符合周期和日线距离排序规则
+- 三个数据源使用相同的日线 EMA21、LRC25/LRC6、最大符合周期和日线距离排序规则
 
 ## 交易对配置
 
@@ -63,6 +65,12 @@ node .\scripts\validate-symbols.mjs --scan
 node .\scripts\validate-symbols.mjs --scan --source=binance
 ```
 
+对 OKX 数据源执行端到端扫描：
+
+```powershell
+node .\scripts\validate-symbols.mjs --scan --source=okx
+```
+
 ## 启动
 
 电脑重启后，直接双击本目录的 `打开Bybit Scanner.cmd`。脚本会自动：
@@ -93,6 +101,7 @@ node .\scripts\validate-symbols.mjs --scan --source=binance
 - `HOST`：监听地址，默认 `127.0.0.1`；容器或云端运行时设为 `0.0.0.0`
 - `BYBIT_API_BASE`：Bybit API 根地址，默认 `https://api.bybit.com`
 - `BINANCE_API_BASE`：Binance USDⓈ-M Futures API 根地址，默认 `https://fapi.binance.com`
+- `OKX_API_BASE`：OKX API 根地址，默认 `https://openapi.okx.com`
 - `BYBIT_SYMBOLS_FILE`：自定义交易对 JSON 文件绝对路径
 - `BYBIT_SCAN_CONCURRENCY`：并发品种数，默认 `4`，最大 `8`
 - `BYBIT_REQUEST_TIMEOUT_MS`：单次请求超时，默认 `20000`
@@ -110,4 +119,4 @@ docker build -t my-bybit-scanner .
 docker run --rm -p 8788:8788 my-bybit-scanner
 ```
 
-容器内会自动设置 `HOST=0.0.0.0`。部署平台的启动命令也可以直接使用 `npm start`，并将 `HOST` 设置为 `0.0.0.0`。云端网络策略需要同时允许 `api.bybit.com` 与 `fapi.binance.com`。
+容器内会自动设置 `HOST=0.0.0.0`。部署平台的启动命令也可以直接使用 `npm start`，并将 `HOST` 设置为 `0.0.0.0`。云端网络策略需要允许所选数据源域名：`api.bybit.com`、`fapi.binance.com`、`openapi.okx.com`。

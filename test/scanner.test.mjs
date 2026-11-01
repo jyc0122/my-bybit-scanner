@@ -1,6 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { analyzeSymbol, loadUniverse, normalizeBinanceKlines, normalizeKlines } from "../server.mjs";
+import {
+  analyzeSymbol,
+  loadUniverse,
+  normalizeBinanceKlines,
+  normalizeKlines,
+  normalizeOkxKlines,
+  okxInstrumentIdForSymbol,
+} from "../server.mjs";
 
 function trendBars(count, direction = 1, stepMs = 86_400_000) {
   return Array.from({ length: count }, (_, index) => {
@@ -113,6 +120,26 @@ test("drops the current unfinished Binance candle using its close time", () => {
   const bars = normalizeBinanceKlines(payload, "1d", now);
   assert.deepEqual(bars.map((bar) => bar.ts), [day, 2 * day]);
   assert.deepEqual(bars.map((bar) => bar.turnover), [1.5, 2.5]);
+});
+
+test("keeps only confirmed OKX candles and sorts oldest first", () => {
+  const day = 86_400_000;
+  const payload = { code: "0", data: [
+    [String(3 * day), "3", "4", "2", "3.5", "1", "1", "3.5", "0"],
+    [String(2 * day), "2", "3", "1", "2.5", "1", "1", "2.5", "1"],
+    [String(day), "1", "2", "0", "1.5", "1", "1", "1.5", "1"],
+  ] };
+  const bars = normalizeOkxKlines(payload);
+  assert.deepEqual(bars.map((bar) => bar.ts), [day, 2 * day]);
+  assert.deepEqual(bars.map((bar) => bar.turnover), [1.5, 2.5]);
+});
+
+test("maps configured aliases to OKX USDT perpetual instrument ids", () => {
+  assert.equal(okxInstrumentIdForSymbol("BTCUSDT"), "BTC-USDT-SWAP");
+  assert.equal(okxInstrumentIdForSymbol("1000PEPEUSDT"), "PEPE-USDT-SWAP");
+  assert.equal(okxInstrumentIdForSymbol("SHIB1000USDT"), "SHIB-USDT-SWAP");
+  assert.equal(okxInstrumentIdForSymbol("PUMPFUNUSDT"), "PUMP-USDT-SWAP");
+  assert.equal(okxInstrumentIdForSymbol("RAYDIUMUSDT"), "RAY-USDT-SWAP");
 });
 
 test("daily short qualifies when LRC25 is negative and LRC6 is positive", () => {

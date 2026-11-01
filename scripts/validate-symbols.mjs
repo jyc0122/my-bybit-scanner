@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 const API_BASE = String(process.env.BYBIT_API_BASE || "https://api.bybit.com").replace(/\/$/, "");
 const scannerSourceArgument = process.argv.find((value) => value.startsWith("--source="));
 const scannerSource = String(scannerSourceArgument?.split("=")[1] || "bybit").toLowerCase();
-if (!["bybit", "binance"].includes(scannerSource)) throw new Error(`Unsupported scanner source: ${scannerSource}`);
+if (!["bybit", "binance", "okx"].includes(scannerSource)) throw new Error(`Unsupported scanner source: ${scannerSource}`);
 const inputArgument = process.argv.slice(2).find((value) => !value.startsWith("--"));
 const inputPath = resolve(inputArgument || "config/requested-symbols.txt");
 
