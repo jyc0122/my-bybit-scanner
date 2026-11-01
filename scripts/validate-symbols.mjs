@@ -2,6 +2,9 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const API_BASE = String(process.env.BYBIT_API_BASE || "https://api.bybit.com").replace(/\/$/, "");
+const scannerSourceArgument = process.argv.find((value) => value.startsWith("--source="));
+const scannerSource = String(scannerSourceArgument?.split("=")[1] || "bybit").toLowerCase();
+if (!["bybit", "binance"].includes(scannerSource)) throw new Error(`Unsupported scanner source: ${scannerSource}`);
 const inputArgument = process.argv.slice(2).find((value) => !value.startsWith("--"));
 const inputPath = resolve(inputArgument || "config/requested-symbols.txt");
 
@@ -112,16 +115,16 @@ if (!process.argv.includes("--scan")) {
 
 if (process.argv.includes("--scan")) {
   const scannerBase = String(process.env.SCANNER_URL || "http://127.0.0.1:8788").replace(/\/$/, "");
-  const statusResponse = await fetch(`${scannerBase}/api/status`, { signal: AbortSignal.timeout(30_000) });
+  const statusResponse = await fetch(`${scannerBase}/api/status?source=${scannerSource}`, { signal: AbortSignal.timeout(30_000) });
   const status = await statusResponse.json();
   if (!statusResponse.ok || !status.connected) throw new Error(`Scanner is unavailable: ${status.message || statusResponse.status}`);
-  const universeResponse = await fetch(`${scannerBase}/api/symbols`, { signal: AbortSignal.timeout(10_000) });
+  const universeResponse = await fetch(`${scannerBase}/api/symbols?source=${scannerSource}`, { signal: AbortSignal.timeout(10_000) });
   const universe = await universeResponse.json();
   if (!universeResponse.ok) throw new Error(`Could not load scanner universe: ${universe.message || universeResponse.status}`);
   const createResponse = await fetch(`${scannerBase}/api/scan`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ categories: universe.categories.map((item) => item.name) }),
+    body: JSON.stringify({ source: scannerSource, categories: universe.categories.map((item) => item.name) }),
     signal: AbortSignal.timeout(10_000),
   });
   let job = await createResponse.json();
@@ -138,7 +141,7 @@ if (process.argv.includes("--scan")) {
       ? "rateLimit"
       : /closed daily bars/i.test(message)
         ? "insufficientDailyHistory"
-        : /closed (15m|30m|1H|2H|4H) bars/i.test(message)
+        : /closed (15m|1H|4H) bars/i.test(message)
           ? "insufficientIntradayHistory"
           : "other";
     counts[kind] = (counts[kind] || 0) + 1;
@@ -146,11 +149,13 @@ if (process.argv.includes("--scan")) {
   }, {});
   console.log(JSON.stringify({
     scannerSmokeTest: {
+      source: scannerSource,
       status: job.status,
       configured: universe.count,
       groups: universe.categories,
       scanned: job.scanned,
       failed: job.failed,
+      skippedUnavailable: job.skippedUnavailable,
       failureKinds,
       matches: job.results.length,
       sampleErrors: job.errors.slice(0, 10),

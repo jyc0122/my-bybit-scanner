@@ -4,32 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071019">
-  <title>Bybit EMA Touch Scanner</title>
+  <title>Multi-Source LRC25/6 Scanner</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <div class="shell">
     <header class="topbar">
       <div class="brand">
-        <span class="eyebrow">BYBIT · PUBLIC MARKET DATA · DAILY</span>
-        <h1>EMA Touch Scanner</h1>
-        <p>用自定义 Bybit 交易对清单扫描日线 EMA21 方向，并在 15m、30m、1H、2H、4H 中寻找带 EMA21 方向确认的 EMA144/169 回踩。</p>
+        <span class="eyebrow">BYBIT + BINANCE · PUBLIC FUTURES DATA</span>
+        <h1>LRC25 / LRC6 Scanner</h1>
+        <p>扫描日线 EMA21 方向，并在 15m、1H、4H 中寻找 LRC25 趋势与 LRC6 反向信号。</p>
       </div>
       <div class="connection-card" id="connectionCard">
         <span class="status-dot" id="statusDot"></span>
         <div>
-          <strong id="connectionLabel">正在检测 Bybit</strong>
-          <small id="connectionHint">api.bybit.com · Public V5</small>
+          <strong id="connectionLabel">正在检测数据源</strong>
+          <small id="connectionHint">只读公共行情</small>
         </div>
         <button class="icon-button" id="retryButton" type="button" aria-label="重新检测连接">↻</button>
       </div>
     </header>
 
     <section class="rule-strip" aria-label="扫描规则">
-      <div><span>周期</span><strong>1D + 15m / 30m / 1H / 2H / 4H</strong></div>
+      <div><span>周期</span><strong>1D + 15m / 1H / 4H</strong></div>
       <div><span>多头</span><strong class="positive">D1 近两根不触 EMA21 · C &gt; EMA21</strong></div>
       <div><span>空头</span><strong class="negative">D1 近两根不触 EMA21 · C &lt; EMA21</strong></div>
-      <div><span>回踩确认</span><strong>近 3 根触 EMA144 / 169，且多头价低于 EMA21 / 空头价高于 EMA21</strong></div>
+      <div><span>日线空</span><strong>LRC25 &lt; 0 · LRC6 &gt; 0</strong></div>
+      <div><span>日线多</span><strong>LRC25 &gt; 0 · LRC6 &lt; 0</strong></div>
+      <div><span>多周期</span><strong>只显示符合条件的最大周期</strong></div>
       <div><span>模式</span><strong>只读扫描</strong></div>
     </section>
 
@@ -43,11 +45,15 @@
             </div>
             <span class="universe-count" id="universeCount">—</span>
           </div>
+          <div class="source-switch" id="sourceSwitch" aria-label="行情数据源">
+            <button class="active" type="button" data-source="bybit">Bybit</button>
+            <button type="button" data-source="binance">Binance Futures</button>
+          </div>
           <div class="category-list" id="categoryList">
             <div class="skeleton wide"></div><div class="skeleton"></div><div class="skeleton"></div>
           </div>
           <button class="scan-button" id="scanButton" type="button" disabled>
-            <span id="scanButtonLabel">等待 Bybit 行情</span><span aria-hidden="true">→</span>
+            <span id="scanButtonLabel">等待公共行情</span><span aria-hidden="true">→</span>
           </button>
           <div class="progress" id="progress" hidden>
             <div class="progress-track"><i id="progressBar"></i></div>
@@ -72,10 +78,10 @@
               <button type="button" data-side="long">多头</button>
               <button type="button" data-side="short">空头</button>
             </div>
-            <button class="sort-button" id="sortButton" type="button">|距 EMA21| ↑</button>
+            <button class="sort-button" id="sortButton" type="button">距D1 EMA21：近→远</button>
           </div>
           <div class="result-list" id="resultList">
-            <div class="empty-mini">连接 Bybit 公共行情后开始扫描</div>
+            <div class="empty-mini">选择并连接公共行情数据源后开始扫描</div>
           </div>
         </section>
       </aside>
@@ -85,7 +91,7 @@
           <div class="radar"><i></i><i></i><i></i><span></span></div>
           <span class="kicker">WAITING FOR SIGNAL</span>
           <h2>扫描结果会在这里展开</h2>
-          <p>选择交易对分组并开始扫描。数据来自 Bybit 公共行情接口，扫描器不需要 API Key，也不会调用任何交易接口。</p>
+          <p>选择 Bybit 或 Binance Futures 数据源及交易对分组后开始扫描。扫描器不需要 API Key，也不会调用任何交易接口。</p>
         </div>
 
         <div class="detail-content" id="detailContent" hidden>
@@ -106,12 +112,10 @@
           <section class="metric-grid">
             <article><span>CLOSE / EMA21</span><strong id="emaDistance">—</strong><small id="emaValue">EMA21 —</small></article>
             <article><span>D1 NO TOUCH</span><strong id="dailyNoTouch">—</strong><small>最近两根已收盘日线</small></article>
-            <article class="touch-metric"><span>15m · EMA144 / 169</span><strong id="touch15m">—</strong><small id="touch15mMeta">最近 3 根</small></article>
-            <article class="touch-metric"><span>30m · EMA144 / 169</span><strong id="touch30m">—</strong><small id="touch30mMeta">最近 3 根</small></article>
-            <article class="touch-metric"><span>1H · EMA144 / 169</span><strong id="touch1h">—</strong><small id="touch1hMeta">最近 3 根</small></article>
-            <article class="touch-metric"><span>2H · EMA144 / 169</span><strong id="touch2h">—</strong><small id="touch2hMeta">最近 3 根</small></article>
-            <article class="touch-metric"><span>4H · EMA144 / 169</span><strong id="touch4h">—</strong><small id="touch4hMeta">最近 3 根</small></article>
-            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线方向 + 任一周期回踩</small></article>
+            <article class="touch-metric"><span>MAX LRC25 TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>15m / 1H / 4H 中最大的符合周期</small></article>
+            <article class="touch-metric"><span>LRC25 TREND</span><strong id="lrc25Signal">—</strong><small id="lrc25Meta">回归角度 —</small></article>
+            <article class="touch-metric"><span>LRC6 TRIGGER</span><strong id="lrc6Signal">—</strong><small id="lrc6Meta">回归角度 —</small></article>
+            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线方向 + LRC25 同向 + LRC6 反向</small></article>
           </section>
 
           <section class="chart-card">
@@ -131,7 +135,7 @@
     </main>
 
     <footer>
-      <span>数据：Bybit V5 公共行情 · 日线 EMA21 主筛选 + 15m / 30m / 1H / 2H / 4H EMA144/169 回踩与 EMA21 方向确认 · 不需要凭据</span>
+      <span>数据：Bybit V5 / Binance USDⓈ-M Futures 公共行情 · 日线 EMA21 + LRC25/LRC6 · 多周期只显示最大周期</span>
       <span>仅供研究，不构成投资建议</span>
     </footer>
   </div>

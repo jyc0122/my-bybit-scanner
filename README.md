@@ -1,15 +1,27 @@
-# Bybit EMA Touch Scanner
+# Multi-Source LRC25 / LRC6 Scanner
 
-这是从本机 cTrader scanner 独立复刻出的 Bybit 只读行情扫描器。原项目 `E:\ctradermcp\site` 不会被修改；本版本默认监听另一个端口 `8788`。
+这是从本机 cTrader scanner 独立复刻出的只读行情扫描器，可在 dashboard 中切换 `Bybit` 与 `Binance USDⓈ-M Futures`。原项目 `E:\ctradermcp\site` 不会被修改；本版本默认监听另一个端口 `8788`。
 
 扫描逻辑：
 
 - 日线最近两根 K 线都不能触碰 `EMA21`（触碰定义为 `Low <= EMA <= High`）
 - 最新日线收盘价在 `EMA21` 上方为多头，在下方为空头
-- `15m`、`30m`、`1H`、`2H`、`4H` 任意一个周期最近 3 根 K 线触碰 `EMA144` 或 `EMA169`
-- 触碰周期的最新收盘价还必须满足方向条件：日线多头时低于该周期 `EMA21`，日线空头时高于该周期 `EMA21`
+- 扫描日线以下的 `15m`、`1H`、`4H`，分别计算 `LRC25` 与 `LRC6` 角度（收盘价、窗口最高最低价标准化）
+- 日线空头时，同一低周期必须同时满足 `LRC25 < 0°` 与 `LRC6 > 0°`
+- 日线多头时，同一低周期必须同时满足 `LRC25 > 0°` 与 `LRC6 < 0°`
+- 不再使用低周期 EMA21 穿越路径条件
+- 如果多个低周期同时符合，只显示最大的那个周期（`4H > 1H > 15m`）
+- 扫描结果默认按最新日线收盘价与日线 `EMA21` 的绝对百分比距离，从近到远排列
 - 只使用已经收盘的 K 线，所有未收盘 K 线都会被过滤
-- 数据来自 Bybit V5 公共行情接口，不需要 API Key，也不会调用交易接口
+- 数据来自 Bybit V5 或 Binance USDⓈ-M Futures 公共行情接口，不需要 API Key，也不会调用交易接口
+
+## 数据源
+
+- `Bybit`：使用 `api.bybit.com/v5/market/*`
+- `Binance Futures`：使用 `fapi.binance.com/fapi/v1/*`
+- Binance 模式会读取官方 `exchangeInfo`，只扫描配置清单中当前状态为 `TRADING`、合约类型为 `PERPETUAL`、报价资产为 `USDT` 的品种
+- 当前数据源不存在的配置品种会被计为“不可用并跳过”，不会被误记为扫描失败
+- 两个数据源使用相同的日线 EMA21、LRC25/LRC6、最大符合周期和日线距离排序规则
 
 ## 交易对配置
 
@@ -43,6 +55,12 @@ node .\scripts\validate-symbols.mjs
 node .\scripts\validate-symbols.mjs --scan
 ```
 
+对 Binance 数据源执行端到端扫描：
+
+```powershell
+node .\scripts\validate-symbols.mjs --scan --source=binance
+```
+
 ## 启动
 
 电脑重启后，直接双击本目录的 `打开Bybit Scanner.cmd`。脚本会自动：
@@ -72,6 +90,7 @@ node .\scripts\validate-symbols.mjs --scan
 - `PORT`：本地网页端口，默认 `8788`
 - `HOST`：监听地址，默认 `127.0.0.1`；容器或云端运行时设为 `0.0.0.0`
 - `BYBIT_API_BASE`：Bybit API 根地址，默认 `https://api.bybit.com`
+- `BINANCE_API_BASE`：Binance USDⓈ-M Futures API 根地址，默认 `https://fapi.binance.com`
 - `BYBIT_SYMBOLS_FILE`：自定义交易对 JSON 文件绝对路径
 - `BYBIT_SCAN_CONCURRENCY`：并发品种数，默认 `4`，最大 `8`
 - `BYBIT_REQUEST_TIMEOUT_MS`：单次请求超时，默认 `20000`
@@ -89,4 +108,4 @@ docker build -t my-bybit-scanner .
 docker run --rm -p 8788:8788 my-bybit-scanner
 ```
 
-容器内会自动设置 `HOST=0.0.0.0`。部署平台的启动命令也可以直接使用 `npm start`，并将 `HOST` 设置为 `0.0.0.0`。
+容器内会自动设置 `HOST=0.0.0.0`。部署平台的启动命令也可以直接使用 `npm start`，并将 `HOST` 设置为 `0.0.0.0`。云端网络策略需要同时允许 `api.bybit.com` 与 `fapi.binance.com`。

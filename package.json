@@ -1,9 +1,9 @@
 {
-  "name": "bybit-ema-touch-scanner",
+  "name": "multi-source-lrc25-lrc6-scanner",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Local read-only Bybit EMA touch scanner",
+  "description": "Local read-only Bybit and Binance Futures EMA21/LRC25/LRC6 scanner",
   "scripts": {
     "start": "node server.mjs",
     "check": "node --check server.mjs && node --check public/app.js",

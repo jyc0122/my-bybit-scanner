@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { analyzeSymbol, loadUniverse, normalizeKlines } from "../server.mjs";
+import { analyzeSymbol, loadUniverse, normalizeBinanceKlines, normalizeKlines } from "../server.mjs";
 
 function trendBars(count, direction = 1, stepMs = 86_400_000) {
   return Array.from({ length: count }, (_, index) => {
@@ -31,45 +31,41 @@ function touchBars(count, stepMs, close = 100) {
   }));
 }
 
-function directionalTouchBars(count, stepMs, side) {
-  const direction = side === "long" ? 1 : -1;
-  const bars = trendBars(count, direction, stepMs);
-  const pullbackClose = side === "long" ? 1_050 : 950;
-  for (let index = count - 3; index < count; index += 1) {
-    bars[index] = {
-      ...bars[index],
-      o: pullbackClose,
-      h: 1_300,
-      l: 700,
-      c: pullbackClose,
-    };
-  }
-  return bars;
-}
-
 const intradaySteps = {
   "15m": 900_000,
-  "30m": 1_800_000,
   "1H": 3_600_000,
-  "2H": 7_200_000,
   "4H": 14_400_000,
 };
 
-function intradayBars(touchTimeframe = null, side = "long") {
-  const direction = side === "long" ? 1 : -1;
-  return Object.entries(intradaySteps).map(([timeframe, stepMs]) => (
-    timeframe === touchTimeframe ? directionalTouchBars(220, stepMs, side) : trendBars(220, direction, stepMs)
-  ));
-}
-
-function fourthBarOnlyTouch(count, stepMs) {
-  const bars = trendBars(count, 1, stepMs);
-  bars[count - 4] = { ...bars[count - 4], o: 1_050, h: 1_300, l: 700, c: 1_050 };
-  for (let index = count - 3; index < count; index += 1) {
-    bars[index] = { ...bars[index], o: 1_050, h: 1_051, l: 1_049, c: 1_050 };
-  }
+function dualLrcBars(count, stepMs, dailySide) {
+  const direction = dailySide === "long" ? 1 : -1;
+  const bars = trendBars(count, direction, stepMs);
+  const triggerCloses = dailySide === "long"
+    ? [1057, 1056, 1055, 1054, 1053, 1052]
+    : [943, 944, 945, 946, 947, 948];
+  triggerCloses.forEach((close, offset) => {
+    const index = count - triggerCloses.length + offset;
+    bars[index] = {
+      ...bars[index],
+      o: close - direction * 0.1,
+      h: close + 0.2,
+      l: close - 0.2,
+      c: close,
+    };
+  });
   return bars;
 }
+
+function intradayBars(signals = {}) {
+  return Object.entries(intradaySteps).map(([timeframe, stepMs]) => {
+    const signal = signals[timeframe] || "long";
+    if (signal === "shortSetup") return dualLrcBars(60, stepMs, "short");
+    if (signal === "longSetup") return dualLrcBars(60, stepMs, "long");
+    return trendBars(60, signal === "short" ? -1 : 1, stepMs);
+  });
+}
+
+const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
 
 test("loads, groups, and normalizes the configured symbol universe", async () => {
   const symbols = await loadUniverse();
@@ -91,63 +87,76 @@ test("drops the current unfinished Bybit candle and sorts oldest first", () => {
   assert.deepEqual(bars.map((bar) => bar.ts), [day, 2 * day]);
 });
 
-test("classifies long when any one of all five intraday timeframes touches", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
+test("drops the current unfinished Binance candle using its close time", () => {
+  const day = 86_400_000;
+  const now = 3 * day + day / 2;
+  const payload = [
+    [3 * day, "3", "4", "2", "3.5", "1", 4 * day - 1, "3.5", 1, "0", "0", "0"],
+    [day, "1", "2", "0", "1.5", "1", 2 * day - 1, "1.5", 1, "0", "0", "0"],
+    [2 * day, "2", "3", "1", "2.5", "1", 3 * day - 1, "2.5", 1, "0", "0", "0"],
+  ];
+  const bars = normalizeBinanceKlines(payload, "1d", now);
+  assert.deepEqual(bars.map((bar) => bar.ts), [day, 2 * day]);
+  assert.deepEqual(bars.map((bar) => bar.turnover), [1.5, 2.5]);
+});
+
+test("daily short qualifies when LRC25 is negative and LRC6 is positive", () => {
   for (const timeframe of Object.keys(intradaySteps)) {
-    const result = analyzeSymbol(symbol, trendBars(40, 1), ...intradayBars(timeframe));
-    assert.equal(result.side, "long", `${timeframe} alone should qualify`);
-    assert.equal(result.dailyNoTouch, true);
+    const signals = { "15m": "short", "1H": "short", "4H": "short", [timeframe]: "shortSetup" };
+    const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars(signals));
+    assert.equal(result.side, "short", `${timeframe} alone should qualify`);
+    assert.equal(result.signalSide, "long");
+    assert.equal(result.selectedTimeframe, timeframe);
     assert.deepEqual(result.qualifyingTimeframes, [timeframe]);
+    assert.ok(result.selectedLrc25Angle < 0);
+    assert.ok(result.selectedLrc6Angle > 0);
+    assert.equal(result.dailyEma21DistancePct, Math.abs(result.emaDistancePct));
   }
 });
 
-test("classifies short when only 2H provides the EMA144/169 touch", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
-  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars("2H", "short"));
-  assert.equal(result.side, "short");
-  assert.deepEqual(result.qualifyingTimeframes, ["2H"]);
+test("daily long qualifies when LRC25 is positive and LRC6 is negative", () => {
+  const result = analyzeSymbol(symbol, trendBars(40, 1), ...intradayBars({ "1H": "longSetup" }));
+  assert.equal(result.side, "long");
+  assert.equal(result.signalSide, "short");
+  assert.equal(result.selectedTimeframe, "1H");
+  assert.ok(result.selectedLrc25Angle > 0);
+  assert.ok(result.selectedLrc6Angle < 0);
 });
 
-test("rejects a long touch timeframe when its latest close is above EMA21", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
-  const wrongSide15m = directionalTouchBars(220, intradaySteps["15m"], "short");
-  const [, m30, h1, h2, h4] = intradayBars();
-  const result = analyzeSymbol(symbol, trendBars(40, 1), wrongSide15m, m30, h1, h2, h4);
-  assert.equal(result.confirmations[0].touchPassed, true);
-  assert.equal(result.confirmations[0].ema21PositionPassed, false);
+test("shows only the largest qualifying timeframe when several dual-LRC setups match", () => {
+  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars({ "15m": "shortSetup", "1H": "shortSetup", "4H": "shortSetup" }));
+  assert.deepEqual(result.matchedTimeframes, ["15m", "1H", "4H"]);
+  assert.equal(result.selectedTimeframe, "4H");
+  assert.deepEqual(result.qualifyingTimeframes, ["4H"]);
+});
+
+test("rejects daily short when LRC25 is negative but LRC6 is not positive", () => {
+  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars());
+  const shortBars = trendBars(60, -1, intradaySteps["15m"]);
+  const [, h1, h4] = intradayBars({ "1H": "short", "4H": "short" });
+  const rejected = analyzeSymbol(symbol, trendBars(40, -1), shortBars, h1, h4);
+  assert.equal(rejected.confirmations[0].lrc25Passed, true);
+  assert.equal(rejected.confirmations[0].lrc6Passed, false);
+  assert.equal(rejected.side, "neutral");
   assert.equal(result.side, "neutral");
 });
 
-test("rejects a short touch timeframe when its latest close is below EMA21", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
-  const wrongSide15m = directionalTouchBars(220, intradaySteps["15m"], "long");
-  const [, m30, h1, h2, h4] = intradayBars(null, "short");
-  const result = analyzeSymbol(symbol, trendBars(40, -1), wrongSide15m, m30, h1, h2, h4);
-  assert.equal(result.confirmations[0].touchPassed, true);
-  assert.equal(result.confirmations[0].ema21PositionPassed, false);
+test("rejects daily short when LRC6 is positive but LRC25 is not negative", () => {
+  const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars());
+  assert.equal(result.confirmations[0].lrc25Passed, false);
+  assert.equal(result.confirmations[0].lrc6Passed, true);
   assert.equal(result.side, "neutral");
 });
 
-test("rejects when recent daily candles touch EMA21", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
-  const result = analyzeSymbol(symbol, touchBars(40, 86_400_000), ...intradayBars("30m"));
-  assert.equal(result.dailyNoTouch, false);
-  assert.equal(result.side, "neutral");
-});
-
-test("rejects when none of the five intraday timeframes touches EMA144/169", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
+test("rejects lower-timeframe LRC25 pointing in the same direction as the daily trend", () => {
   const result = analyzeSymbol(symbol, trendBars(40, 1), ...intradayBars());
   assert.equal(result.dailySide, "long");
   assert.equal(result.confirmationPassed, false);
   assert.equal(result.side, "neutral");
 });
 
-test("does not count an EMA touch on the fourth intraday candle", () => {
-  const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
-  const stale15m = fourthBarOnlyTouch(220, intradaySteps["15m"]);
-  const [, m30, h1, h2, h4] = intradayBars();
-  const result = analyzeSymbol(symbol, trendBars(40, 1), stale15m, m30, h1, h2, h4);
-  assert.equal(result.confirmationPassed, false);
+test("rejects when either of the latest two daily candles touches daily EMA21", () => {
+  const result = analyzeSymbol(symbol, touchBars(40, 86_400_000), ...intradayBars());
+  assert.equal(result.dailyNoTouch, false);
   assert.equal(result.side, "neutral");
 });

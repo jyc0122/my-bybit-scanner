@@ -10,6 +10,6 @@ if ($nodeCommand) {
 } else {
     throw 'Node.js 20+ was not found. Install Node.js or add node.exe to PATH.'
 }
-Write-Host 'Starting Bybit EMA Touch Scanner at http://127.0.0.1:8788'
+Write-Host 'Starting multi-source LRC25/LRC6 Scanner at http://127.0.0.1:8788'
 Write-Host 'Keep this window open while using the scanner.'
 & $nodeExecutable .\server.mjs
