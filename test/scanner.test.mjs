@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   analyzeSymbol,
+  analyzeWeakeningCandidate,
   loadUniverse,
   normalizeBinanceKlines,
   normalizeKlines,
@@ -191,6 +192,16 @@ test("marks a daily-long setup when negative LRC6 weakens toward zero", () => {
   assert.ok(result.selectedPreviousLrc6Angle < 0);
   assert.ok(Math.abs(result.selectedLrc6Angle) < Math.abs(result.selectedPreviousLrc6Angle));
   assert.equal(result.selectedLrc6Weakening, true);
+});
+
+test("checks LRC6 weakening for a saved candidate without repeating the daily scan", () => {
+  const bars = weakeningDualLrcBars(60, intradaySteps["1H"], "short");
+  const result = analyzeWeakeningCandidate(bars, "1H", "short");
+  assert.equal(result.side, "short");
+  assert.equal(result.selectedTimeframe, "1H");
+  assert.equal(result.selectedLrc6Weakening, true);
+  assert.ok(result.selectedLrc6Angle > 0);
+  assert.ok(result.selectedPreviousLrc6Angle > result.selectedLrc6Angle);
 });
 
 test("shows only the largest qualifying timeframe when several dual-LRC setups match", () => {

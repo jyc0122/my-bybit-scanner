@@ -12,6 +12,7 @@
 - 不再使用低周期 EMA21 穿越路径条件
 - 如果多个低周期同时符合，只显示最大的那个周期（`4H > 1H > 15m`）
 - 对已经入选的品种，在其最大符合周期中比较当前与上一根已收盘 K 线的 `LRC6`：方向保持不变且角度绝对值变小时，额外列入 dashboard 的“LRC6 减弱”区域
+- 自动化可把全量扫描结果作为当日基线传给 `POST /api/weakening-check`；该轻量接口只读取每个候选的已选周期，不重复读取日线或其他周期
 - 扫描结果默认按最新日线收盘价与日线 `EMA21` 的绝对百分比距离，从近到远排列
 - 只使用已经收盘的 K 线，所有未收盘 K 线都会被过滤
 - dashboard 不再绘制日线 K 线图，结果详情只保留筛选所需指标
@@ -70,6 +71,20 @@ node .\scripts\validate-symbols.mjs --scan --source=binance
 ```powershell
 node .\scripts\validate-symbols.mjs --scan --source=okx
 ```
+
+只复查既有候选的 LRC6 减弱（不会重新做全量扫描）：
+
+```json
+POST /api/weakening-check
+{
+  "source": "okx",
+  "candidates": [
+    { "symbol": "BTCUSDT", "side": "short", "selectedTimeframe": "4H" }
+  ]
+}
+```
+
+接口返回异步任务 `id`，继续通过 `GET /api/scan/{id}` 轮询；`results` 只包含当前已出现 LRC6 减弱的候选。
 
 ## 启动
 

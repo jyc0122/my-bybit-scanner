@@ -411,6 +411,20 @@ function evaluateLrcSetup(bars, timeframe, dailySide) {
   };
 }
 
+export function analyzeWeakeningCandidate(bars, timeframe, side) {
+  if (!["15m", "1H", "4H"].includes(timeframe)) throw new Error(`Unsupported candidate timeframe: ${timeframe}`);
+  if (!["long", "short"].includes(side)) throw new Error(`Unsupported candidate side: ${side}`);
+  const confirmation = evaluateLrcSetup(bars, timeframe, side);
+  return {
+    side,
+    selectedTimeframe: timeframe,
+    selectedLrc6Angle: confirmation.lrc6Angle,
+    selectedPreviousLrc6Angle: confirmation.previousLrc6Angle,
+    selectedLrc6Weakening: confirmation.lrc6Weakening,
+    asOf: confirmation.asOf,
+  };
+}
+
 export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   if (dailyBars.length < 22) throw new Error(`Only ${dailyBars.length} closed daily bars returned; 22 are required`);
   const enriched = enrichDailyBars(dailyBars);
@@ -565,11 +579,86 @@ async function runScan(job, categories, requestedSource) {
   }
 }
 
+function normalizeWeakeningCandidates(rawCandidates, universe) {
+  if (!Array.isArray(rawCandidates) || !rawCandidates.length) throw new Error("candidates must contain at least one baseline result");
+  if (rawCandidates.length > 500) throw new Error("candidates cannot contain more than 500 items");
+  const universeBySymbol = new Map(universe.map((item) => [item.symbol, item]));
+  const seen = new Set();
+  return rawCandidates.map((candidate, index) => {
+    const symbol = String(candidate?.symbol || "").trim().toUpperCase();
+    const side = String(candidate?.side || "").trim().toLowerCase();
+    const selectedTimeframe = String(candidate?.selectedTimeframe || "").trim();
+    if (seen.has(symbol)) return null;
+    seen.add(symbol);
+    const configured = universeBySymbol.get(symbol);
+    if (!configured) throw new Error(`candidates[${index}] is not in the configured universe: ${symbol || "(empty)"}`);
+    if (!["long", "short"].includes(side)) throw new Error(`candidates[${index}] has invalid side: ${side || "(empty)"}`);
+    if (!["15m", "1H", "4H"].includes(selectedTimeframe)) {
+      throw new Error(`candidates[${index}] has invalid selectedTimeframe: ${selectedTimeframe || "(empty)"}`);
+    }
+    return { ...configured, baselineSide: side, baselineTimeframe: selectedTimeframe };
+  }).filter(Boolean);
+}
+
+async function runWeakeningCheck(job, rawCandidates, requestedSource) {
+  try {
+    const source = normalizeSource(requestedSource);
+    const universe = await loadUniverse();
+    const candidates = normalizeWeakeningCandidates(rawCandidates, universe);
+    const available = await filterUniverseForSource(candidates, source);
+    job.source = source;
+    job.sourceName = sourceMetadata(source).name;
+    job.mode = "weakening-check";
+    job.skippedUnavailable = candidates.length - available.length;
+    job.status = "running";
+    job.total = available.length;
+    job.startedAt = new Date().toISOString();
+    let cursor = 0;
+    const worker = async () => {
+      while (cursor < available.length) {
+        const candidate = available[cursor++];
+        job.current = candidate.symbol;
+        try {
+          const interval = { "15m": "15", "1H": "60", "4H": "240" }[candidate.baselineTimeframe];
+          const bars = await fetchKlines(source, candidate, interval, 60);
+          const weakening = analyzeWeakeningCandidate(bars, candidate.baselineTimeframe, candidate.baselineSide);
+          job.scanned += 1;
+          if (weakening.selectedLrc6Weakening) {
+            job.results.push({
+              symbol: candidate.symbol,
+              name: candidate.name,
+              category: candidate.category,
+              market: candidate.market,
+              dataSource: source,
+              ...weakening,
+            });
+          }
+        } catch (error) {
+          job.scanned += 1;
+          job.failed += 1;
+          if (job.errors.length < 200) job.errors.push({ symbol: candidate.symbol, message: cleanError(error) });
+        }
+        job.results.sort((a, b) => a.symbol.localeCompare(b.symbol));
+        job.updatedAt = new Date().toISOString();
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(SCAN_CONCURRENCY, available.length) }, worker));
+    job.status = "complete";
+    job.current = "";
+    job.finishedAt = new Date().toISOString();
+  } catch (error) {
+    job.status = "failed";
+    job.message = cleanError(error);
+    job.finishedAt = new Date().toISOString();
+  }
+}
+
 function publicJob(job) {
   return {
     id: job.id,
     source: job.source,
     sourceName: job.sourceName,
+    mode: job.mode || "full-scan",
     status: job.status,
     total: job.total,
     scanned: job.scanned,
@@ -669,6 +758,29 @@ async function handleApi(request, response, url) {
       };
       jobs.set(job.id, job);
       runScan(job, Array.isArray(body.categories) ? body.categories : [], source).catch((error) => {
+        job.status = "failed";
+        job.message = cleanError(error);
+      });
+      while (jobs.size > 8) jobs.delete(jobs.keys().next().value);
+      sendJson(response, 202, publicJob(job));
+    } catch (error) {
+      sendJson(response, 400, { message: cleanError(error) });
+    }
+    return;
+  }
+  if (request.method === "POST" && url.pathname === "/api/weakening-check") {
+    try {
+      const body = await readJson(request);
+      const source = normalizeSource(body.source);
+      const metadata = sourceMetadata(source);
+      const job = {
+        id: randomUUID(), status: "queued", mode: "weakening-check", total: 0, scanned: 0, failed: 0,
+        source, sourceName: metadata.name, skippedUnavailable: 0,
+        current: "", results: [], errors: [], message: "", startedAt: null,
+        updatedAt: new Date().toISOString(), finishedAt: null,
+      };
+      jobs.set(job.id, job);
+      runWeakeningCheck(job, body.candidates, source).catch((error) => {
         job.status = "failed";
         job.message = cleanError(error);
       });
