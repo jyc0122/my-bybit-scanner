@@ -135,3 +135,12 @@ docker run --rm -p 8788:8788 my-bybit-scanner
 ```
 
 容器内会自动设置 `HOST=0.0.0.0`。部署平台的启动命令也可以直接使用 `npm start`，并将 `HOST` 设置为 `0.0.0.0`。云端网络策略需要允许所选数据源域名：`api.bybit.com`、`fapi.binance.com`、`openapi.okx.com`。
+
+## GitHub Actions 自动监控
+
+`.github/workflows/okx-hourly.yml` 在 GitHub 云端每小时整点运行，不要求本机开机：
+
+- 新加坡时间每天 `08:00` 执行一次 OKX 全量扫描，将当天符合规则的 `symbol / side / selectedTimeframe` 保存到专用 `automation-state` 分支；
+- 其余整点只调用 `/api/weakening-check`，为每个当日候选读取一个已选周期，不重复全量扫描；
+- 有 LRC6 减弱时，在仓库的 `OKX LRC6 减弱提醒` Issue 中追加结果；无减弱时保持安静；
+- 可在 Actions 页面使用 `Run workflow` 并勾选 `force_full`，立即初始化当天基线。

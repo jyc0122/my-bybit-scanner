@@ -1,0 +1,111 @@
+name: OKX hourly weakening monitor
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    inputs:
+      force_full:
+        description: Run a full scan now and initialize today's baseline
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: okx-hourly-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out scanner
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare state branch
+        shell: bash
+        run: |
+          if git fetch origin automation-state:refs/remotes/origin/automation-state; then
+            git worktree add state refs/remotes/origin/automation-state
+          else
+            git worktree add --detach state
+            cd state
+            git checkout --orphan automation-state
+            git rm -rf .
+          fi
+
+      - name: Select scan mode
+        id: mode
+        shell: bash
+        env:
+          FORCE_FULL: ${{ inputs.force_full || 'false' }}
+        run: |
+          SGT_HOUR=$(node -e "console.log(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Singapore',hour:'2-digit',hourCycle:'h23'}).format(new Date()))")
+          if [ "$FORCE_FULL" = "true" ] || [ "$SGT_HOUR" = "08" ]; then
+            echo "value=full" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=weakening" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Singapore hour: $SGT_HOUR"
+
+      - name: Run OKX monitor
+        env:
+          BYBIT_SCAN_CONCURRENCY: 4
+          BYBIT_REQUEST_GAP_MS: 125
+        run: >-
+          node scripts/cloud-hourly.mjs
+          --mode=${{ steps.mode.outputs.value }}
+          --baseline=state/baseline.json
+          --output=state/latest.json
+          --notification=state/notification.md
+
+      - name: Publish monitor state
+        shell: bash
+        run: |
+          cd state
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add baseline.json latest.json
+          if git diff --cached --quiet; then
+            echo "No state change"
+          else
+            git commit -m "update OKX monitor state"
+            git push origin HEAD:automation-state
+          fi
+
+      - name: Notify through GitHub issue
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHOULD_NOTIFY=$(node -e "const x=require('./state/latest.json'); console.log(x.notify ? 'true' : 'false')")
+          if [ "$SHOULD_NOTIFY" != "true" ]; then
+            echo "No weakening alert to publish"
+            exit 0
+          fi
+          TITLE="OKX LRC6 减弱提醒"
+          ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
+          if [ -z "$ISSUE_NUMBER" ]; then
+            ISSUE_URL=$(gh issue create --title "$TITLE" --body "由 OKX hourly weakening monitor 自动维护。每天 08:00 SGT 建立基线，其余整点只复查基线候选的已选周期。")
+            ISSUE_NUMBER=${ISSUE_URL##*/}
+          fi
+          gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
+
+      - name: Add run summary
+        shell: bash
+        run: |
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat state/latest.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

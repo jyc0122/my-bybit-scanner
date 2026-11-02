@@ -6,7 +6,7 @@
   "description": "Local read-only Bybit, Binance Futures, and OKX Perpetual EMA21/LRC25/LRC6 scanner",
   "scripts": {
     "start": "node server.mjs",
-    "check": "node --check server.mjs && node --check public/app.js",
+    "check": "node --check server.mjs && node --check public/app.js && node --check scripts/cloud-hourly.mjs",
     "test": "node --test test/*.test.mjs",
     "symbols:validate": "node scripts/validate-symbols.mjs"
   },
