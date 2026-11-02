@@ -98,7 +98,7 @@ jobs:
           TITLE="OKX LRC6 减弱提醒"
           ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
           if [ -z "$ISSUE_NUMBER" ]; then
-            ISSUE_URL=$(gh issue create --title "$TITLE" --body "由 OKX hourly weakening monitor 自动维护。每天 08:00 SGT 建立基线，其余整点只复查基线候选的已选周期。")
+            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly weakening monitor 自动维护。每天 08:00 SGT 建立基线，其余整点只复查基线候选的已选周期。")
             ISSUE_NUMBER=${ISSUE_URL##*/}
           fi
           gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
