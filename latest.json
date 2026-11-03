@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "time": "16:24:13",
-  "generatedAt": "2026-11-03T08:24:13.806Z",
+  "time": "17:01:12",
+  "generatedAt": "2026-11-03T09:01:12.586Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,57 +11,43 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 38,
-  "baselineCandidates": 38,
+  "matches": 13,
+  "baselineCandidates": 13,
   "weakening": [
     {
-      "symbol": "1000BONKUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 20.76276391196401,
-      "currentLrc6": 13.888001160906999
-    },
-    {
-      "symbol": "ADAUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 24.40766866778029,
-      "currentLrc6": 23.198590513648075
-    },
-    {
-      "symbol": "TAOUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 18.60082064517953,
-      "currentLrc6": 2.9684492180136224
-    },
-    {
-      "symbol": "METUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 35.362461887069365,
-      "currentLrc6": 27.090685783536014
-    },
-    {
-      "symbol": "NEARUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 27.281900328754134,
-      "currentLrc6": 8.673174047880005
-    },
-    {
-      "symbol": "MINAUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 17.303474505703658,
-      "currentLrc6": 11.57518881739653
-    },
-    {
-      "symbol": "CTUSDT",
+      "symbol": "INJUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc6": 3.3288585764696315,
-      "currentLrc6": 0.6832222258708018
+      "previousLrc6": 27.972433288296813,
+      "currentLrc6": 13.892904777215646
+    },
+    {
+      "symbol": "CHIPUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 12.652556500558058,
+      "currentLrc6": 6.677698324644573
+    },
+    {
+      "symbol": "QNTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 24.792440018642445,
+      "currentLrc6": 22.386996000257966
+    },
+    {
+      "symbol": "SYRUPUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 14.710890850173694,
+      "currentLrc6": 0.9093804491990994
+    },
+    {
+      "symbol": "CRWVUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 15.734971633671028,
+      "currentLrc6": 4.867839401748926
     }
   ],
   "errors": [
