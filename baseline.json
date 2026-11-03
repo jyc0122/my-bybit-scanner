@@ -1,12 +1,12 @@
 {
   "date": "2026-11-03",
-  "createdAt": "2026-11-03T09:01:12.586Z",
+  "createdAt": "2026-11-03T09:59:52.379Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "QQQUSDT",
+      "symbol": "AVGOUSDT",
       "side": "short",
-      "selectedTimeframe": "15m"
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "ETHUSDT",
@@ -14,19 +14,94 @@
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "METAUSDT",
+      "symbol": "TSMUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "GLWUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "QCOMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "METAUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "GIGGLEUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "CXMTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "RKLBUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "BEUSDT",
       "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "CFXUSDT",
+      "side": "short",
       "selectedTimeframe": "15m"
     },
     {
-      "symbol": "INJUSDT",
+      "symbol": "AVAXUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "VIRTUALUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "DOTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "ICPUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "ARBUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "AAVEUSDT",
@@ -34,14 +109,39 @@
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "SQQQUSDT",
-      "side": "long",
+      "symbol": "PUMPFUNUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "ZHIPUUSDT",
+      "side": "short",
       "selectedTimeframe": "15m"
     },
     {
-      "symbol": "TQQQUSDT",
+      "symbol": "GRASSUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "ATOMUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "TAOUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "PYTHUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "APTUSDT",
@@ -49,22 +149,87 @@
       "selectedTimeframe": "15m"
     },
     {
+      "symbol": "ENAUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "BATUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "COHRUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
       "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "QNTUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "SYRUPUSDT",
+      "symbol": "DELLUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "CRWVUSDT",
+      "symbol": "WUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "NBISUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "WLDUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "AAOIUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "IRENUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "MUBARAKUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "CRVUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "USELESSUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "PONSUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "INTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "CTUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     }
