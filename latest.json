@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "time": "14:03:21",
-  "generatedAt": "2026-11-03T06:03:21.301Z",
+  "time": "15:10:00",
+  "generatedAt": "2026-11-03T07:10:00.131Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 24,
-  "baselineCandidates": 24,
+  "matches": 41,
+  "baselineCandidates": 41,
   "weakening": [
     {
       "symbol": "XAUUSDT",
@@ -32,36 +32,50 @@
       "symbol": "XRPUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc6": 12.094757077012295,
-      "currentLrc6": 9.598903068541766
+      "previousLrc6": 9.598903068541766,
+      "currentLrc6": 3.3664606634292844
     },
     {
-      "symbol": "ICPUSDT",
+      "symbol": "PLTRUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 6.620776082314248,
-      "currentLrc6": 3.270487923182792
+      "previousLrc6": 18.5731772146046,
+      "currentLrc6": 3.580545751653513
     },
     {
-      "symbol": "ATOMUSDT",
+      "symbol": "KORUUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 35.01817071226713,
-      "currentLrc6": 3.6329507394882214
+      "previousLrc6": 12.28095440509954,
+      "currentLrc6": 8.51170513842488
     },
     {
-      "symbol": "MUBARAKUSDT",
+      "symbol": "RAYDIUMUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 28.38710478940408,
-      "currentLrc6": 19.421717848605354
+      "previousLrc6": 22.746094705284428,
+      "currentLrc6": 9.865806943084685
     },
     {
-      "symbol": "USELESSUSDT",
+      "symbol": "SUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc6": 17.831591167114507,
-      "currentLrc6": 11.033143421842496
+      "previousLrc6": 12.85177937012578,
+      "currentLrc6": 6.688571518799262
+    },
+    {
+      "symbol": "JTOUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 3.798771474741677,
+      "currentLrc6": 2.1073355019986697
+    },
+    {
+      "symbol": "CRVUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 11.954938474794229,
+      "currentLrc6": 3.2169869107078832
     }
   ],
   "errors": [

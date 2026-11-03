@@ -1,6 +1,6 @@
 {
   "date": "2026-11-03",
-  "createdAt": "2026-11-03T06:03:21.301Z",
+  "createdAt": "2026-11-03T07:10:00.131Z",
   "source": "okx",
   "candidates": [
     {
@@ -14,6 +14,11 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "AVGOUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
       "symbol": "XRPUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
@@ -24,12 +29,27 @@
       "selectedTimeframe": "1H"
     },
     {
+      "symbol": "TSMUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "GLWUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
       "symbol": "WLFIUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "RKLBUSDT",
+      "symbol": "GIGGLEUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "MUUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
@@ -44,17 +64,32 @@
       "selectedTimeframe": "15m"
     },
     {
-      "symbol": "ICPUSDT",
+      "symbol": "CRCLUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
     {
-      "symbol": "LDOUSDT",
+      "symbol": "ICPUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "ATOMUSDT",
+      "symbol": "ARBUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "PUMPFUNUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "ARMUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
@@ -74,9 +109,19 @@
       "selectedTimeframe": "15m"
     },
     {
+      "symbol": "ENAUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
       "symbol": "BATUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "COHRUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "CHIPUSDT",
@@ -84,7 +129,12 @@
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "TIAUSDT",
+      "symbol": "RAYDIUMUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "COINUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
@@ -92,6 +142,21 @@
       "symbol": "SYRUPUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "DELLUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "WUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "CRWVUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "SUSDT",
@@ -104,24 +169,44 @@
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "MUBARAKUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
       "symbol": "CRVUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "STRKUSDT",
+      "symbol": "SOXSUSDT",
+      "side": "long",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "CBRSUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "SOXLUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "INTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "SNXXUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "CTUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "USELESSUSDT",
+      "symbol": "INTWUSDT",
       "side": "short",
-      "selectedTimeframe": "1H"
+      "selectedTimeframe": "15m"
     }
   ]
 }
