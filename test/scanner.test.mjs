@@ -61,6 +61,9 @@ function dualLrcBars(count, stepMs, dailySide) {
       c: close,
     };
   });
+  const reachIndex = count - 3;
+  if (dailySide === "short") bars[reachIndex].h = bars[reachIndex].c + 10;
+  else bars[reachIndex].l = bars[reachIndex].c - 10;
   return bars;
 }
 
@@ -74,6 +77,9 @@ function weakeningDualLrcBars(count, stepMs, dailySide) {
     const index = count - closes.length + offset;
     bars[index] = { ...bars[index], o: close, h: close + 0.2, l: close - 0.2, c: close };
   });
+  const reachIndex = count - 3;
+  if (dailySide === "short") bars[reachIndex].h = bars[reachIndex].c + 10;
+  else bars[reachIndex].l = bars[reachIndex].c - 10;
   return bars;
 }
 
@@ -143,7 +149,7 @@ test("maps configured aliases to OKX USDT perpetual instrument ids", () => {
   assert.equal(okxInstrumentIdForSymbol("RAYDIUMUSDT"), "RAY-USDT-SWAP");
 });
 
-test("daily short qualifies when LRC25 is negative and LRC6 is positive", () => {
+test("daily short qualifies when LRC25 is below -20, LRC6 is positive, and a recent high exceeds EMA21", () => {
   for (const timeframe of Object.keys(intradaySteps)) {
     const signals = { "15m": "short", "1H": "short", "4H": "short", [timeframe]: "shortSetup" };
     const result = analyzeSymbol(symbol, trendBars(40, -1), ...intradayBars(signals));
@@ -152,18 +158,47 @@ test("daily short qualifies when LRC25 is negative and LRC6 is positive", () => 
     assert.equal(result.selectedTimeframe, timeframe);
     assert.deepEqual(result.qualifyingTimeframes, [timeframe]);
     assert.ok(result.selectedLrc25Angle < 0);
+    assert.ok(Math.abs(result.selectedLrc25Angle) > 20);
     assert.ok(result.selectedLrc6Angle > 0);
+    assert.equal(result.confirmations.find((item) => item.timeframe === timeframe).ema21ReachPassed, true);
     assert.equal(result.dailyEma21DistancePct, Math.abs(result.emaDistancePct));
   }
 });
 
-test("daily long qualifies when LRC25 is positive and LRC6 is negative", () => {
+test("daily long qualifies when LRC25 is above 20, LRC6 is negative, and a recent low falls below EMA21", () => {
   const result = analyzeSymbol(symbol, trendBars(40, 1), ...intradayBars({ "1H": "longSetup" }));
   assert.equal(result.side, "long");
   assert.equal(result.signalSide, "short");
   assert.equal(result.selectedTimeframe, "1H");
   assert.ok(result.selectedLrc25Angle > 0);
+  assert.ok(Math.abs(result.selectedLrc25Angle) > 20);
   assert.ok(result.selectedLrc6Angle < 0);
+  assert.equal(result.confirmations.find((item) => item.timeframe === "1H").ema21ReachPassed, true);
+});
+
+test("rejects a setup when the LRC25 absolute angle is 20 degrees or less", () => {
+  const shallowLrc25 = dualLrcBars(60, intradaySteps["1H"], "short");
+  shallowLrc25.at(-10).h += 500;
+  shallowLrc25.at(-10).l -= 500;
+  const [m15, , h4] = intradayBars({ "15m": "short", "4H": "short" });
+  const result = analyzeSymbol(symbol, trendBars(40, -1), m15, shallowLrc25, h4);
+  const confirmation = result.confirmations.find((item) => item.timeframe === "1H");
+  assert.ok(Math.abs(confirmation.lrc25Angle) <= 20);
+  assert.equal(confirmation.lrc25MagnitudePassed, false);
+  assert.equal(confirmation.ema21ReachPassed, true);
+  assert.equal(result.side, "neutral");
+});
+
+test("rejects a setup when none of the latest five candles reaches across EMA21", () => {
+  const noReach = dualLrcBars(60, intradaySteps["1H"], "short");
+  noReach.slice(-5).forEach((bar) => { bar.h = bar.c + 0.2; bar.l = bar.c - 0.2; });
+  const [m15, , h4] = intradayBars({ "15m": "short", "4H": "short" });
+  const result = analyzeSymbol(symbol, trendBars(40, -1), m15, noReach, h4);
+  const confirmation = result.confirmations.find((item) => item.timeframe === "1H");
+  assert.equal(confirmation.lrc25Passed, true);
+  assert.equal(confirmation.lrc6Passed, true);
+  assert.equal(confirmation.ema21ReachPassed, false);
+  assert.equal(result.side, "neutral");
 });
 
 test("marks a daily-short setup when positive LRC6 weakens on its qualifying timeframe", () => {

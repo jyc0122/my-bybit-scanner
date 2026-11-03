@@ -343,7 +343,7 @@ function ema(values, period) {
   return output;
 }
 
-function enrichDailyBars(bars) {
+function enrichEma21Bars(bars) {
   const ema21 = ema(bars.map((bar) => bar.c), 21);
   return bars.map((bar, index) => ({
     ...bar,
@@ -388,16 +388,27 @@ function evaluateLrcSetup(bars, timeframe, dailySide) {
   const previousLrc6Side = previousLrc6Angle > 0 ? "long" : previousLrc6Angle < 0 ? "short" : "neutral";
   const requiredLrc25Side = dailySide;
   const requiredLrc6Side = dailySide === "short" ? "long" : dailySide === "long" ? "short" : "neutral";
-  const lrc25Passed = requiredLrc25Side !== "neutral" && lrc25Side === requiredLrc25Side;
+  const lrc25MagnitudePassed = Number.isFinite(lrc25Angle) && Math.abs(lrc25Angle) > 20;
+  const recentEma21Bars = enrichEma21Bars(bars).slice(-5);
+  const ema21ReachPassed = dailySide === "short"
+    ? recentEma21Bars.some((bar) => Number.isFinite(bar.e21) && bar.h > bar.e21)
+    : dailySide === "long"
+      ? recentEma21Bars.some((bar) => Number.isFinite(bar.e21) && bar.l < bar.e21)
+      : false;
+  const lrc25Passed = requiredLrc25Side !== "neutral"
+    && lrc25Side === requiredLrc25Side
+    && lrc25MagnitudePassed;
   const lrc6Passed = requiredLrc6Side !== "neutral" && lrc6Side === requiredLrc6Side;
   const lrc6Weakening = lrc6Passed
     && previousLrc6Side === requiredLrc6Side
     && Math.abs(lrc6Angle) < Math.abs(previousLrc6Angle);
   return {
     timeframe,
-    passed: lrc25Passed && lrc6Passed,
+    passed: lrc25Passed && lrc6Passed && ema21ReachPassed,
     lrc25Passed,
+    lrc25MagnitudePassed,
     lrc6Passed,
+    ema21ReachPassed,
     lrc25Side,
     lrc6Side,
     previousLrc6Side,
@@ -427,7 +438,7 @@ export function analyzeWeakeningCandidate(bars, timeframe, side) {
 
 export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   if (dailyBars.length < 22) throw new Error(`Only ${dailyBars.length} closed daily bars returned; 22 are required`);
-  const enriched = enrichDailyBars(dailyBars);
+  const enriched = enrichEma21Bars(dailyBars);
   const last = enriched.at(-1);
   const previous = enriched.at(-2);
   const recentDaily = enriched.slice(-2);
