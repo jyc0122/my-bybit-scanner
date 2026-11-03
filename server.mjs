@@ -351,6 +351,22 @@ function enrichEma21Bars(bars) {
   }));
 }
 
+function bollinger(values, period = 21, multiplier = 1) {
+  const output = Array(values.length).fill(null);
+  for (let index = period - 1; index < values.length; index += 1) {
+    const window = values.slice(index - period + 1, index + 1);
+    const basis = window.reduce((sum, value) => sum + value, 0) / period;
+    const variance = window.reduce((sum, value) => sum + (value - basis) ** 2, 0) / period;
+    const deviation = Math.sqrt(variance) * multiplier;
+    output[index] = {
+      basis,
+      upper: basis + deviation,
+      lower: basis - deviation,
+    };
+  }
+  return output;
+}
+
 function candleTouches(bar, value) {
   return Number.isFinite(value) && bar.l <= value && bar.h >= value;
 }
@@ -443,9 +459,14 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   const previous = enriched.at(-2);
   const recentDaily = enriched.slice(-2);
   const dailyNoTouch = recentDaily.every((bar) => !candleTouches(bar, bar.e21));
-  const dailySide = dailyNoTouch && last.c > last.e21
+  const dailyBoll21 = bollinger(dailyBars.map((bar) => bar.c), 21, 1).at(-1);
+  const dailyBollPassed = Number.isFinite(dailyBoll21?.upper)
+    && Number.isFinite(dailyBoll21?.lower)
+    && last.c >= dailyBoll21.lower
+    && last.c <= dailyBoll21.upper;
+  const dailySide = dailyNoTouch && dailyBollPassed && last.c > last.e21
     ? "long"
-    : dailyNoTouch && last.c < last.e21
+    : dailyNoTouch && dailyBollPassed && last.c < last.e21
       ? "short"
       : "neutral";
   const confirmations = [
@@ -471,6 +492,10 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
     emaDistancePct,
     dailyEma21DistancePct: Math.abs(emaDistancePct),
     dailyNoTouch,
+    dailyBollPassed,
+    dailyBoll21Basis: dailyBoll21?.basis ?? null,
+    dailyBoll21Upper: dailyBoll21?.upper ?? null,
+    dailyBoll21Lower: dailyBoll21?.lower ?? null,
     dailyBarsChecked: recentDaily.map((bar) => ({
       at: bar.t,
       touched: candleTouches(bar, bar.e21),
