@@ -2,8 +2,8 @@ name: OKX hourly full scan and weakening alert
 
 on:
   schedule:
-    # Avoid GitHub Actions' top-of-hour congestion, where scheduled jobs may be delayed or dropped.
-    - cron: "17 * * * *"
+    # Run near the end of each hour while avoiding GitHub Actions' top-of-hour congestion.
+    - cron: "59 * * * *"
   workflow_dispatch:
 
 permissions:
