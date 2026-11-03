@@ -4,6 +4,8 @@ on:
   schedule:
     # Run near the end of each hour while avoiding GitHub Actions' top-of-hour congestion.
     - cron: "59 * * * *"
+    # Fallback wake-up: it exits without scanning when a recent run already succeeded.
+    - cron: "14 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -41,7 +43,30 @@ jobs:
             git rm -rf .
           fi
 
+      - name: Decide whether a scan is due
+        id: due
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Manual run requested"
+            exit 0
+          fi
+          LAST_GENERATED_MS=$(node -e "try { const x=require('./state/latest.json'); console.log(Date.parse(x.generatedAt) || 0) } catch { console.log(0) }")
+          NOW_MS=$(node -e "console.log(Date.now())")
+          AGE_MS=$((NOW_MS - LAST_GENERATED_MS))
+          if [ "$LAST_GENERATED_MS" -eq 0 ] || [ "$AGE_MS" -ge 2700000 ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Scan is due; previous successful state is ${AGE_MS} ms old"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Recent scan found; fallback exits without scanning"
+          fi
+
       - name: Run full OKX scan
+        if: steps.due.outputs.run == 'true'
         env:
           BYBIT_SCAN_CONCURRENCY: 4
           BYBIT_REQUEST_GAP_MS: 125
@@ -53,6 +78,7 @@ jobs:
           --notification=state/notification.md
 
       - name: Publish monitor state
+        if: steps.due.outputs.run == 'true'
         shell: bash
         run: |
           cd state
@@ -67,6 +93,7 @@ jobs:
           fi
 
       - name: Notify through GitHub issue
+        if: steps.due.outputs.run == 'true'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -85,12 +112,14 @@ jobs:
           gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
 
       - name: Notify Telegram when LRC6 weakens
+        if: steps.due.outputs.run == 'true'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: node scripts/telegram-notify.mjs state/latest.json
 
       - name: Add run summary
+        if: steps.due.outputs.run == 'true'
         shell: bash
         run: |
           echo '```json' >> "$GITHUB_STEP_SUMMARY"

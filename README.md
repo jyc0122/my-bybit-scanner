@@ -138,7 +138,7 @@ docker run --rm -p 8788:8788 my-bybit-scanner
 
 ## GitHub Actions 自动监控
 
-`.github/workflows/okx-hourly.yml` 在 GitHub 云端每小时第 `59` 分钟运行，不要求本机开机。避开整点是为了减少 GitHub Actions 高峰期导致的延迟或任务丢失：
+`.github/workflows/okx-hourly.yml` 在 GitHub 云端以每小时第 `59` 分钟作为主扫描时间，不要求本机开机。由于 GitHub 可能延迟或丢弃 cron 事件，工作流会在每小时第 `14` 分钟进行一次补跑检查；如果 45 分钟内已有成功扫描，补跑会直接结束，不会重复扫描或推送：
 
 - 每次运行都执行 OKX 全量扫描，并把最新状态保存到专用 `automation-state` 分支；
 - 只有符合规则且 LRC6 数值减弱的交易对会进入通知，普通候选、失败项和“无减弱”状态不会发送；
