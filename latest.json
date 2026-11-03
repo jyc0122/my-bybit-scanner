@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "time": "15:10:00",
-  "generatedAt": "2026-11-03T07:10:00.131Z",
+  "time": "16:15:38",
+  "generatedAt": "2026-11-03T08:15:38.457Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,71 +11,155 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 41,
-  "baselineCandidates": 41,
+  "matches": 90,
+  "baselineCandidates": 90,
   "weakening": [
     {
-      "symbol": "XAUUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 37.83831201023195,
-      "currentLrc6": 25.050505514659275
-    },
-    {
-      "symbol": "TRXUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 36.32078980498404,
-      "currentLrc6": 34.361362458588054
-    },
-    {
-      "symbol": "XRPUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 9.598903068541766,
-      "currentLrc6": 3.3664606634292844
-    },
-    {
-      "symbol": "PLTRUSDT",
+      "symbol": "LINKUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 18.5731772146046,
-      "currentLrc6": 3.580545751653513
+      "previousLrc6": 21.857836274799194,
+      "currentLrc6": 18.218590917337533
     },
     {
-      "symbol": "KORUUSDT",
+      "symbol": "DOGEUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 12.28095440509954,
-      "currentLrc6": 8.51170513842488
+      "previousLrc6": 30.415216802829818,
+      "currentLrc6": 25.324181401947254
     },
     {
-      "symbol": "RAYDIUMUSDT",
+      "symbol": "OPUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 22.746094705284428,
-      "currentLrc6": 9.865806943084685
+      "previousLrc6": 28.405246433470904,
+      "currentLrc6": 14.858614447924515
     },
     {
-      "symbol": "SUSDT",
+      "symbol": "SHIB1000USDT",
       "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 12.85177937012578,
-      "currentLrc6": 6.688571518799262
+      "selectedTimeframe": "15m",
+      "previousLrc6": 27.28798794551564,
+      "currentLrc6": 20.854458039578514
     },
     {
-      "symbol": "JTOUSDT",
+      "symbol": "SUIUSDT",
       "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 3.798771474741677,
-      "currentLrc6": 2.1073355019986697
+      "selectedTimeframe": "15m",
+      "previousLrc6": 22.92141889790866,
+      "currentLrc6": 21.518609317392112
     },
     {
-      "symbol": "CRVUSDT",
+      "symbol": "1000BONKUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 20.76276391196401,
+      "currentLrc6": 13.888001160906999
+    },
+    {
+      "symbol": "SOLUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 27.876938959582272,
+      "currentLrc6": 25.94229548987178
+    },
+    {
+      "symbol": "ADAUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 24.40766866778029,
+      "currentLrc6": 23.198590513648075
+    },
+    {
+      "symbol": "WIFUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 12.652556500558058,
+      "currentLrc6": 8.130102354155808
+    },
+    {
+      "symbol": "HBARUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 37.80517463353955,
+      "currentLrc6": 27.315607973442386
+    },
+    {
+      "symbol": "TAOUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 18.60082064517953,
+      "currentLrc6": 2.9684492180136224
+    },
+    {
+      "symbol": "SANDUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 29.542167734589835,
+      "currentLrc6": 21.824540603186886
+    },
+    {
+      "symbol": "METUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 35.362461887069365,
+      "currentLrc6": 27.090685783536014
+    },
+    {
+      "symbol": "APTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 6.724912660457687,
+      "currentLrc6": 3.762332723570625
+    },
+    {
+      "symbol": "BATUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc6": 11.954938474794229,
-      "currentLrc6": 3.2169869107078832
+      "previousLrc6": 11.86439045128097,
+      "currentLrc6": 7.74777203610817
+    },
+    {
+      "symbol": "FARTCOINUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 22.664557434696007,
+      "currentLrc6": 8.746162262554888
+    },
+    {
+      "symbol": "NEARUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 27.281900328754134,
+      "currentLrc6": 8.673174047880005
+    },
+    {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 29.067238228864184,
+      "currentLrc6": 14.977720529551638
+    },
+    {
+      "symbol": "MINAUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 17.303474505703658,
+      "currentLrc6": 11.57518881739653
+    },
+    {
+      "symbol": "USELESSUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 14.23406238517475,
+      "currentLrc6": 12.35786316034154
+    },
+    {
+      "symbol": "CTUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 3.3288585764696315,
+      "currentLrc6": 0.6832222258708018
     }
   ],
   "errors": [
