@@ -1,7 +1,7 @@
 {
   "date": "2026-11-03",
-  "time": "17:59:52",
-  "generatedAt": "2026-11-03T09:59:52.379Z",
+  "time": "19:14:35",
+  "generatedAt": "2026-11-03T11:14:35.153Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,106 +11,14 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 46,
-  "baselineCandidates": 46,
-  "weakening": [
-    {
-      "symbol": "CFXUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 40.735836650848064,
-      "currentLrc6": 31.96664367408662
-    },
-    {
-      "symbol": "DOTUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 37.50071946885214,
-      "currentLrc6": 22.261280749658226
-    },
-    {
-      "symbol": "ADAUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 39.11755440990458,
-      "currentLrc6": 35.13419305691574
-    },
-    {
-      "symbol": "AAVEUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 32.18090583475619,
-      "currentLrc6": 31.746670015825973
-    },
-    {
-      "symbol": "ZHIPUUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 43.51854282911286,
-      "currentLrc6": 41.23287608077796
-    },
-    {
-      "symbol": "ATOMUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 44.54164354199951,
-      "currentLrc6": 40.07289005235116
-    },
-    {
-      "symbol": "TAOUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 41.47548510612835,
-      "currentLrc6": 38.85248473721843
-    },
-    {
-      "symbol": "APTUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 29.819167318771772,
-      "currentLrc6": 17.691766949867723
-    },
-    {
-      "symbol": "ENAUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 34.77270247487362,
-      "currentLrc6": 28.22154506138345
-    },
-    {
-      "symbol": "WUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 30.94071379070042,
-      "currentLrc6": 29.51348766236076
-    },
-    {
-      "symbol": "WLDUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 38.40939123185135,
-      "currentLrc6": 32.944574153819175
-    },
-    {
-      "symbol": "CRVUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 40.126103577795284,
-      "currentLrc6": 32.83497012971328
-    },
-    {
-      "symbol": "CTUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 36.10588966270002,
-      "currentLrc6": 22.989773081775773
-    }
-  ],
+  "matches": 57,
+  "baselineCandidates": 57,
+  "weakening": [],
   "errors": [
     {
       "symbol": "BTWUSDT",
       "message": "Only 12 closed daily bars returned; 22 are required"
     }
   ],
-  "notify": true
+  "notify": false
 }
