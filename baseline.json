@@ -1,18 +1,8 @@
 {
   "date": "2026-11-03",
-  "createdAt": "2026-11-03T12:50:09.606Z",
+  "createdAt": "2026-11-03T13:55:32.269Z",
   "source": "okx",
   "candidates": [
-    {
-      "symbol": "GLWUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
-    },
-    {
-      "symbol": "RKLBUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
-    },
     {
       "symbol": "OPUSDT",
       "side": "short",
