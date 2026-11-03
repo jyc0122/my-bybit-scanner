@@ -117,13 +117,10 @@ try {
       baselineCandidates: candidates.length,
       weakening: weakeningRows(weakening),
       errors: job.errors,
-      notify: true,
+      notify: weakening.length > 0,
     };
     notification = [
-      `## OKX 每日基线｜${singaporeDate} ${singaporeTime} SGT`,
-      "",
-      `全量扫描完成：配置 ${universe.configuredCount}，可用 ${universe.count}，扫描 ${job.scanned}/${job.total}，失败 ${job.failed}，符合 ${candidates.length}，当前减弱 ${weakening.length}。`,
-      job.errors.length ? `\n失败项：${job.errors.map((item) => `${item.symbol} — ${item.message}`).join("；")}` : "",
+      `## OKX LRC6 减弱｜${singaporeDate} ${singaporeTime} SGT`,
       "",
       weakeningMarkdown(weakening),
     ].filter(Boolean).join("\n");

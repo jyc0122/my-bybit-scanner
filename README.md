@@ -140,7 +140,10 @@ docker run --rm -p 8788:8788 my-bybit-scanner
 
 `.github/workflows/okx-hourly.yml` 在 GitHub 云端每小时整点运行，不要求本机开机：
 
-- 新加坡时间每天 `08:00` 执行一次 OKX 全量扫描，将当天符合规则的 `symbol / side / selectedTimeframe` 保存到专用 `automation-state` 分支；
-- 其余整点只调用 `/api/weakening-check`，为每个当日候选读取一个已选周期，不重复全量扫描；
-- 有 LRC6 减弱时，在仓库的 `OKX LRC6 减弱提醒` Issue 中追加结果；无减弱时保持安静；
-- 可在 Actions 页面使用 `Run workflow` 并勾选 `force_full`，立即初始化当天基线。
+- 每次运行都执行 OKX 全量扫描，并把最新状态保存到专用 `automation-state` 分支；
+- 只有符合规则且 LRC6 数值减弱的交易对会进入通知，普通候选、失败项和“无减弱”状态不会发送；
+- 减弱结果会追加到仓库的 `OKX LRC6 减弱提醒` Issue；
+- 配置 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID` 两个 Repository Actions Secrets 后，同一结果也会发送到 Telegram；未配置时会安全跳过 Telegram，不影响扫描；
+- 可在 Actions 页面使用 `Run workflow` 随时手动执行一次完整扫描。
+
+Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，并且只列出减弱区域的交易对。

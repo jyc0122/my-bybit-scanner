@@ -1,15 +1,9 @@
-name: OKX hourly weakening monitor
+name: OKX hourly full scan and weakening alert
 
 on:
   schedule:
     - cron: "0 * * * *"
   workflow_dispatch:
-    inputs:
-      force_full:
-        description: Run a full scan now and initialize today's baseline
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: write
@@ -46,27 +40,13 @@ jobs:
             git rm -rf .
           fi
 
-      - name: Select scan mode
-        id: mode
-        shell: bash
-        env:
-          FORCE_FULL: ${{ inputs.force_full || 'false' }}
-        run: |
-          SGT_HOUR=$(node -e "console.log(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Singapore',hour:'2-digit',hourCycle:'h23'}).format(new Date()))")
-          if [ "$FORCE_FULL" = "true" ] || [ "$SGT_HOUR" = "08" ]; then
-            echo "value=full" >> "$GITHUB_OUTPUT"
-          else
-            echo "value=weakening" >> "$GITHUB_OUTPUT"
-          fi
-          echo "Singapore hour: $SGT_HOUR"
-
-      - name: Run OKX monitor
+      - name: Run full OKX scan
         env:
           BYBIT_SCAN_CONCURRENCY: 4
           BYBIT_REQUEST_GAP_MS: 125
         run: >-
           node scripts/cloud-hourly.mjs
-          --mode=${{ steps.mode.outputs.value }}
+          --mode=full
           --baseline=state/baseline.json
           --output=state/latest.json
           --notification=state/notification.md
@@ -98,10 +78,16 @@ jobs:
           TITLE="OKX LRC6 减弱提醒"
           ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
           if [ -z "$ISSUE_NUMBER" ]; then
-            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly weakening monitor 自动维护。每天 08:00 SGT 建立基线，其余整点只复查基线候选的已选周期。")
+            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly full scan monitor 自动维护。每小时执行一次 OKX 全量扫描，只在发现 LRC6 数值减弱时追加提醒。")
             ISSUE_NUMBER=${ISSUE_URL##*/}
           fi
           gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
+
+      - name: Notify Telegram when LRC6 weakens
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node scripts/telegram-notify.mjs state/latest.json
 
       - name: Add run summary
         shell: bash
