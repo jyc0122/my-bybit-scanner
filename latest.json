@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-03",
-  "time": "23:22:23",
-  "generatedAt": "2026-11-03T15:22:23.170Z",
+  "date": "2026-11-04",
+  "time": "00:22:30",
+  "generatedAt": "2026-11-03T16:22:30.144Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 0,
-  "baselineCandidates": 0,
+  "matches": 1,
+  "baselineCandidates": 1,
   "weakening": [],
   "errors": [
     {
