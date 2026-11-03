@@ -1,7 +1,7 @@
 {
   "date": "2026-11-04",
-  "time": "00:22:30",
-  "generatedAt": "2026-11-03T16:22:30.144Z",
+  "time": "04:28:08",
+  "generatedAt": "2026-11-03T20:28:08.335Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,14 +11,22 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 1,
-  "baselineCandidates": 1,
-  "weakening": [],
+  "matches": 2,
+  "baselineCandidates": 2,
+  "weakening": [
+    {
+      "symbol": "RKLBUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 25.9503298808353,
+      "currentLrc6": 23.44335312614925
+    }
+  ],
   "errors": [
     {
       "symbol": "BTWUSDT",
       "message": "Only 12 closed daily bars returned; 22 are required"
     }
   ],
-  "notify": false
+  "notify": true
 }
