@@ -1,17 +1,22 @@
 {
   "date": "2026-11-05",
-  "createdAt": "2026-11-04T16:12:59.851Z",
+  "createdAt": "2026-11-04T16:58:05.428Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "TRXUSDT",
-      "side": "short",
+      "symbol": "TSLAUSDT",
+      "side": "long",
       "selectedTimeframe": "15m"
     },
     {
       "symbol": "QQQUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "VVVUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "LINKUSDT",

@@ -1,7 +1,7 @@
 {
   "date": "2026-11-05",
-  "time": "00:12:59",
-  "generatedAt": "2026-11-04T16:12:59.851Z",
+  "time": "00:58:05",
+  "generatedAt": "2026-11-04T16:58:05.428Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,15 +11,15 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 28,
-  "baselineCandidates": 28,
+  "matches": 29,
+  "baselineCandidates": 29,
   "weakening": [
     {
-      "symbol": "TRXUSDT",
-      "side": "short",
+      "symbol": "TSLAUSDT",
+      "side": "long",
       "selectedTimeframe": "15m",
-      "previousLrc6": 34.70804927252235,
-      "currentLrc6": 22.888247567315886
+      "previousLrc6": -31.67152323360928,
+      "currentLrc6": -29.68636078667368
     },
     {
       "symbol": "QNTUSDT",
