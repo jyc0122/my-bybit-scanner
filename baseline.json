@@ -1,11 +1,21 @@
 {
   "date": "2026-11-05",
-  "createdAt": "2026-11-04T16:58:05.428Z",
+  "createdAt": "2026-11-04T22:31:30.760Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "TSLAUSDT",
-      "side": "long",
+      "symbol": "XRPUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "PUMPFUNUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "side": "short",
       "selectedTimeframe": "15m"
     },
     {
@@ -14,7 +24,17 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "VVVUSDT",
+      "symbol": "1000BONKUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "SUIUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "BMNRUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
@@ -22,6 +42,21 @@
       "symbol": "LINKUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "VIRTUALUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "XLMUSDT",
@@ -34,14 +69,29 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "ONDOUSDT",
+      "symbol": "SOLUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "15m"
     },
     {
-      "symbol": "PLTRUSDT",
+      "symbol": "KORUUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "ARBUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "COHRUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "BOMEUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "AAVEUSDT",
@@ -49,9 +99,14 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "DOTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
       "symbol": "SANDUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "SQQQUSDT",
@@ -59,12 +114,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "TAOUSDT",
+      "symbol": "LDOUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "15m"
     },
     {
-      "symbol": "QNTUSDT",
+      "symbol": "TAOUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -84,9 +139,9 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "RENDERUSDT",
+      "symbol": "FARTCOINUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "15m"
     },
     {
       "symbol": "ATOMUSDT",
@@ -119,12 +174,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "CRVUSDT",
+      "symbol": "XPLUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "15m"
     },
     {
-      "symbol": "MINAUSDT",
+      "symbol": "CRVUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -137,16 +192,6 @@
       "symbol": "PONSUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "CTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "AKEUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
     }
   ]
 }
