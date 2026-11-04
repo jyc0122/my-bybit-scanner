@@ -1,40 +1,30 @@
 {
-  "date": "2026-11-04",
-  "createdAt": "2026-11-04T08:35:00.775Z",
+  "date": "2026-11-05",
+  "createdAt": "2026-11-04T16:12:59.851Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "RKLBUSDT",
+      "symbol": "TRXUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m"
+    },
+    {
+      "symbol": "QQQUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "1000BONKUSDT",
+      "symbol": "LINKUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "MAGICUSDT",
+      "symbol": "XLMUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SUIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "SHIB1000USDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ETCUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ARMUSDT",
+      "symbol": "OPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -44,12 +34,7 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "WIFUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "FILUSDT",
+      "symbol": "PLTRUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
@@ -59,23 +44,13 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "NBISUSDT",
+      "symbol": "SANDUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "DELLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "GOOGLUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
-    },
-    {
-      "symbol": "GRASSUSDT",
-      "side": "short",
+      "symbol": "SQQQUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
@@ -85,6 +60,11 @@
     },
     {
       "symbol": "QNTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "TQQQUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -99,32 +79,17 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "FARTCOINUSDT",
+      "symbol": "RENDERUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "APTUSDT",
+      "symbol": "ATOMUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "ZHIPUUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "RAYDIUMUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "METUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "AAOIUSDT",
+      "symbol": "WUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -144,9 +109,14 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "XPLUSDT",
+      "symbol": "JTOUSDT",
       "side": "short",
-      "selectedTimeframe": "1H"
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CRVUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "MINAUSDT",
@@ -164,17 +134,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "INTCUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
-    },
-    {
       "symbol": "CTUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "INTWUSDT",
+      "symbol": "AKEUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     }

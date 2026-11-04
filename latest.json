@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-04",
-  "time": "16:35:00",
-  "generatedAt": "2026-11-04T08:35:00.775Z",
+  "date": "2026-11-05",
+  "time": "00:12:59",
+  "generatedAt": "2026-11-04T16:12:59.851Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,64 +11,36 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 35,
-  "baselineCandidates": 35,
+  "matches": 28,
+  "baselineCandidates": 28,
   "weakening": [
     {
-      "symbol": "RKLBUSDT",
+      "symbol": "TRXUSDT",
       "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 15.76770562202076,
-      "currentLrc6": 8.834523165536055
-    },
-    {
-      "symbol": "MAGICUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 19.73444118205716,
-      "currentLrc6": 17.238951742095125
-    },
-    {
-      "symbol": "SUIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 12.566158277206878,
-      "currentLrc6": 3.6546461521067974
-    },
-    {
-      "symbol": "ETCUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 7.505267745087736,
-      "currentLrc6": 4.670654302234622
-    },
-    {
-      "symbol": "WIFUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 6.774814982261339,
-      "currentLrc6": 6.476514546992684
-    },
-    {
-      "symbol": "NBISUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 17.571642633635893,
-      "currentLrc6": 6.804524611629949
-    },
-    {
-      "symbol": "DELLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 12.236862770009372,
-      "currentLrc6": 4.466120589208008
+      "selectedTimeframe": "15m",
+      "previousLrc6": 34.70804927252235,
+      "currentLrc6": 22.888247567315886
     },
     {
       "symbol": "QNTUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 23.61890413978311,
-      "currentLrc6": 10.956441147258179
+      "previousLrc6": 9.308190115541777,
+      "currentLrc6": 1.0643090895173823
+    },
+    {
+      "symbol": "CTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 25.226549548023733,
+      "currentLrc6": 19.45223833165274
+    },
+    {
+      "symbol": "AKEUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 24.61384540041917,
+      "currentLrc6": 5.689265842927953
     }
   ],
   "errors": [
