@@ -1,7 +1,7 @@
 {
   "date": "2026-11-04",
-  "time": "04:28:08",
-  "generatedAt": "2026-11-03T20:28:08.335Z",
+  "time": "09:08:27",
+  "generatedAt": "2026-11-04T01:08:27.847Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,21 +11,28 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 2,
-  "baselineCandidates": 2,
+  "matches": 7,
+  "baselineCandidates": 7,
   "weakening": [
     {
-      "symbol": "RKLBUSDT",
+      "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 25.9503298808353,
-      "currentLrc6": 23.44335312614925
+      "previousLrc6": 35.24124994411165,
+      "currentLrc6": 34.70986553227261
+    },
+    {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 30.608554357556685,
+      "currentLrc6": 23.078104890341603
     }
   ],
   "errors": [
     {
       "symbol": "BTWUSDT",
-      "message": "Only 12 closed daily bars returned; 22 are required"
+      "message": "Only 13 closed daily bars returned; 22 are required"
     }
   ],
   "notify": true
