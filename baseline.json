@@ -1,82 +1,27 @@
 {
   "date": "2026-11-05",
-  "createdAt": "2026-11-05T03:21:05.034Z",
+  "createdAt": "2026-11-05T12:01:55.682Z",
   "source": "okx",
   "candidates": [
     {
       "symbol": "QQQUSDT",
       "side": "short",
-      "selectedTimeframe": "15m"
+      "selectedTimeframe": "1H"
     },
     {
-      "symbol": "METAUSDT",
+      "symbol": "PYTHUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
     {
-      "symbol": "XLMUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ORCLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "AAVEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "GOOGLUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "OPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "TSMUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "ENAUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "RKLBUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "ATOMUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
+      "symbol": "SQQQUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "TQQQUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "SUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "WLFIUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "PLTRUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "QNTUSDT",
@@ -84,94 +29,39 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "NEARUSDT",
+      "symbol": "COHRUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "WUSDT",
+      "symbol": "CLUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "1H"
     },
     {
-      "symbol": "TIAUSDT",
+      "symbol": "SYRUPUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "15m"
     },
     {
-      "symbol": "JTOUSDT",
+      "symbol": "BZUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "CRVUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "ZHONGJIUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
+      "selectedTimeframe": "1H"
     },
     {
       "symbol": "PONSUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "MUBARAKUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "DELLUSDT",
-      "side": "short",
       "selectedTimeframe": "15m"
     },
     {
-      "symbol": "CRWVUSDT",
+      "symbol": "IRENUSDT",
       "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "CBRSUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "TRUMPUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "LITEUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "MRVLUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "INTCUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "CTUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "SNXXUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "INTWUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
+      "selectedTimeframe": "1H"
     }
   ]
 }
