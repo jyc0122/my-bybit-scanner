@@ -1,7 +1,7 @@
 {
   "date": "2026-11-05",
-  "time": "20:01:55",
-  "generatedAt": "2026-11-05T12:01:55.682Z",
+  "time": "23:46:53",
+  "generatedAt": "2026-11-05T15:46:53.442Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,50 +11,14 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 12,
-  "baselineCandidates": 12,
-  "weakening": [
-    {
-      "symbol": "QQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 42.8085791760476,
-      "currentLrc6": 31.89098211344002
-    },
-    {
-      "symbol": "SQQQUSDT",
-      "side": "long",
-      "selectedTimeframe": "1H",
-      "previousLrc6": -42.210693845391766,
-      "currentLrc6": -32.433043149810246
-    },
-    {
-      "symbol": "TQQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 42.219919619035224,
-      "currentLrc6": 32.189929008843784
-    },
-    {
-      "symbol": "ZHONGJIUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 32.284534523337186,
-      "currentLrc6": 11.41844707819898
-    },
-    {
-      "symbol": "IRENUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 33.393916926751025,
-      "currentLrc6": 21.71127461653347
-    }
-  ],
+  "matches": 3,
+  "baselineCandidates": 3,
+  "weakening": [],
   "errors": [
     {
       "symbol": "BTWUSDT",
       "message": "Only 14 closed daily bars returned; 22 are required"
     }
   ],
-  "notify": true
+  "notify": false
 }
