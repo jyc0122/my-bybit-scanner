@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "time": "03:51:27",
-  "generatedAt": "2026-11-05T19:51:27.022Z",
+  "time": "08:57:00",
+  "generatedAt": "2026-11-06T00:57:00.596Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,49 +11,210 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 44,
-  "baselineCandidates": 44,
+  "matches": 49,
+  "baselineCandidates": 49,
   "weakening": [
     {
-      "symbol": "CFXUSDT",
+      "symbol": "TRXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 27.742112972352025,
+      "currentLrc6": 19.444151495758764
+    },
+    {
+      "symbol": "XAGUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 28.43813419907758,
-      "currentLrc6": 27.933419782941915
+      "previousLrc6": 23.280861319996696,
+      "currentLrc6": 21.31418632654697
+    },
+    {
+      "symbol": "SHIB1000USDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 37.48785589694732,
+      "currentLrc6": 32.28912937599575
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 37.15353780160197,
+      "currentLrc6": 33.10364194973259
+    },
+    {
+      "symbol": "LTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 31.70308926223833,
+      "currentLrc6": 29.654722788330172
+    },
+    {
+      "symbol": "VIRTUALUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 34.992020198558585,
+      "currentLrc6": 31.832865129665564
+    },
+    {
+      "symbol": "DOTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 36.135376611589244,
+      "currentLrc6": 33.24226677906804
     },
     {
       "symbol": "LDOUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 30.646989727648183,
-      "currentLrc6": 29.58641846249606
+      "previousLrc6": 37.23684881364163,
+      "currentLrc6": 36.07985805394679
     },
     {
-      "symbol": "JTOUSDT",
+      "symbol": "ADAUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 28.94610158293939,
-      "currentLrc6": 27.547678696148072
+      "previousLrc6": 37.427051359456655,
+      "currentLrc6": 33.24332586196453
+    },
+    {
+      "symbol": "WIFUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 34.992020198558606,
+      "currentLrc6": 32.454104376200725
+    },
+    {
+      "symbol": "WLFIUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 23.99699988029734,
+      "currentLrc6": 0.5530308897549071
+    },
+    {
+      "symbol": "OPUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 36.207480234071184,
+      "currentLrc6": 35.43353682274966
+    },
+    {
+      "symbol": "CFXUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 34.79177364118623,
+      "currentLrc6": 32.8057999574425
+    },
+    {
+      "symbol": "TAOUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 33.044257975231034,
+      "currentLrc6": 31.970174826907066
+    },
+    {
+      "symbol": "FILUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 37.71079738794923,
+      "currentLrc6": 37.20897848715958
+    },
+    {
+      "symbol": "APTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 35.77391291721886,
+      "currentLrc6": 34.80099002625608
+    },
+    {
+      "symbol": "QNTUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 23.342497802208666,
+      "currentLrc6": 10.553748373112034
+    },
+    {
+      "symbol": "SYRUPUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 38.614407487432814,
+      "currentLrc6": 37.874983651098226
+    },
+    {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 37.180440835349984,
+      "currentLrc6": 35.71213156195307
+    },
+    {
+      "symbol": "GRASSUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 33.23952022419555,
+      "currentLrc6": 24.73275420370452
     },
     {
       "symbol": "MINAUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 24.706403996153863,
-      "currentLrc6": 20.797708158609208
+      "previousLrc6": 32.71677776968207,
+      "currentLrc6": 31.431050269158035
     },
     {
-      "symbol": "XPLUSDT",
+      "symbol": "DRAMUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 29.226076752031254,
-      "currentLrc6": 26.52393964657321
+      "previousLrc6": 34.583971692429344,
+      "currentLrc6": 32.73522627210768
+    },
+    {
+      "symbol": "IRENUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 15.600837806615496,
+      "currentLrc6": 9.660442583367225
+    },
+    {
+      "symbol": "PONSUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 35.597853382240714,
+      "currentLrc6": 30.468796666307377
+    },
+    {
+      "symbol": "AXTIUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 33.10775791278321,
+      "currentLrc6": 31.617841023228483
+    },
+    {
+      "symbol": "CTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 39.16347960108195,
+      "currentLrc6": 35.69350208426957
+    },
+    {
+      "symbol": "AAOIUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 34.09765257802534,
+      "currentLrc6": 33.44505898445821
+    },
+    {
+      "symbol": "KORUUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "previousLrc6": 33.43405591648469,
+      "currentLrc6": 27.94048050956827
     }
   ],
   "errors": [
     {
       "symbol": "BTWUSDT",
-      "message": "Only 14 closed daily bars returned; 22 are required"
+      "message": "Only 15 closed daily bars returned; 22 are required"
     }
   ],
   "notify": true
