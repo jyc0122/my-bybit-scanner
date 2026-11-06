@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "time": "17:07:05",
-  "generatedAt": "2026-11-06T09:07:05.249Z",
+  "time": "18:16:01",
+  "generatedAt": "2026-11-06T10:16:01.762Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,42 +11,63 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 25,
-  "baselineCandidates": 25,
+  "matches": 15,
+  "baselineCandidates": 15,
   "weakening": [
     {
-      "symbol": "LDOUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 26.408932273220056,
-      "currentLrc6": 17.965962466300628
+      "symbol": "MSFTUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -39.06442392215448,
+      "currentLrc6": -33.98067162143544
     },
     {
-      "symbol": "CFXUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 26.82430632857913,
-      "currentLrc6": 24.156472097548242
+      "symbol": "AMZNUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -30.259625467225383,
+      "currentLrc6": -23.656893837298263
     },
     {
-      "symbol": "CHIPUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 24.094430663084765,
-      "currentLrc6": 2.3711414697003033
+      "symbol": "ZECUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -18.07508971449815,
+      "currentLrc6": -6.974596990199866
     },
     {
-      "symbol": "MUBARAKUSDT",
+      "symbol": "ETHUSDT",
       "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 24.299260551898456,
-      "currentLrc6": 20.25043280139531
+      "selectedTimeframe": "1D",
+      "previousLrc6": 25.61864695187882,
+      "currentLrc6": 12.578864556907503
+    },
+    {
+      "symbol": "UNITREEUSDT",
+      "side": "long",
+      "selectedTimeframe": "1D",
+      "previousLrc6": -11.092907977415864,
+      "currentLrc6": -6.238123711833033
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D",
+      "previousLrc6": 20.838001842074558,
+      "currentLrc6": 0.9760777108850222
+    },
+    {
+      "symbol": "MINIMAXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D",
+      "previousLrc6": 10.561010691196394,
+      "currentLrc6": 5.455270034190148
     }
   ],
   "errors": [
     {
       "symbol": "BTWUSDT",
-      "message": "Only 15 closed daily bars returned; 22 are required"
+      "message": "Only 15 closed daily bars returned; 25 are required"
     }
   ],
   "notify": true
