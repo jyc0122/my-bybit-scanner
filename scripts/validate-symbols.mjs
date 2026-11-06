@@ -141,7 +141,7 @@ if (process.argv.includes("--scan")) {
       ? "rateLimit"
       : /closed daily bars/i.test(message)
         ? "insufficientDailyHistory"
-        : /closed (15m|1H|4H) bars/i.test(message)
+        : /closed (4H|1D) bars/i.test(message)
           ? "insufficientIntradayHistory"
           : "other";
     counts[kind] = (counts[kind] || 0) + 1;

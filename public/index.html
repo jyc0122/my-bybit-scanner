@@ -13,7 +13,7 @@
       <div class="brand">
         <span class="eyebrow">BYBIT + BINANCE · PUBLIC FUTURES DATA</span>
         <h1>LRC25 / LRC6 Scanner</h1>
-        <p>扫描日线 EMA21 方向，并在 15m、1H、4H 中寻找 LRC25 趋势与 LRC6 反向信号。</p>
+        <p>扫描日线 EMA21 方向，并在 4H、1D 中寻找 LRC25 趋势与 LRC6 反向信号。</p>
       </div>
       <div class="connection-card" id="connectionCard">
         <span class="status-dot" id="statusDot"></span>
@@ -26,9 +26,9 @@
     </header>
 
     <section class="rule-strip" aria-label="扫描规则">
-      <div><span>周期</span><strong>1D + 15m / 1H / 4H</strong></div>
-      <div><span>多头</span><strong class="positive">D1 近两根不触 EMA21 · C &gt; EMA21</strong></div>
-      <div><span>空头</span><strong class="negative">D1 近两根不触 EMA21 · C &lt; EMA21</strong></div>
+      <div><span>周期</span><strong>4H / 1D</strong></div>
+      <div><span>多头</span><strong class="positive">D1 C &gt; EMA21</strong></div>
+      <div><span>空头</span><strong class="negative">D1 C &lt; EMA21</strong></div>
       <div><span>日线空</span><strong>LRC25 &lt; -20° · LRC6 &gt; 0 · 近5根 H &gt; EMA21</strong></div>
       <div><span>日线多</span><strong>LRC25 &gt; 20° · LRC6 &lt; 0 · 近5根 L &lt; EMA21</strong></div>
       <div><span>多周期</span><strong>只显示符合条件的最大周期</strong></div>
@@ -126,8 +126,8 @@
 
           <section class="metric-grid">
             <article><span>CLOSE / EMA21</span><strong id="emaDistance">—</strong><small id="emaValue">EMA21 —</small></article>
-            <article><span>D1 NO TOUCH</span><strong id="dailyNoTouch">—</strong><small>最近两根已收盘日线</small></article>
-            <article class="touch-metric"><span>MAX LRC25 TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>15m / 1H / 4H 中最大的符合周期</small></article>
+            <article><span>D1 DIRECTION</span><strong id="dailyDirection">—</strong><small>收盘价相对 EMA21</small></article>
+            <article class="touch-metric"><span>MAX LRC25 TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>4H / 1D 中最大的符合周期</small></article>
             <article class="touch-metric"><span>LRC25 TREND</span><strong id="lrc25Signal">—</strong><small id="lrc25Meta">回归角度 —</small></article>
             <article class="touch-metric"><span>LRC6 TRIGGER</span><strong id="lrc6Signal">—</strong><small id="lrc6Meta">回归角度 —</small></article>
             <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线方向 + LRC25 同向 + LRC6 反向</small></article>

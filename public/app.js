@@ -251,8 +251,8 @@ function selectSymbol(symbol) {
   $("#emaDistance").textContent = formatPct(distance);
   $("#emaDistance").className = distance >= 0 ? "positive" : "negative";
   $("#emaValue").textContent = `EMA21 ${formatPrice(item.ema21)}`;
-  $("#dailyNoTouch").textContent = item.dailyNoTouch ? "2 / 2" : "未通过";
-  $("#dailyNoTouch").className = item.dailyNoTouch ? "positive" : "negative";
+  $("#dailyDirection").textContent = item.dailySide === "long" ? "C > EMA21" : "C < EMA21";
+  $("#dailyDirection").className = item.dailySide === "long" ? "positive" : "negative";
   $("#lrcTimeframe").textContent = item.selectedTimeframe || "—";
   $("#lrc25Signal").textContent = item.selectedLrc25Side === "long" ? "多 LONG" : "空 SHORT";
   $("#lrc25Signal").className = item.selectedLrc25Side === "long" ? "positive" : "negative";

@@ -351,10 +351,6 @@ function enrichEma21Bars(bars) {
   }));
 }
 
-function candleTouches(bar, value) {
-  return Number.isFinite(value) && bar.l <= value && bar.h >= value;
-}
-
 function lrcAngle(bars, length = 25) {
   if (bars.length < length) return null;
   const window = bars.slice(-length);
@@ -423,7 +419,7 @@ function evaluateLrcSetup(bars, timeframe, dailySide) {
 }
 
 export function analyzeWeakeningCandidate(bars, timeframe, side) {
-  if (!["15m", "1H", "4H"].includes(timeframe)) throw new Error(`Unsupported candidate timeframe: ${timeframe}`);
+  if (!["4H", "1D"].includes(timeframe)) throw new Error(`Unsupported candidate timeframe: ${timeframe}`);
   if (!["long", "short"].includes(side)) throw new Error(`Unsupported candidate side: ${side}`);
   const confirmation = evaluateLrcSetup(bars, timeframe, side);
   return {
@@ -436,22 +432,19 @@ export function analyzeWeakeningCandidate(bars, timeframe, side) {
   };
 }
 
-export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
-  if (dailyBars.length < 22) throw new Error(`Only ${dailyBars.length} closed daily bars returned; 22 are required`);
+export function analyzeSymbol(symbol, dailyBars, h4Bars) {
+  if (dailyBars.length < 25) throw new Error(`Only ${dailyBars.length} closed daily bars returned; 25 are required`);
   const enriched = enrichEma21Bars(dailyBars);
   const last = enriched.at(-1);
   const previous = enriched.at(-2);
-  const recentDaily = enriched.slice(-2);
-  const dailyNoTouch = recentDaily.every((bar) => !candleTouches(bar, bar.e21));
-  const dailySide = dailyNoTouch && last.c > last.e21
+  const dailySide = last.c > last.e21
     ? "long"
-    : dailyNoTouch && last.c < last.e21
+    : last.c < last.e21
       ? "short"
       : "neutral";
   const confirmations = [
-    evaluateLrcSetup(m15Bars, "15m", dailySide),
-    evaluateLrcSetup(h1Bars, "1H", dailySide),
     evaluateLrcSetup(h4Bars, "4H", dailySide),
+    evaluateLrcSetup(dailyBars, "1D", dailySide),
   ];
   const matchedTimeframes = confirmations.filter((confirmation) => confirmation.passed);
   const selectedConfirmation = matchedTimeframes.at(-1) || null;
@@ -470,12 +463,6 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
     ema21: last.e21,
     emaDistancePct,
     dailyEma21DistancePct: Math.abs(emaDistancePct),
-    dailyNoTouch,
-    dailyBarsChecked: recentDaily.map((bar) => ({
-      at: bar.t,
-      touched: candleTouches(bar, bar.e21),
-      ema21: bar.e21,
-    })),
     confirmationPassed,
     confirmations,
     signalSide: selectedConfirmation?.lrc6Side || "neutral",
@@ -494,7 +481,7 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
 
 async function fetchKlines(source, symbol, interval, limit) {
   if (source === "binance") {
-    const binanceInterval = { D: "1d", 15: "15m", 60: "1h", 240: "4h" }[interval];
+    const binanceInterval = { D: "1d", 240: "4h" }[interval];
     if (!binanceInterval) throw new Error(`Unsupported Binance interval: ${interval}`);
     const payload = await binanceGet("/fapi/v1/klines", {
       symbol: symbol.symbol,
@@ -504,7 +491,7 @@ async function fetchKlines(source, symbol, interval, limit) {
     return normalizeBinanceKlines(payload, binanceInterval);
   }
   if (source === "okx") {
-    const okxBar = { D: "1Dutc", 15: "15m", 60: "1H", 240: "4H" }[interval];
+    const okxBar = { D: "1Dutc", 240: "4H" }[interval];
     if (!okxBar) throw new Error(`Unsupported OKX interval: ${interval}`);
     const payload = await okxGet("/api/v5/market/candles", {
       instId: symbol.sourceSymbol || okxInstrumentIdForSymbol(symbol.symbol),
@@ -554,13 +541,11 @@ async function runScan(job, categories, requestedSource) {
         const symbol = selected[cursor++];
         job.current = symbol.symbol;
         try {
-          const [dailyBars, m15Bars, h1Bars, h4Bars] = await Promise.all([
+          const [dailyBars, h4Bars] = await Promise.all([
             fetchKlines(source, symbol, "D", 260),
-            fetchKlines(source, symbol, "15", 60),
-            fetchKlines(source, symbol, "60", 60),
             fetchKlines(source, symbol, "240", 60),
           ]);
-          const analysis = analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars);
+          const analysis = analyzeSymbol(symbol, dailyBars, h4Bars);
           analysis.dataSource = source;
           const ticker = tickers.get(`${symbol.market}:${symbol.symbol}`);
           analysis.turnover24h = Number(ticker?.turnover24h || ticker?.turnover24H || 0);
@@ -604,7 +589,7 @@ function normalizeWeakeningCandidates(rawCandidates, universe) {
     const configured = universeBySymbol.get(symbol);
     if (!configured) throw new Error(`candidates[${index}] is not in the configured universe: ${symbol || "(empty)"}`);
     if (!["long", "short"].includes(side)) throw new Error(`candidates[${index}] has invalid side: ${side || "(empty)"}`);
-    if (!["15m", "1H", "4H"].includes(selectedTimeframe)) {
+    if (!["4H", "1D"].includes(selectedTimeframe)) {
       throw new Error(`candidates[${index}] has invalid selectedTimeframe: ${selectedTimeframe || "(empty)"}`);
     }
     return { ...configured, baselineSide: side, baselineTimeframe: selectedTimeframe };
@@ -630,7 +615,7 @@ async function runWeakeningCheck(job, rawCandidates, requestedSource) {
         const candidate = available[cursor++];
         job.current = candidate.symbol;
         try {
-          const interval = { "15m": "15", "1H": "60", "4H": "240" }[candidate.baselineTimeframe];
+          const interval = { "4H": "240", "1D": "D" }[candidate.baselineTimeframe];
           const bars = await fetchKlines(source, candidate, interval, 60);
           const weakening = analyzeWeakeningCandidate(bars, candidate.baselineTimeframe, candidate.baselineSide);
           job.scanned += 1;
