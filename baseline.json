@@ -1,15 +1,20 @@
 {
   "date": "2026-11-06",
-  "createdAt": "2026-11-06T07:53:06.048Z",
+  "createdAt": "2026-11-06T09:07:05.249Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "AAVEUSDT",
+      "symbol": "XAGUSDT",
       "side": "short",
-      "selectedTimeframe": "15m"
+      "selectedTimeframe": "1H"
     },
     {
-      "symbol": "PYTHUSDT",
+      "symbol": "METAUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "GOOGLUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
@@ -29,22 +34,17 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "OPUSDT",
+      "symbol": "CFXUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "TAOUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m"
-    },
-    {
-      "symbol": "FARTCOINUSDT",
+      "symbol": "NVDAUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "SANDUSDT",
+      "symbol": "TSMUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
@@ -54,27 +54,17 @@
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "APTUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
-    },
-    {
-      "symbol": "WUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H"
-    },
-    {
       "symbol": "HOODUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "QNTUSDT",
+      "symbol": "USELESSUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "TIAUSDT",
+      "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "15m"
     },
@@ -89,24 +79,54 @@
       "selectedTimeframe": "1H"
     },
     {
+      "symbol": "JTOUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
       "symbol": "MINAUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "ARMUSDT",
+      "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "ZHONGJIUSDT",
+      "symbol": "DELLUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
     },
     {
-      "symbol": "CRWVUSDT",
+      "symbol": "INTCUSDT",
       "side": "short",
       "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "MRVLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "CTUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "SOXSUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "INTWUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H"
+    },
+    {
+      "symbol": "AKEUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
     }
   ]
 }

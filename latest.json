@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "time": "15:53:06",
-  "generatedAt": "2026-11-06T07:53:06.048Z",
+  "time": "17:07:05",
+  "generatedAt": "2026-11-06T09:07:05.249Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,64 +11,36 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 21,
-  "baselineCandidates": 21,
+  "matches": 25,
+  "baselineCandidates": 25,
   "weakening": [
     {
-      "symbol": "TAOUSDT",
-      "side": "short",
-      "selectedTimeframe": "15m",
-      "previousLrc6": 13.543176642444642,
-      "currentLrc6": 9.472454087586412
-    },
-    {
-      "symbol": "WUSDT",
+      "symbol": "LDOUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc6": 30.458194280664234,
-      "currentLrc6": 26.01308579144769
+      "previousLrc6": 26.408932273220056,
+      "currentLrc6": 17.965962466300628
     },
     {
-      "symbol": "TIAUSDT",
+      "symbol": "CFXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc6": 26.82430632857913,
+      "currentLrc6": 24.156472097548242
+    },
+    {
+      "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "previousLrc6": 14.676393137449947,
-      "currentLrc6": 1.2590452071753955
+      "previousLrc6": 24.094430663084765,
+      "currentLrc6": 2.3711414697003033
     },
     {
       "symbol": "MUBARAKUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc6": 24.469145908670495,
-      "currentLrc6": 15.115860013867428
-    },
-    {
-      "symbol": "GLWUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 12.986415147138974,
-      "currentLrc6": 3.188896624972977
-    },
-    {
-      "symbol": "ARMUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 12.111350120137322,
-      "currentLrc6": 10.650125409674292
-    },
-    {
-      "symbol": "ZHONGJIUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 27.4724642811357,
-      "currentLrc6": 4.8864946748124005
-    },
-    {
-      "symbol": "CRWVUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc6": 9.388050802473192,
-      "currentLrc6": 5.369169814830778
+      "previousLrc6": 24.299260551898456,
+      "currentLrc6": 20.25043280139531
     }
   ],
   "errors": [
