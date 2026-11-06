@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "time": "18:16:01",
-  "generatedAt": "2026-11-06T10:16:01.762Z",
+  "time": "23:53:46",
+  "generatedAt": "2026-11-06T15:53:46.547Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,29 +11,36 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 15,
-  "baselineCandidates": 15,
+  "matches": 13,
+  "baselineCandidates": 13,
   "weakening": [
     {
       "symbol": "MSFTUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -39.06442392215448,
-      "currentLrc6": -33.98067162143544
+      "previousLrc6": -33.98067162143544,
+      "currentLrc6": -12.666240056995631
     },
     {
-      "symbol": "AMZNUSDT",
+      "symbol": "AAPLUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -30.259625467225383,
-      "currentLrc6": -23.656893837298263
+      "previousLrc6": -34.27929477413014,
+      "currentLrc6": -27.246704590679617
     },
     {
-      "symbol": "ZECUSDT",
+      "symbol": "XAUUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -18.07508971449815,
-      "currentLrc6": -6.974596990199866
+      "previousLrc6": -36.47472450736862,
+      "currentLrc6": -24.90476880809515
+    },
+    {
+      "symbol": "STXUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -24.294765289907918,
+      "currentLrc6": -15.889117176779811
     },
     {
       "symbol": "ETHUSDT",
@@ -62,6 +69,13 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 10.561010691196394,
       "currentLrc6": 5.455270034190148
+    },
+    {
+      "symbol": "WLFIUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 35.09969192005682,
+      "currentLrc6": 28.53107742314889
     }
   ],
   "errors": [
