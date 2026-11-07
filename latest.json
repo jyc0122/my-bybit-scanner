@@ -1,7 +1,7 @@
 {
   "date": "2026-11-07",
-  "time": "10:39:14",
-  "generatedAt": "2026-11-07T02:39:14.813Z",
+  "time": "16:41:40",
+  "generatedAt": "2026-11-07T08:41:40.223Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,57 +11,22 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 9,
-  "baselineCandidates": 9,
+  "matches": 3,
+  "baselineCandidates": 3,
   "weakening": [
-    {
-      "symbol": "RKLBUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 40.80734830317538,
-      "currentLrc6": 40.705741392275776
-    },
-    {
-      "symbol": "FILUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 28.894149335168287,
-      "currentLrc6": 18.149582053842668
-    },
     {
       "symbol": "COHRUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 38.35147123864212,
-      "currentLrc6": 35.643809043066966
+      "previousLrc6": 39.19030957076394,
+      "currentLrc6": 23.345481949265775
     },
     {
-      "symbol": "IRENUSDT",
+      "symbol": "STRKUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 29.720486769093746,
-      "currentLrc6": 19.59936163834568
-    },
-    {
-      "symbol": "NBISUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 29.22641764438741,
-      "currentLrc6": 17.34237249187533
-    },
-    {
-      "symbol": "CRWVUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 21.47679097954039,
-      "currentLrc6": 9.218529738167103
-    },
-    {
-      "symbol": "SOXSUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -23.713684237088227,
-      "currentLrc6": -3.846030090047391
+      "previousLrc6": 21.67234900744299,
+      "currentLrc6": 20.153899210661596
     }
   ],
   "errors": [
