@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-07",
-  "time": "23:38:16",
-  "generatedAt": "2026-11-07T15:38:16.500Z",
+  "date": "2026-11-08",
+  "time": "04:12:13",
+  "generatedAt": "2026-11-07T20:12:13.588Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,29 +11,22 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 7,
-  "baselineCandidates": 7,
+  "matches": 3,
+  "baselineCandidates": 3,
   "weakening": [
     {
-      "symbol": "COHRUSDT",
+      "symbol": "UNIUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 23.345481949265775,
-      "currentLrc6": 12.305437318395931
+      "previousLrc6": 33.11338845747852,
+      "currentLrc6": 27.085409628329142
     },
     {
-      "symbol": "STRKUSDT",
-      "side": "short",
+      "symbol": "MAGICUSDT",
+      "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": 20.153899210661596,
-      "currentLrc6": 7.476921439516692
-    },
-    {
-      "symbol": "CBRSUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 32.436129942902056,
-      "currentLrc6": 19.373339286343835
+      "previousLrc6": -29.015933909256614,
+      "currentLrc6": -27.75057566338794
     }
   ],
   "errors": [
