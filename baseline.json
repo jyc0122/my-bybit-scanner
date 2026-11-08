@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-08",
-  "createdAt": "2026-11-08T14:54:27.467Z",
+  "date": "2026-11-09",
+  "createdAt": "2026-11-08T18:48:47.933Z",
   "source": "okx",
   "candidates": [
     {
@@ -10,21 +10,6 @@
     },
     {
       "symbol": "CXMTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "USELESSUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "VVVUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "GRASSUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
