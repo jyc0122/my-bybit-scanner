@@ -1,8 +1,28 @@
 {
   "date": "2026-11-08",
-  "createdAt": "2026-11-08T07:03:24.334Z",
+  "createdAt": "2026-11-08T13:15:56.062Z",
   "source": "okx",
   "candidates": [
+    {
+      "symbol": "BNBUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CXMTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "USELESSUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "VVVUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
     {
       "symbol": "GRASSUSDT",
       "side": "short",
