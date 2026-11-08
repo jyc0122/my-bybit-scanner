@@ -1,21 +1,11 @@
 {
   "date": "2026-11-08",
-  "createdAt": "2026-11-07T23:38:17.609Z",
+  "createdAt": "2026-11-08T05:54:54.851Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "ARBUSDT",
+      "symbol": "GRASSUSDT",
       "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "UNIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "MAGICUSDT",
-      "side": "long",
       "selectedTimeframe": "4H"
     }
   ]

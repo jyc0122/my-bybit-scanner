@@ -1,7 +1,7 @@
 {
   "date": "2026-11-08",
-  "time": "07:38:17",
-  "generatedAt": "2026-11-07T23:38:17.609Z",
+  "time": "13:54:54",
+  "generatedAt": "2026-11-08T05:54:54.851Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,28 +11,21 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 3,
-  "baselineCandidates": 3,
+  "matches": 1,
+  "baselineCandidates": 1,
   "weakening": [
     {
-      "symbol": "UNIUSDT",
+      "symbol": "GRASSUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 33.11338845747852,
-      "currentLrc6": 27.085409628329142
-    },
-    {
-      "symbol": "MAGICUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -29.015933909256614,
-      "currentLrc6": -27.75057566338794
+      "previousLrc6": 21.939215905850844,
+      "currentLrc6": 13.99279369401605
     }
   ],
   "errors": [
     {
       "symbol": "BTWUSDT",
-      "message": "Only 16 closed daily bars returned; 25 are required"
+      "message": "Only 17 closed daily bars returned; 25 are required"
     }
   ],
   "notify": true
