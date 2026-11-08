@@ -1,15 +1,10 @@
 {
   "date": "2026-11-09",
-  "createdAt": "2026-11-08T18:48:47.933Z",
+  "createdAt": "2026-11-08T22:49:51.516Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "BNBUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "CXMTUSDT",
+      "symbol": "AAPLUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }

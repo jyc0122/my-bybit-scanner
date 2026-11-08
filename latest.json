@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
-  "time": "02:48:47",
-  "generatedAt": "2026-11-08T18:48:47.933Z",
+  "time": "06:49:51",
+  "generatedAt": "2026-11-08T22:49:51.516Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,29 +11,14 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 2,
-  "baselineCandidates": 2,
-  "weakening": [
-    {
-      "symbol": "BNBUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 30.6000522061677,
-      "currentLrc6": 19.752556920847468
-    },
-    {
-      "symbol": "CXMTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 37.20923900558262,
-      "currentLrc6": 36.662555561153454
-    }
-  ],
+  "matches": 1,
+  "baselineCandidates": 1,
+  "weakening": [],
   "errors": [
     {
       "symbol": "BTWUSDT",
       "message": "Only 17 closed daily bars returned; 25 are required"
     }
   ],
-  "notify": true
+  "notify": false
 }
