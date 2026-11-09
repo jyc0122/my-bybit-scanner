@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-09",
-  "time": "23:46:14",
-  "generatedAt": "2026-11-09T15:46:14.310Z",
+  "date": "2026-11-10",
+  "time": "02:35:15",
+  "generatedAt": "2026-11-09T18:35:15.535Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 6,
-  "baselineCandidates": 6,
+  "matches": 14,
+  "baselineCandidates": 14,
   "weakening": [
     {
       "symbol": "ARBUSDT",

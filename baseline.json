@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-09",
-  "createdAt": "2026-11-09T15:46:14.310Z",
+  "date": "2026-11-10",
+  "createdAt": "2026-11-09T18:35:15.535Z",
   "source": "okx",
   "candidates": [
     {
@@ -29,7 +29,47 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "BATUSDT",
+      "symbol": "LITUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "WIFUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CFXUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ATOMUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "TRUTHUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "SUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "FILUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "MINAUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
