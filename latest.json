@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
-  "time": "06:49:51",
-  "generatedAt": "2026-11-08T22:49:51.516Z",
+  "time": "10:37:30",
+  "generatedAt": "2026-11-09T02:37:30.432Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,14 +11,43 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 1,
-  "baselineCandidates": 1,
-  "weakening": [],
+  "matches": 6,
+  "baselineCandidates": 6,
+  "weakening": [
+    {
+      "symbol": "AAPLUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 34.5656473750346,
+      "currentLrc6": 1.275391077438314
+    },
+    {
+      "symbol": "ARBUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D",
+      "previousLrc6": 27.498124700296405,
+      "currentLrc6": 23.716259582170697
+    },
+    {
+      "symbol": "MAGICUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D",
+      "previousLrc6": 30.812233034702174,
+      "currentLrc6": 12.963761675070732
+    },
+    {
+      "symbol": "RAYDIUMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D",
+      "previousLrc6": 38.69627682501219,
+      "currentLrc6": 22.302593410758963
+    }
+  ],
   "errors": [
     {
       "symbol": "BTWUSDT",
-      "message": "Only 17 closed daily bars returned; 25 are required"
+      "message": "Only 18 closed daily bars returned; 25 are required"
     }
   ],
-  "notify": false
+  "notify": true
 }
