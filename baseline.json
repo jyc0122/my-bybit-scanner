@@ -1,13 +1,8 @@
 {
   "date": "2026-11-09",
-  "createdAt": "2026-11-09T05:38:08.472Z",
+  "createdAt": "2026-11-09T11:23:07.471Z",
   "source": "okx",
   "candidates": [
-    {
-      "symbol": "AAPLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
     {
       "symbol": "METUSDT",
       "side": "short",
@@ -22,11 +17,6 @@
       "symbol": "MAGICUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "SPYUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
     },
     {
       "symbol": "QCOMUSDT",
