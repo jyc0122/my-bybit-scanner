@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
-  "time": "10:37:30",
-  "generatedAt": "2026-11-09T02:37:30.432Z",
+  "time": "13:38:08",
+  "generatedAt": "2026-11-09T05:38:08.472Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,16 +11,9 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 6,
-  "baselineCandidates": 6,
+  "matches": 9,
+  "baselineCandidates": 9,
   "weakening": [
-    {
-      "symbol": "AAPLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 34.5656473750346,
-      "currentLrc6": 1.275391077438314
-    },
     {
       "symbol": "ARBUSDT",
       "side": "short",

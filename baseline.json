@@ -1,6 +1,6 @@
 {
   "date": "2026-11-09",
-  "createdAt": "2026-11-09T02:37:30.432Z",
+  "createdAt": "2026-11-09T05:38:08.472Z",
   "source": "okx",
   "candidates": [
     {
@@ -24,6 +24,11 @@
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "SPYUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "QCOMUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
@@ -32,6 +37,16 @@
       "symbol": "RAYDIUMUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "MINIMAXUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ZHIPUUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
     }
   ]
 }
