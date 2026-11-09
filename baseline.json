@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "createdAt": "2026-11-09T18:35:15.535Z",
+  "createdAt": "2026-11-09T22:15:50.518Z",
   "source": "okx",
   "candidates": [
     {
@@ -34,7 +34,67 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "SHIB1000USDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BOMEUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "1000BONKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "SUIUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ICPUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "VIRTUALUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "DOTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "WIFUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "OPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -44,12 +104,27 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "APTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "ATOMUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "SANDUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "TRUTHUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "NEARUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -60,6 +135,16 @@
     },
     {
       "symbol": "FILUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "MUBARAKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "STRKUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
