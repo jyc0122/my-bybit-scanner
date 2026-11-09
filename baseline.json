@@ -1,6 +1,6 @@
 {
   "date": "2026-11-09",
-  "createdAt": "2026-11-09T11:23:07.471Z",
+  "createdAt": "2026-11-09T14:22:59.774Z",
   "source": "okx",
   "candidates": [
     {
@@ -29,12 +29,7 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "MINIMAXUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ZHIPUUSDT",
+      "symbol": "BATUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
