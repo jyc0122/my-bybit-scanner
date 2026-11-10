@@ -1,40 +1,20 @@
 {
   "date": "2026-11-10",
-  "createdAt": "2026-11-10T04:36:18.325Z",
+  "createdAt": "2026-11-10T08:08:10.647Z",
   "source": "okx",
   "candidates": [
-    {
-      "symbol": "LITUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
     {
       "symbol": "SQQQUSDT",
       "side": "long",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "MAGICUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "BOMEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "LINKUSDT",
-      "side": "short",
+      "symbol": "RKLBUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
       "symbol": "ETCUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "MSTRUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -49,27 +29,7 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "LTCUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "TRUTHUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "VIRTUALUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ATOMUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "OPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -79,27 +39,7 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SANDUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "APTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "WIFUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "CFXUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "SUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -109,17 +49,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "FILUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "STRKUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "MUBARAKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "SYRUPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
