@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-10",
-  "time": "23:06:19",
-  "generatedAt": "2026-11-10T15:06:19.372Z",
+  "date": "2026-11-11",
+  "time": "00:54:04",
+  "generatedAt": "2026-11-10T16:54:04.308Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -15,18 +15,11 @@
   "baselineCandidates": 6,
   "weakening": [
     {
-      "symbol": "NVDAUSDT",
-      "side": "short",
+      "symbol": "METUSDT",
+      "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": 13.168166079965772,
-      "currentLrc6": 4.31867719719418
-    },
-    {
-      "symbol": "SYRUPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 17.10272896905232,
-      "currentLrc6": 6.027530295521178
+      "previousLrc6": -31.643647619777024,
+      "currentLrc6": -26.71002191511427
     }
   ],
   "errors": [
