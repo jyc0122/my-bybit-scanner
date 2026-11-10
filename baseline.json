@@ -1,65 +1,35 @@
 {
   "date": "2026-11-10",
-  "createdAt": "2026-11-10T08:08:10.647Z",
+  "createdAt": "2026-11-10T13:25:46.389Z",
   "source": "okx",
   "candidates": [
+    {
+      "symbol": "XAGUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
     {
       "symbol": "SQQQUSDT",
       "side": "long",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "RKLBUSDT",
+      "symbol": "XAUUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "ETCUSDT",
-      "side": "short",
+      "symbol": "METUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SHIB1000USDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "SUIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "TRUTHUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ADAUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "APTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "NEARUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "MUBARAKUSDT",
+      "symbol": "NVDAUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
       "symbol": "SYRUPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "MINAUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
