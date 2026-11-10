@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "time": "03:30:45",
-  "generatedAt": "2026-11-10T19:30:45.786Z",
+  "time": "04:47:20",
+  "generatedAt": "2026-11-10T20:47:20.012Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -13,20 +13,12 @@
   "skippedUnavailable": 13,
   "matches": 6,
   "baselineCandidates": 6,
-  "weakening": [
-    {
-      "symbol": "METUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -31.643647619777024,
-      "currentLrc6": -26.71002191511427
-    }
-  ],
+  "weakening": [],
   "errors": [
     {
       "symbol": "BTWUSDT",
       "message": "Only 19 closed daily bars returned; 25 are required"
     }
   ],
-  "notify": true
+  "notify": false
 }

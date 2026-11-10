@@ -1,22 +1,12 @@
 {
   "date": "2026-11-11",
-  "createdAt": "2026-11-10T19:30:45.786Z",
+  "createdAt": "2026-11-10T20:47:20.012Z",
   "source": "okx",
   "candidates": [
-    {
-      "symbol": "LITUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
     {
       "symbol": "SQQQUSDT",
       "side": "long",
       "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "MAGICUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
     },
     {
       "symbol": "AAPLUSDT",
@@ -24,7 +14,17 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "MSFTUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "METUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "COHRUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
