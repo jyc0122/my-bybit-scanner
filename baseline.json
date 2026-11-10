@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "createdAt": "2026-11-10T00:02:20.627Z",
+  "createdAt": "2026-11-10T04:36:18.325Z",
   "source": "okx",
   "candidates": [
     {
@@ -24,7 +24,17 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "LINKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "ETCUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "MSTRUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -90,11 +100,6 @@
     },
     {
       "symbol": "SUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "DOTUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
