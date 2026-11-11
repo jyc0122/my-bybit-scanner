@@ -1,6 +1,6 @@
 {
   "date": "2026-11-11",
-  "createdAt": "2026-11-11T10:34:31.271Z",
+  "createdAt": "2026-11-11T14:55:13.060Z",
   "source": "okx",
   "candidates": [
     {
@@ -49,37 +49,27 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "LTCUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "SUIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "ZROUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "WIFUSDT",
+      "symbol": "XLMUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "OPUSDT",
+      "symbol": "1000PEPEUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "NVDAUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "MINAUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ENAUSDT",
+      "symbol": "PUMPFUNUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },

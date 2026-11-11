@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "time": "18:34:31",
-  "generatedAt": "2026-11-11T10:34:31.271Z",
+  "time": "22:55:13",
+  "generatedAt": "2026-11-11T14:55:13.060Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,22 +11,22 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 17,
-  "baselineCandidates": 17,
+  "matches": 15,
+  "baselineCandidates": 15,
   "weakening": [
     {
       "symbol": "MSFTUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -29.077919707586386,
-      "currentLrc6": -25.116388248744414
+      "previousLrc6": -25.116388248744414,
+      "currentLrc6": -13.289173574663948
     },
     {
       "symbol": "AAPLUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -21.354377364898024,
-      "currentLrc6": -20.32461373436578
+      "previousLrc6": -20.32461373436578,
+      "currentLrc6": -8.707907955457154
     },
     {
       "symbol": "METUSDT",
@@ -41,13 +41,6 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 19.622322558028543,
       "currentLrc6": 9.914393846914406
-    },
-    {
-      "symbol": "XPLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 19.044626069038618,
-      "currentLrc6": 12.401556303326469
     }
   ],
   "errors": [
