@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "time": "15:33:36",
-  "generatedAt": "2026-11-11T07:33:36.054Z",
+  "time": "18:34:31",
+  "generatedAt": "2026-11-11T10:34:31.271Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -18,15 +18,15 @@
       "symbol": "MSFTUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -31.6250130469701,
-      "currentLrc6": -29.077919707586386
+      "previousLrc6": -29.077919707586386,
+      "currentLrc6": -25.116388248744414
     },
     {
       "symbol": "AAPLUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -23.97931654618221,
-      "currentLrc6": -21.354377364898024
+      "previousLrc6": -21.354377364898024,
+      "currentLrc6": -20.32461373436578
     },
     {
       "symbol": "METUSDT",
@@ -43,18 +43,11 @@
       "currentLrc6": 9.914393846914406
     },
     {
-      "symbol": "MINAUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 10.312146534068418,
-      "currentLrc6": 7.967440716029775
-    },
-    {
       "symbol": "XPLUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 20.081729447281987,
-      "currentLrc6": 19.044626069038618
+      "previousLrc6": 19.044626069038618,
+      "currentLrc6": 12.401556303326469
     }
   ],
   "errors": [
