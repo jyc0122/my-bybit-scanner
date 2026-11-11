@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "time": "10:38:33",
-  "generatedAt": "2026-11-11T02:38:33.217Z",
+  "time": "15:33:36",
+  "generatedAt": "2026-11-11T07:33:36.054Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,22 +11,22 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 13,
-  "baselineCandidates": 13,
+  "matches": 17,
+  "baselineCandidates": 17,
   "weakening": [
     {
-      "symbol": "COHRUSDT",
+      "symbol": "MSFTUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -32.591915104101005,
-      "currentLrc6": -20.97416951392173
+      "previousLrc6": -31.6250130469701,
+      "currentLrc6": -29.077919707586386
     },
     {
       "symbol": "AAPLUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -24.703927300477805,
-      "currentLrc6": -23.97931654618221
+      "previousLrc6": -23.97931654618221,
+      "currentLrc6": -21.354377364898024
     },
     {
       "symbol": "METUSDT",
@@ -41,6 +41,20 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 19.622322558028543,
       "currentLrc6": 9.914393846914406
+    },
+    {
+      "symbol": "MINAUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 10.312146534068418,
+      "currentLrc6": 7.967440716029775
+    },
+    {
+      "symbol": "XPLUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 20.081729447281987,
+      "currentLrc6": 19.044626069038618
     }
   ],
   "errors": [
