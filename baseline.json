@@ -1,6 +1,6 @@
 {
   "date": "2026-11-12",
-  "createdAt": "2026-11-11T18:30:01.446Z",
+  "createdAt": "2026-11-11T22:39:30.713Z",
   "source": "okx",
   "candidates": [
     {
@@ -49,12 +49,27 @@
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "BTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "AMZNUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "LITUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "ASTERUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "LABUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -69,11 +84,6 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SUIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "CLUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
@@ -84,7 +94,7 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "ZROUSDT",
+      "symbol": "HYPEUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -104,13 +114,8 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "XLMUSDT",
+      "symbol": "SOLUSDT",
       "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "1000PEPEUSDT",
-      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
@@ -134,6 +139,11 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "QNTUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "WLDUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
@@ -145,6 +155,11 @@
     },
     {
       "symbol": "TRUMPUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "PONSUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
