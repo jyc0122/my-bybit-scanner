@@ -1,7 +1,7 @@
 {
   "date": "2026-11-12",
-  "time": "17:33:40",
-  "generatedAt": "2026-11-12T09:33:40.979Z",
+  "time": "20:36:23",
+  "generatedAt": "2026-11-12T12:36:23.700Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 23,
-  "baselineCandidates": 23,
+  "matches": 22,
+  "baselineCandidates": 22,
   "weakening": [
     {
       "symbol": "ARMUSDT",
@@ -20,6 +20,13 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 35.712451195782926,
       "currentLrc6": 29.510819647914538
+    },
+    {
+      "symbol": "QCOMUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -31.912063315065495,
+      "currentLrc6": -22.70510991579084
     },
     {
       "symbol": "NBISUSDT",
@@ -53,8 +60,8 @@
       "symbol": "AMZNUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -34.80516389529511,
-      "currentLrc6": -22.66023798098587
+      "previousLrc6": -22.66023798098587,
+      "currentLrc6": -1.4833744721730016
     },
     {
       "symbol": "RENDERUSDT",
@@ -67,8 +74,8 @@
       "symbol": "QNTUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -41.90594194108292,
-      "currentLrc6": -37.94341753668303
+      "previousLrc6": -37.94341753668303,
+      "currentLrc6": -20.50016775964474
     },
     {
       "symbol": "USELESSUSDT",
@@ -76,13 +83,6 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 21.46141894349229,
       "currentLrc6": 1.9810322316035898
-    },
-    {
-      "symbol": "VVVUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 18.507246298132145,
-      "currentLrc6": 6.2872634493030635
     }
   ],
   "errors": [
