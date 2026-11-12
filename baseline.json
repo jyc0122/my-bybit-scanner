@@ -1,12 +1,32 @@
 {
-  "date": "2026-11-12",
-  "createdAt": "2026-11-12T12:36:23.700Z",
+  "date": "2026-11-13",
+  "createdAt": "2026-11-12T18:01:46.552Z",
   "source": "okx",
   "candidates": [
+    {
+      "symbol": "TSMUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ORCLUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ICPUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
     {
       "symbol": "QQQUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "ZHONGJIUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "ARMUSDT",
@@ -14,12 +34,12 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "ZHIPUUSDT",
+      "symbol": "BEUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "QCOMUSDT",
+      "symbol": "ZHIPUUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
@@ -64,12 +84,12 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "COHRUSDT",
+      "symbol": "CRWVUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "AMZNUSDT",
+      "symbol": "COHRUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
     },
@@ -96,6 +116,16 @@
     {
       "symbol": "QNTUSDT",
       "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CLUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BZUSDT",
+      "side": "short",
       "selectedTimeframe": "4H"
     },
     {
