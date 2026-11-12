@@ -1,7 +1,7 @@
 {
   "date": "2026-11-12",
-  "time": "11:47:19",
-  "generatedAt": "2026-11-12T03:47:19.037Z",
+  "time": "17:33:40",
+  "generatedAt": "2026-11-12T09:33:40.979Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 27,
-  "baselineCandidates": 27,
+  "matches": 23,
+  "baselineCandidates": 23,
   "weakening": [
     {
       "symbol": "ARMUSDT",
@@ -50,6 +50,13 @@
       "currentLrc6": 3.07733869956569
     },
     {
+      "symbol": "AMZNUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -34.80516389529511,
+      "currentLrc6": -22.66023798098587
+    },
+    {
       "symbol": "RENDERUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
@@ -57,32 +64,11 @@
       "currentLrc6": 4.379851857975142
     },
     {
-      "symbol": "BTCUSDT",
-      "side": "short",
+      "symbol": "QNTUSDT",
+      "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": 18.114108212797525,
-      "currentLrc6": 10.774976895931433
-    },
-    {
-      "symbol": "HYPEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 21.948184566928152,
-      "currentLrc6": 8.079660126831982
-    },
-    {
-      "symbol": "ADAUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 28.139796242831167,
-      "currentLrc6": 4.439523998894723
-    },
-    {
-      "symbol": "BZUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 16.995659195039526,
-      "currentLrc6": 1.8484865492323344
+      "previousLrc6": -41.90594194108292,
+      "currentLrc6": -37.94341753668303
     },
     {
       "symbol": "USELESSUSDT",
@@ -92,32 +78,11 @@
       "currentLrc6": 1.9810322316035898
     },
     {
-      "symbol": "SOLUSDT",
+      "symbol": "VVVUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 26.748690867197837,
-      "currentLrc6": 10.791452174635388
-    },
-    {
-      "symbol": "DOTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 21.14300265524204,
-      "currentLrc6": 6.780619636230579
-    },
-    {
-      "symbol": "TRUMPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 13.861027563021098,
-      "currentLrc6": 1.9538956849151738
-    },
-    {
-      "symbol": "PONSUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 31.991671710376238,
-      "currentLrc6": 4.7036147042932015
+      "previousLrc6": 18.507246298132145,
+      "currentLrc6": 6.2872634493030635
     }
   ],
   "errors": [

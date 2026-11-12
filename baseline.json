@@ -1,6 +1,6 @@
 {
   "date": "2026-11-12",
-  "createdAt": "2026-11-12T03:47:19.037Z",
+  "createdAt": "2026-11-12T09:33:40.979Z",
   "source": "okx",
   "candidates": [
     {
@@ -14,6 +14,11 @@
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "ZHIPUUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "QCOMUSDT",
       "side": "long",
       "selectedTimeframe": "4H"
@@ -22,6 +27,11 @@
       "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "TRXUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "METAUSDT",
@@ -59,8 +69,8 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "ASTERUSDT",
-      "side": "short",
+      "symbol": "COHRUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
@@ -79,8 +89,8 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "BTCUSDT",
-      "side": "short",
+      "symbol": "MINIMAXUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
@@ -94,48 +104,18 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "LABUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "HYPEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ADAUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "BZUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "USELESSUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "SOLUSDT",
+      "symbol": "VVVUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "DOTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "TRUMPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "PONSUSDT",
-      "side": "short",
+      "symbol": "UNITREEUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     }
   ]
