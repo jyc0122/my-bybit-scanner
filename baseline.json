@@ -1,6 +1,6 @@
 {
   "date": "2026-11-13",
-  "createdAt": "2026-11-13T07:42:44.000Z",
+  "createdAt": "2026-11-13T09:27:11.174Z",
   "source": "okx",
   "candidates": [
     {
@@ -24,9 +24,19 @@
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "SPYUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "EWYUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "MINIMAXUSDT",
@@ -39,13 +49,38 @@
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "SAMSUNGUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BEUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "ORCLUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "AVAXUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "QCOMUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "CRWVUSDT",
       "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "1000BONKUSDT",
+      "side": "short",
       "selectedTimeframe": "4H"
     },
     {
@@ -75,6 +110,11 @@
     },
     {
       "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },

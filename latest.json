@@ -1,7 +1,7 @@
 {
   "date": "2026-11-13",
-  "time": "15:42:44",
-  "generatedAt": "2026-11-13T07:42:44.000Z",
+  "time": "17:27:11",
+  "generatedAt": "2026-11-13T09:27:11.174Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 17,
-  "baselineCandidates": 17,
+  "matches": 25,
+  "baselineCandidates": 25,
   "weakening": [
     {
       "symbol": "MINIMAXUSDT",
@@ -25,22 +25,8 @@
       "symbol": "HYPEUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 8.846576736743229,
-      "currentLrc6": 7.109092745759947
-    },
-    {
-      "symbol": "BATUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 28.206477081515338,
-      "currentLrc6": 0.41389420035478797
-    },
-    {
-      "symbol": "CFXUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 17.47415023478354,
-      "currentLrc6": 7.108501027744086
+      "previousLrc6": 7.109092745759947,
+      "currentLrc6": 4.175709227555478
     },
     {
       "symbol": "NBISUSDT",
@@ -48,20 +34,6 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 26.691073717879156,
       "currentLrc6": 12.354674293310154
-    },
-    {
-      "symbol": "STRKUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 15.706502357090661,
-      "currentLrc6": 3.493267788394328
-    },
-    {
-      "symbol": "AKEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 16.978284976416035,
-      "currentLrc6": 8.870795917711108
     }
   ],
   "errors": [
