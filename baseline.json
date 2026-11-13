@@ -1,6 +1,6 @@
 {
   "date": "2026-11-14",
-  "createdAt": "2026-11-13T17:41:03.781Z",
+  "createdAt": "2026-11-13T22:26:06.176Z",
   "source": "okx",
   "candidates": [
     {
@@ -94,7 +94,17 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "TSLAUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "RENDERUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "SHIB1000USDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -104,27 +114,32 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "USELESSUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "AXTIUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "HYPEUSDT",
+      "symbol": "LTCUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "CFXUSDT",
+      "symbol": "LINKUSDT",
       "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CBRSUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
       "symbol": "TAOUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "LABUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -134,12 +149,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "BOMEUSDT",
+      "symbol": "VIRTUALUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "DOTUSDT",
+      "symbol": "BOMEUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -150,6 +165,11 @@
     },
     {
       "symbol": "STXUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "APTUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -179,17 +199,17 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "NEARUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
       "symbol": "SOXSUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "WLDUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },

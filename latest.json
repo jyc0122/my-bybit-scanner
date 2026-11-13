@@ -1,7 +1,7 @@
 {
   "date": "2026-11-14",
-  "time": "01:41:03",
-  "generatedAt": "2026-11-13T17:41:03.781Z",
+  "time": "06:26:06",
+  "generatedAt": "2026-11-13T22:26:06.176Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 39,
-  "baselineCandidates": 39,
+  "matches": 43,
+  "baselineCandidates": 43,
   "weakening": [
     {
       "symbol": "MINIMAXUSDT",
@@ -22,41 +22,6 @@
       "currentLrc6": 37.02616170385534
     },
     {
-      "symbol": "RENDERUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 4.640458264263584,
-      "currentLrc6": 2.5113632671631225
-    },
-    {
-      "symbol": "1000BONKUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 8.403371090560809,
-      "currentLrc6": 3.1667279523557563
-    },
-    {
-      "symbol": "USELESSUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 28.542270082679913,
-      "currentLrc6": 11.348086413584692
-    },
-    {
-      "symbol": "HYPEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 17.392995587779293,
-      "currentLrc6": 16.436073050980774
-    },
-    {
-      "symbol": "CFXUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 8.360091550298725,
-      "currentLrc6": 2.714873079995987
-    },
-    {
       "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
@@ -64,25 +29,18 @@
       "currentLrc6": 12.354674293310154
     },
     {
-      "symbol": "STRKUSDT",
+      "symbol": "CHIPUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 10.229008287359541,
-      "currentLrc6": 6.1548596907813256
-    },
-    {
-      "symbol": "NEARUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 22.814580619497484,
-      "currentLrc6": 20.195442129327223
+      "previousLrc6": 22.104004736644306,
+      "currentLrc6": 20.072673513078175
     },
     {
       "symbol": "XPLUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 14.766824574863586,
-      "currentLrc6": 13.097590996838768
+      "previousLrc6": 13.097590996838768,
+      "currentLrc6": 10.969504917413982
     }
   ],
   "errors": [
