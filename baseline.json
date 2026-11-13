@@ -1,60 +1,15 @@
 {
   "date": "2026-11-13",
-  "createdAt": "2026-11-12T20:46:11.748Z",
+  "createdAt": "2026-11-13T00:00:21.368Z",
   "source": "okx",
   "candidates": [
     {
       "symbol": "ICPUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "QQQUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "ZHONGJIUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "ARMUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "ZHIPUUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "NBISUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "MSFTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "METAUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "EWYUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "GLWUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "AVAXUSDT",
+      "symbol": "TQQQUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
@@ -64,12 +19,32 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "MUUSDT",
+      "symbol": "PYTHUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "METUSDT",
+      "symbol": "EWYUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "MINIMAXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "ZHONGJIUSDT",
+      "side": "short",
+      "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "AVAXUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
@@ -79,37 +54,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "TQQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "RENDERUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "MINIMAXUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "AXTIUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "CLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "BZUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "USELESSUSDT",
+      "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     },

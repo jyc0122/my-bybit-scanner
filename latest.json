@@ -1,7 +1,7 @@
 {
   "date": "2026-11-13",
-  "time": "04:46:11",
-  "generatedAt": "2026-11-12T20:46:11.748Z",
+  "time": "08:00:21",
+  "generatedAt": "2026-11-13T00:00:21.368Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,112 +11,49 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 23,
-  "baselineCandidates": 23,
+  "matches": 13,
+  "baselineCandidates": 13,
   "weakening": [
     {
-      "symbol": "ICPUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -20.317696151727198,
-      "currentLrc6": -8.457236202771425
-    },
-    {
-      "symbol": "ZHONGJIUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -24.506770465281363,
-      "currentLrc6": -14.57296047658366
-    },
-    {
-      "symbol": "ARMUSDT",
+      "symbol": "MINIMAXUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
-      "previousLrc6": 35.712451195782926,
-      "currentLrc6": 29.510819647914538
-    },
-    {
-      "symbol": "ZHIPUUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -39.53100507839597,
-      "currentLrc6": -29.119997341015324
-    },
-    {
-      "symbol": "NBISUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 34.79017346161103,
-      "currentLrc6": 26.691073717879156
+      "previousLrc6": 38.3843147350966,
+      "currentLrc6": 37.02616170385534
     },
     {
       "symbol": "MSFTUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 29.460185145553375,
-      "currentLrc6": 19.356741894571826
-    },
-    {
-      "symbol": "METAUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 37.224189748303125,
-      "currentLrc6": 26.833072393653538
-    },
-    {
-      "symbol": "GLWUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 34.323386782718686,
-      "currentLrc6": 29.833984479883515
-    },
-    {
-      "symbol": "METUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 25.334682305287796,
-      "currentLrc6": 3.07733869956569
+      "previousLrc6": 19.356741894571826,
+      "currentLrc6": 6.597681000106195
     },
     {
       "symbol": "CRWVUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -11.393997748150055,
-      "currentLrc6": -1.614510195946861
+      "previousLrc6": -1.614510195946861,
+      "currentLrc6": -1.5463414952345331
     },
     {
-      "symbol": "RENDERUSDT",
+      "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
-      "previousLrc6": 25.093736497553508,
-      "currentLrc6": 4.379851857975142
-    },
-    {
-      "symbol": "MINIMAXUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -40.17349410797372,
-      "currentLrc6": -28.587100119553167
-    },
-    {
-      "symbol": "USELESSUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 21.46141894349229,
-      "currentLrc6": 1.9810322316035898
+      "previousLrc6": 26.691073717879156,
+      "currentLrc6": 12.354674293310154
     },
     {
       "symbol": "AKEUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 19.90399562465816,
-      "currentLrc6": 17.82254694806906
+      "previousLrc6": 17.82254694806906,
+      "currentLrc6": 16.978284976416035
     }
   ],
   "errors": [
     {
       "symbol": "BTWUSDT",
-      "message": "Only 21 closed daily bars returned; 25 are required"
+      "message": "Only 22 closed daily bars returned; 25 are required"
     }
   ],
   "notify": true
