@@ -1,7 +1,7 @@
 {
   "date": "2026-11-13",
-  "time": "09:47:48",
-  "generatedAt": "2026-11-13T01:47:48.682Z",
+  "time": "15:42:44",
+  "generatedAt": "2026-11-13T07:42:44.000Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 13,
-  "baselineCandidates": 13,
+  "matches": 17,
+  "baselineCandidates": 17,
   "weakening": [
     {
       "symbol": "MINIMAXUSDT",
@@ -22,18 +22,25 @@
       "currentLrc6": 37.02616170385534
     },
     {
-      "symbol": "MSFTUSDT",
+      "symbol": "HYPEUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 19.356741894571826,
-      "currentLrc6": 6.597681000106195
+      "previousLrc6": 8.846576736743229,
+      "currentLrc6": 7.109092745759947
     },
     {
-      "symbol": "CRWVUSDT",
-      "side": "long",
+      "symbol": "BATUSDT",
+      "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": -1.614510195946861,
-      "currentLrc6": -1.5463414952345331
+      "previousLrc6": 28.206477081515338,
+      "currentLrc6": 0.41389420035478797
+    },
+    {
+      "symbol": "CFXUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 17.47415023478354,
+      "currentLrc6": 7.108501027744086
     },
     {
       "symbol": "NBISUSDT",
@@ -43,11 +50,18 @@
       "currentLrc6": 12.354674293310154
     },
     {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 15.706502357090661,
+      "currentLrc6": 3.493267788394328
+    },
+    {
       "symbol": "AKEUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 17.82254694806906,
-      "currentLrc6": 16.978284976416035
+      "previousLrc6": 16.978284976416035,
+      "currentLrc6": 8.870795917711108
     }
   ],
   "errors": [

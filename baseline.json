@@ -1,6 +1,6 @@
 {
   "date": "2026-11-13",
-  "createdAt": "2026-11-13T01:47:48.682Z",
+  "createdAt": "2026-11-13T07:42:44.000Z",
   "source": "okx",
   "candidates": [
     {
@@ -39,11 +39,6 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "MSFTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "AVAXUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
@@ -59,9 +54,34 @@
       "selectedTimeframe": "1D"
     },
     {
+      "symbol": "HYPEUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BATUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CFXUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "NBISUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "AKEUSDT",
