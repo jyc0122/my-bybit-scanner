@@ -1,7 +1,7 @@
 {
   "date": "2026-11-14",
-  "time": "10:57:50",
-  "generatedAt": "2026-11-14T02:57:50.299Z",
+  "time": "14:11:03",
+  "generatedAt": "2026-11-14T06:11:03.004Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 47,
-  "baselineCandidates": 47,
+  "matches": 27,
+  "baselineCandidates": 27,
   "weakening": [
     {
       "symbol": "SPYUSDT",
@@ -50,25 +50,11 @@
       "currentLrc6": 27.99002544959345
     },
     {
-      "symbol": "SOXSUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 33.19456127157262,
-      "currentLrc6": 32.37241052275564
-    },
-    {
       "symbol": "SQQQUSDT",
       "side": "long",
       "selectedTimeframe": "1D",
       "previousLrc6": -38.390725042306286,
       "currentLrc6": -24.38370027473611
-    },
-    {
-      "symbol": "AVGOUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -37.46299347538401,
-      "currentLrc6": -36.613590183447634
     },
     {
       "symbol": "SAMSUNGUSDT",
@@ -97,6 +83,13 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 13.188214782681635,
       "currentLrc6": 4.719193571299286
+    },
+    {
+      "symbol": "RENDERUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 26.908649933693237,
+      "currentLrc6": 1.6060029892822762
     },
     {
       "symbol": "CRWVUSDT",
@@ -134,11 +127,25 @@
       "currentLrc6": 24.678949402049668
     },
     {
+      "symbol": "TAOUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 33.251253718731625,
+      "currentLrc6": 7.2597240462598505
+    },
+    {
       "symbol": "TQQQUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
       "previousLrc6": 38.108446980803706,
       "currentLrc6": 22.90731144709402
+    },
+    {
+      "symbol": "LABUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 34.10902129266087,
+      "currentLrc6": 15.652039603032236
     },
     {
       "symbol": "MINIMAXUSDT",
@@ -148,11 +155,11 @@
       "currentLrc6": 1.9037556986526496
     },
     {
-      "symbol": "NEARUSDT",
+      "symbol": "VVVUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 24.080155943626426,
-      "currentLrc6": 12.970638981952963
+      "previousLrc6": 25.646101647149592,
+      "currentLrc6": 0.06778556969072703
     },
     {
       "symbol": "AXTIUSDT",
