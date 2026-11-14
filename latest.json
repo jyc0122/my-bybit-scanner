@@ -1,7 +1,7 @@
 {
   "date": "2026-11-15",
-  "time": "03:06:45",
-  "generatedAt": "2026-11-14T19:06:45.847Z",
+  "time": "05:14:46",
+  "generatedAt": "2026-11-14T21:14:46.874Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 19,
-  "baselineCandidates": 19,
+  "matches": 20,
+  "baselineCandidates": 20,
   "weakening": [
     {
       "symbol": "SPYUSDT",
@@ -20,6 +20,13 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 39.70986681510674,
       "currentLrc6": 23.94517740120791
+    },
+    {
+      "symbol": "CBRSUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -23.555776811618156,
+      "currentLrc6": -9.939853629125926
     },
     {
       "symbol": "GOOGLUSDT",

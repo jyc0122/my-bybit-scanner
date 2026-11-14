@@ -1,12 +1,17 @@
 {
   "date": "2026-11-15",
-  "createdAt": "2026-11-14T19:06:45.847Z",
+  "createdAt": "2026-11-14T21:14:46.874Z",
   "source": "okx",
   "candidates": [
     {
       "symbol": "SPYUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
+    },
+    {
+      "symbol": "CBRSUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "GOOGLUSDT",
