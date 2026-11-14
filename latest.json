@@ -1,7 +1,7 @@
 {
   "date": "2026-11-14",
-  "time": "18:07:33",
-  "generatedAt": "2026-11-14T10:07:33.721Z",
+  "time": "21:26:57",
+  "generatedAt": "2026-11-14T13:26:57.271Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,8 @@
   "scanned": 134,
   "failed": 1,
   "skippedUnavailable": 13,
-  "matches": 23,
-  "baselineCandidates": 23,
+  "matches": 21,
+  "baselineCandidates": 21,
   "weakening": [
     {
       "symbol": "SPYUSDT",
@@ -25,8 +25,8 @@
       "symbol": "CBRSUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -28.034152426604596,
-      "currentLrc6": -16.93291600079277
+      "previousLrc6": -16.93291600079277,
+      "currentLrc6": -3.0014292365725477
     },
     {
       "symbol": "GOOGLUSDT",
@@ -34,13 +34,6 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 33.49497764117535,
       "currentLrc6": 25.919956092596472
-    },
-    {
-      "symbol": "MSFTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 13.662538216368572,
-      "currentLrc6": 6.005988722735293
     },
     {
       "symbol": "QQQUSDT",
@@ -53,8 +46,8 @@
       "symbol": "TSLAUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc6": -34.09197909080184,
-      "currentLrc6": -30.39348505583319
+      "previousLrc6": -30.39348505583319,
+      "currentLrc6": -8.517083217520318
     },
     {
       "symbol": "TSMUSDT",
@@ -76,13 +69,6 @@
       "selectedTimeframe": "1D",
       "previousLrc6": -38.390725042306286,
       "currentLrc6": -24.38370027473611
-    },
-    {
-      "symbol": "AVGOUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -38.61494447546806,
-      "currentLrc6": -31.74545768442877
     },
     {
       "symbol": "SAMSUNGUSDT",
