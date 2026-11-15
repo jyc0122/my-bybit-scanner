@@ -1,41 +1,16 @@
 {
   "date": "2026-11-15",
-  "createdAt": "2026-11-14T22:56:27.792Z",
+  "createdAt": "2026-11-15T01:38:20.181Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "SPYUSDT",
+      "symbol": "CBRSUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "CBRSUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H"
     },
     {
       "symbol": "GOOGLUSDT",
       "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "QQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "TSMUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "ICPUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "SQQQUSDT",
-      "side": "long",
       "selectedTimeframe": "1D"
     },
     {
@@ -44,62 +19,7 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "PYTHUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "EWYUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "AVAXUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "CRWVUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
       "symbol": "MUUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "GLWUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "DRAMUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "ARMUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "TQQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "MINIMAXUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "AXTIUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "ZHONGJIUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
     }
