@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-15",
-  "createdAt": "2026-11-15T10:44:05.965Z",
+  "date": "2026-11-16",
+  "createdAt": "2026-11-15T16:52:42.509Z",
   "source": "okx",
   "candidates": [
     {
@@ -26,11 +26,6 @@
     {
       "symbol": "AKEUSDT",
       "side": "long",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "VVVUSDT",
-      "side": "short",
       "selectedTimeframe": "4H"
     }
   ]
