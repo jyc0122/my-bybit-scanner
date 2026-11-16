@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-16",
-  "createdAt": "2026-11-16T11:03:17.693Z",
+  "date": "2026-11-17",
+  "createdAt": "2026-11-16T17:55:07.550Z",
   "source": "okx",
   "candidates": [
     {
@@ -9,34 +9,14 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "QQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "CRWVUSDT",
-      "side": "short",
+      "symbol": "METAUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
       "symbol": "SAMSUNGUSDT",
       "side": "short",
       "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "XAUUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "EWYUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "TQQQUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
     },
     {
       "symbol": "MUUSDT",
@@ -49,52 +29,32 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "PLTRUSDT",
+      "symbol": "ATOMUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "GLWUSDT",
+      "symbol": "ICPUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "XLMUSDT",
+      "symbol": "ZROUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "INTCUSDT",
+      "symbol": "BMNRUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "AAVEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "KORUUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "NBISUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "IRENUSDT",
+      "symbol": "MSTRUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
       "symbol": "ASTERUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "INTWUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
