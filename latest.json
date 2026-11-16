@@ -1,7 +1,7 @@
 {
   "date": "2026-11-16",
-  "time": "06:45:35",
-  "generatedAt": "2026-11-15T22:45:35.278Z",
+  "time": "09:41:48",
+  "generatedAt": "2026-11-16T01:41:48.268Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -9,45 +9,47 @@
   "unavailable": 13,
   "total": 134,
   "scanned": 134,
-  "failed": 1,
+  "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 7,
-  "baselineCandidates": 7,
+  "matches": 34,
+  "baselineCandidates": 34,
   "weakening": [
-    {
-      "symbol": "CBRSUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 31.876177317483045,
-      "currentLrc6": 20.75517600485468
-    },
-    {
-      "symbol": "GOOGLUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 25.919956092596472,
-      "currentLrc6": 8.769911637377946
-    },
     {
       "symbol": "SAMSUNGUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
-      "previousLrc6": 30.25444448864474,
-      "currentLrc6": 4.002705909127852
+      "previousLrc6": 4.002705909127852,
+      "currentLrc6": 1.0571602799245727
     },
     {
       "symbol": "MUUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
-      "previousLrc6": 32.082181872158245,
-      "currentLrc6": 9.939857833387817
-    }
-  ],
-  "errors": [
+      "previousLrc6": 9.939857833387817,
+      "currentLrc6": 5.167899259287336
+    },
     {
-      "symbol": "BTWUSDT",
-      "message": "Only 24 closed daily bars returned; 25 are required"
+      "symbol": "XLMUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 18.029317706461526,
+      "currentLrc6": 16.2855704081425
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 29.175649320516804,
+      "currentLrc6": 22.20422374607198
+    },
+    {
+      "symbol": "ASTERUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 27.426900866443788,
+      "currentLrc6": 0.8952838403962802
     }
   ],
+  "errors": [],
   "notify": true
 }
