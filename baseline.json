@@ -1,27 +1,22 @@
 {
   "date": "2026-11-17",
-  "createdAt": "2026-11-16T20:58:05.507Z",
+  "createdAt": "2026-11-17T03:34:05.619Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "GOOGLUSDT",
+      "symbol": "ICPUSDT",
       "side": "short",
-      "selectedTimeframe": "1D"
+      "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SAMSUNGUSDT",
+      "symbol": "LITUSDT",
       "side": "short",
-      "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "MUUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D"
+      "selectedTimeframe": "4H"
     },
     {
       "symbol": "AKEUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H"
+      "side": "short",
+      "selectedTimeframe": "1D"
     },
     {
       "symbol": "ATOMUSDT",
@@ -34,17 +29,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "ICPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "ZROUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "MSTRUSDT",
+      "symbol": "ASTERUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },

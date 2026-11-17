@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
-  "time": "04:58:05",
-  "generatedAt": "2026-11-16T20:58:05.507Z",
+  "time": "11:34:05",
+  "generatedAt": "2026-11-17T03:34:05.619Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,43 +11,15 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 11,
-  "baselineCandidates": 11,
+  "matches": 9,
+  "baselineCandidates": 9,
   "weakening": [
     {
-      "symbol": "SAMSUNGUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 4.002705909127852,
-      "currentLrc6": 1.0571602799245727
-    },
-    {
-      "symbol": "MUUSDT",
-      "side": "short",
-      "selectedTimeframe": "1D",
-      "previousLrc6": 9.939857833387817,
-      "currentLrc6": 5.167899259287336
-    },
-    {
       "symbol": "AKEUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc6": -5.910701156385651,
-      "currentLrc6": -2.4630702095922454
-    },
-    {
-      "symbol": "ZROUSDT",
       "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 25.804532399947167,
-      "currentLrc6": 19.926042374634992
-    },
-    {
-      "symbol": "MSTRUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 25.681053783507817,
-      "currentLrc6": 16.459446404348473
+      "selectedTimeframe": "1D",
+      "previousLrc6": 36.298590672316706,
+      "currentLrc6": 30.7907006497551
     }
   ],
   "errors": [],
