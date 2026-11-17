@@ -1,13 +1,8 @@
 {
   "date": "2026-11-17",
-  "createdAt": "2026-11-17T03:34:05.619Z",
+  "createdAt": "2026-11-17T12:56:52.651Z",
   "source": "okx",
   "candidates": [
-    {
-      "symbol": "ICPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
     {
       "symbol": "LITUSDT",
       "side": "short",
@@ -19,12 +14,12 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "ATOMUSDT",
-      "side": "short",
+      "symbol": "SOXSUSDT",
+      "side": "long",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "HYPEUSDT",
+      "symbol": "METUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -34,7 +29,37 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "INJUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "XLMUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "ASTERUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "SUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BCHUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "GIGGLEUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "LITEUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -44,7 +69,12 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SYRUPUSDT",
+      "symbol": "LABUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BATUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
