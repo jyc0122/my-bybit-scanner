@@ -1,10 +1,10 @@
 {
-  "date": "2026-11-17",
-  "createdAt": "2026-11-17T12:56:52.651Z",
+  "date": "2026-11-18",
+  "createdAt": "2026-11-17T16:49:18.793Z",
   "source": "okx",
   "candidates": [
     {
-      "symbol": "LITUSDT",
+      "symbol": "TRXUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -14,12 +14,12 @@
       "selectedTimeframe": "1D"
     },
     {
-      "symbol": "SOXSUSDT",
-      "side": "long",
+      "symbol": "CLUSDT",
+      "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "METUSDT",
+      "symbol": "BZUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -34,17 +34,17 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "XLMUSDT",
+      "symbol": "TAOUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "ASTERUSDT",
+      "symbol": "SUIUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SUSDT",
+      "symbol": "STXUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -54,17 +54,27 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "MAGICUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "GIGGLEUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "LITEUSDT",
+      "symbol": "SANDUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "XPLUSDT",
+      "symbol": "SOLUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "BOMEUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     },
@@ -74,7 +84,32 @@
       "selectedTimeframe": "4H"
     },
     {
+      "symbol": "GRASSUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
       "symbol": "BATUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "CHIPUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "WLDUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "TRUMPUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H"
+    },
+    {
+      "symbol": "MUBARAKUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }
