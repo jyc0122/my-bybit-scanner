@@ -352,17 +352,27 @@ function lrcAngle(bars, length = 25) {
 }
 
 function evaluateLrc25Direction(bars, timeframe, dailySide) {
-  if (bars.length < 25) {
-    throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 25 are required`);
+  if (bars.length < 26) {
+    throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 26 are required`);
   }
   const lrc25Angle = lrcAngle(bars, 25);
+  const previousLrc25Angle = lrcAngle(bars.slice(0, -1), 25);
   const lrc25Side = lrc25Angle > 0 ? "long" : lrc25Angle < 0 ? "short" : "neutral";
-  const passed = dailySide !== "neutral" && lrc25Side !== "neutral" && lrc25Side !== dailySide;
+  const previousLrc25Side = previousLrc25Angle > 0 ? "long" : previousLrc25Angle < 0 ? "short" : "neutral";
+  const lrc25Weakening = previousLrc25Side === lrc25Side
+    && Math.abs(lrc25Angle) < Math.abs(previousLrc25Angle);
+  const passed = dailySide !== "neutral"
+    && lrc25Side !== "neutral"
+    && lrc25Side !== dailySide
+    && lrc25Weakening;
   return {
     timeframe,
     passed,
     lrc25Side,
+    previousLrc25Side,
     lrc25Angle,
+    previousLrc25Angle,
+    lrc25Weakening,
     asOf: new Date(bars.at(-1).ts).toISOString().replace("T", " ").slice(0, 16) + " UTC",
   };
 }
@@ -381,7 +391,7 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   const matchedTimeframes = confirmations.filter((confirmation) => confirmation.passed);
   const selectedConfirmation = matchedTimeframes.at(-1) || null;
   const confirmationPassed = selectedConfirmation !== null;
-  const side = selectedConfirmation?.lrc25Side || "neutral";
+  const side = selectedConfirmation ? dailySide : "neutral";
   return {
     symbol: symbol.symbol,
     name: symbol.name,
@@ -398,6 +408,8 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
     selectedTimeframe: selectedConfirmation?.timeframe || null,
     selectedLrc25Side: selectedConfirmation?.lrc25Side || "neutral",
     selectedLrc25Angle: selectedConfirmation?.lrc25Angle ?? null,
+    selectedPreviousLrc25Angle: selectedConfirmation?.previousLrc25Angle ?? null,
+    selectedLrc25Weakening: selectedConfirmation?.lrc25Weakening || false,
     matchedTimeframes: matchedTimeframes.map((item) => item.timeframe),
     qualifyingTimeframes: selectedConfirmation ? [selectedConfirmation.timeframe] : [],
     asOf: last.t,

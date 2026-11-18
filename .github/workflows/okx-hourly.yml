@@ -1,4 +1,4 @@
-name: OKX hourly LRC25 reversal scan
+name: OKX hourly LRC25 weakening reversal scan
 
 on:
   schedule:
@@ -98,18 +98,18 @@ jobs:
         run: |
           SHOULD_NOTIFY=$(node -e "const x=require('./state/latest.json'); console.log(x.notify ? 'true' : 'false')")
           if [ "$SHOULD_NOTIFY" != "true" ]; then
-            echo "No LRC25 reversal opportunity to publish"
+            echo "No weakening LRC25 reversal opportunity to publish"
             exit 0
           fi
-          TITLE="OKX LRC25 反向机会"
+          TITLE="OKX LRC25 反向减弱机会"
           ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
           if [ -z "$ISSUE_NUMBER" ]; then
-            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly LRC25 monitor 自动维护。每小时扫描一次，只在发现低周期 LRC25 与日线方向相反时追加提醒。")
+            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly LRC25 monitor 自动维护。每小时扫描一次，只在反向低周期 LRC25 开始减弱时追加顺日线方向的机会提醒。")
             ISSUE_NUMBER=${ISSUE_URL##*/}
           fi
           gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
 
-      - name: Notify Telegram of LRC25 reversal opportunities
+      - name: Notify Telegram of weakening LRC25 reversal opportunities
         if: steps.due.outputs.run == 'true'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

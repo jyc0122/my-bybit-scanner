@@ -6,8 +6,11 @@
 
 - 日线 `LRC25 > 0` 为多头基准，`LRC25 < 0` 为空头基准
 - 扫描 `15m`、`1H`、`4H` 的 `LRC25` 方向（收盘价、窗口最高最低价标准化）
-- 任一检测周期的 `LRC25` 方向与日线相反即可入选，不使用 `EMA21`、`LRC6`、近 5 根 K 线或 20°角度门槛
-- 如果多个周期同时反向，只显示最大的机会周期（`4H > 1H > 15m`），并保留全部反向周期供详情查看
+- 检测周期的 `LRC25` 必须与日线方向相反，并且与上一根相比方向不变、角度绝对值变小，才提示顺日线方向的机会
+- 例如日线 LRC25 为空、4H LRC25 为多且从 `+40°` 减弱至 `+30°`，显示“4H 空头机会”
+- 如果多个周期同时满足反向减弱，只显示最大的机会周期（`4H > 1H > 15m`），并保留全部符合周期供详情查看
+- 日线 LRC25 只作为内部过滤，不在 dashboard、Issue 或 Telegram 结果中展示
+- 不使用 `EMA21`、`LRC6`、近 5 根 K 线或 20°角度门槛
 - 扫描结果默认按机会周期从大到小排列
 - 只使用已经收盘的 K 线，所有未收盘 K 线都会被过滤
 - dashboard 不再绘制日线 K 线图，结果详情只保留筛选所需指标
@@ -122,9 +125,9 @@ docker run --rm -p 8788:8788 my-bybit-scanner
 `.github/workflows/okx-hourly.yml` 在 GitHub 云端以每小时第 `59` 分钟作为主扫描时间，不要求本机开机。由于 GitHub 可能延迟或丢弃 cron 事件，工作流会在每小时第 `14` 分钟进行一次补跑检查；如果 45 分钟内已有成功扫描，补跑会直接结束，不会重复扫描或推送：
 
 - 每次运行都执行 OKX 全量扫描，并把最新状态保存到专用 `automation-state` 分支；
-- 所有符合日线 LRC25 反向规则的机会都会进入通知；没有机会时不会发送；
-- 结果会追加到仓库的 `OKX LRC25 反向机会` Issue；
+- 所有符合 LRC25 反向并开始减弱的机会都会进入通知；没有机会时不会发送；
+- 结果会追加到仓库的 `OKX LRC25 反向减弱机会` Issue；
 - 配置 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID` 两个 Repository Actions Secrets 后，同一结果也会发送到 Telegram；未配置时会安全跳过 Telegram，不影响扫描；
 - 可在 Actions 页面使用 `Run workflow` 随时手动执行一次完整扫描。
 
-Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，并列出日线方向、最大反向周期及双方 LRC25 角度。
+Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，只列出机会周期、交易方向及该周期 LRC25 的前值与当前值，不展示日线数据。

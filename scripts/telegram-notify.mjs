@@ -20,11 +20,11 @@ if (!latest.notify || opportunities.length === 0) {
 
 const sideLabel = (side) => side === "long" ? "多" : side === "short" ? "空" : side;
 const angle = (value) => Number.isFinite(Number(value)) ? `${Number(value).toFixed(2)}°` : "—";
-const header = `OKX LRC25 反向机会 | ${latest.date} ${latest.time} SGT`;
+const header = `OKX LRC25 反向减弱机会 | ${latest.date} ${latest.time} SGT`;
 const lines = opportunities.map((item) => [
   item.symbol,
-  `D1${sideLabel(item.dailySide)} ${angle(item.dailyLrc25)}`,
-  `${item.selectedTimeframe}${sideLabel(item.side)} ${angle(item.selectedLrc25)}`,
+  `${item.selectedTimeframe}${sideLabel(item.side)}机会`,
+  `LRC25 ${angle(item.previousLrc25)} → ${angle(item.selectedLrc25)}`,
 ].join(" | "));
 
 const messages = [];

@@ -206,7 +206,7 @@ function renderResults() {
   els.resultList.innerHTML = rows.map((item) => `
     <button class="result-row ${item.side === "short" ? "short" : ""} ${item.symbol === state.selectedSymbol ? "active" : ""}" type="button" data-symbol="${escapeHtml(item.symbol)}">
       <span><strong>${escapeHtml(item.symbol)}</strong><small>${escapeHtml(item.category)} · ${escapeHtml(item.name)}</small></span>
-      <span class="row-side"><b>${escapeHtml(item.selectedTimeframe)} ${item.side === "long" ? "多" : "空"}</b><small>D1 LRC25 ${formatAngle(item.dailyLrc25Angle)} → ${formatAngle(item.selectedLrc25Angle)}</small></span>
+      <span class="row-side"><b>${escapeHtml(item.selectedTimeframe)} ${item.side === "long" ? "多头" : "空头"}机会</b><small>LRC25 ${formatAngle(item.selectedPreviousLrc25Angle)} → ${formatAngle(item.selectedLrc25Angle)}</small></span>
     </button>`).join("");
   els.resultList.querySelectorAll(".result-row").forEach((row) => row.addEventListener("click", () => selectSymbol(row.dataset.symbol)));
 }
@@ -224,18 +224,18 @@ function selectSymbol(symbol) {
   $("#detailChange").textContent = formatPct(item.changePct);
   $("#detailChange").className = item.changePct >= 0 ? "positive" : "negative";
   $("#detailDate").textContent = `收盘 · ${item.asOf}`;
-  $("#signalBadge").textContent = `D1 ${item.dailySide === "long" ? "多" : "空"} → ${item.selectedTimeframe} ${item.side === "long" ? "多" : "空"}`;
+  $("#signalBadge").textContent = `${item.selectedTimeframe} ${item.side === "long" ? "多头" : "空头"}机会`;
   $("#signalBadge").className = `signal-badge ${item.side === "short" ? "short" : ""}`;
-  $("#dailyLrc25Angle").textContent = formatAngle(item.dailyLrc25Angle);
-  $("#dailyLrc25Angle").className = item.dailySide === "long" ? "positive" : "negative";
-  $("#dailyDirection").textContent = item.dailySide === "long" ? "多 LONG" : "空 SHORT";
-  $("#dailyDirection").className = item.dailySide === "long" ? "positive" : "negative";
+  $("#opportunitySide").textContent = item.side === "long" ? "多 LONG" : "空 SHORT";
+  $("#opportunitySide").className = item.side === "long" ? "positive" : "negative";
   $("#lrcTimeframe").textContent = item.selectedTimeframe || "—";
-  $("#lrc25Signal").textContent = item.selectedLrc25Side === "long" ? "多 LONG" : "空 SHORT";
+  $("#lrc25Signal").textContent = formatAngle(item.selectedLrc25Angle);
   $("#lrc25Signal").className = item.selectedLrc25Side === "long" ? "positive" : "negative";
-  $("#lrc25Meta").textContent = `LRC25 角度 ${formatAngle(item.selectedLrc25Angle)}`;
+  $("#lrc25Meta").textContent = "反向 LRC25 当前角度";
+  $("#previousLrc25Angle").textContent = formatAngle(item.selectedPreviousLrc25Angle);
+  $("#previousLrc25Angle").className = item.selectedLrc25Side === "long" ? "positive" : "negative";
   $("#matchedTimeframes").textContent = item.matchedTimeframes.join(" / ");
-  $("#statusValue").textContent = `D1${item.dailySide === "long" ? "多" : "空"} / ${item.selectedTimeframe}${item.side === "long" ? "多" : "空"}`;
+  $("#statusValue").textContent = "LRC25 已减弱";
   $("#statusValue").className = item.side === "long" ? "positive" : "negative";
   renderResults();
 }
