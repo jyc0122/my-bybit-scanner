@@ -11,21 +11,20 @@ if (!token || !chatId) {
 }
 
 const latest = JSON.parse(await readFile(inputPath, "utf8"));
-const weakening = Array.isArray(latest.weakening) ? latest.weakening : [];
+const opportunities = Array.isArray(latest.opportunities) ? latest.opportunities : [];
 
-if (!latest.notify || weakening.length === 0) {
-  console.log("No LRC6 weakening pairs; skipping Telegram notification.");
+if (!latest.notify || opportunities.length === 0) {
+  console.log("No LRC25 reversal opportunities; skipping Telegram notification.");
   process.exit(0);
 }
 
 const sideLabel = (side) => side === "long" ? "多" : side === "short" ? "空" : side;
-const angle = (value) => Number.isFinite(Number(value)) ? `${Number(value).toFixed(6)}°` : "—";
-const header = `OKX LRC6 数值减弱 | ${latest.date} ${latest.time} SGT`;
-const lines = weakening.map((item) => [
+const angle = (value) => Number.isFinite(Number(value)) ? `${Number(value).toFixed(2)}°` : "—";
+const header = `OKX LRC25 反向机会 | ${latest.date} ${latest.time} SGT`;
+const lines = opportunities.map((item) => [
   item.symbol,
-  sideLabel(item.side),
-  item.selectedTimeframe,
-  `${angle(item.previousLrc6)} → ${angle(item.currentLrc6)}`,
+  `D1${sideLabel(item.dailySide)} ${angle(item.dailyLrc25)}`,
+  `${item.selectedTimeframe}${sideLabel(item.side)} ${angle(item.selectedLrc25)}`,
 ].join(" | "));
 
 const messages = [];
@@ -55,4 +54,4 @@ for (const text of messages) {
   }
 }
 
-console.log(`Sent ${weakening.length} weakening pair(s) in ${messages.length} Telegram message(s).`);
+console.log(`Sent ${opportunities.length} LRC25 opportunity pair(s) in ${messages.length} Telegram message(s).`);

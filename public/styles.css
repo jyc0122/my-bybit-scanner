@@ -87,9 +87,6 @@ button { color: inherit; }
 .sort-button { padding: 6px 8px; border: 1px solid var(--line); }
 .result-list { max-height: 430px; overflow: auto; margin: 0 -7px -5px; padding: 0 7px 5px; scrollbar-color: rgba(120,144,160,.35) transparent; }
 .panel-note { margin: -6px 0 10px; color: var(--muted); font-size: 10px; line-height: 1.55; }
-.weakening-list { max-height: 280px; overflow: auto; margin: 0 -7px -5px; padding: 0 7px 5px; scrollbar-color: rgba(120,144,160,.35) transparent; }
-.weakening-row .row-side b { color: var(--gold); }
-.weakening-row.short .row-side b { color: var(--gold); }
 .result-row { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 11px 10px; text-align: left; border: 0; border-left: 2px solid transparent; border-bottom: 1px solid rgba(255,255,255,.045); background: transparent; cursor: pointer; }
 .result-row:hover { background: rgba(255,255,255,.025); }
 .result-row.active { border-left-color: var(--cyan); background: linear-gradient(90deg, rgba(53,220,201,.1), transparent); }

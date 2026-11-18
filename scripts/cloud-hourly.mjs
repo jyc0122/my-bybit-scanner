@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createScannerServer } from "../server.mjs";
 
@@ -6,8 +6,6 @@ const argumentsMap = new Map(process.argv.slice(2).map((argument) => {
   const [key, ...value] = argument.replace(/^--/, "").split("=");
   return [key, value.join("=")];
 }));
-const mode = argumentsMap.get("mode") || "weakening";
-const baselinePath = resolve(argumentsMap.get("baseline") || "automation-state/baseline.json");
 const outputPath = resolve(argumentsMap.get("output") || "automation-state/latest.json");
 const notificationPath = resolve(argumentsMap.get("notification") || "automation-state/notification.md");
 const now = new Date();
@@ -23,8 +21,6 @@ const singaporeParts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
 }).formatToParts(now).map((part) => [part.type, part.value]));
 const singaporeDate = `${singaporeParts.year}-${singaporeParts.month}-${singaporeParts.day}`;
 const singaporeTime = `${singaporeParts.hour}:${singaporeParts.minute}:${singaporeParts.second}`;
-
-if (!["full", "weakening"].includes(mode)) throw new Error(`Unsupported mode: ${mode}`);
 
 function requestJson(url, options = {}) {
   return fetch(url, { signal: AbortSignal.timeout(45_000), ...options }).then(async (response) => {
@@ -46,24 +42,26 @@ async function waitForJob(baseUrl, job) {
   return current;
 }
 
-function weakeningRows(results) {
+function opportunityRows(results) {
   return results.map((item) => ({
     symbol: item.symbol,
+    dailySide: item.dailySide,
+    dailyLrc25: item.dailyLrc25Angle,
     side: item.side,
     selectedTimeframe: item.selectedTimeframe,
-    previousLrc6: item.selectedPreviousLrc6Angle,
-    currentLrc6: item.selectedLrc6Angle,
+    selectedLrc25: item.selectedLrc25Angle,
+    matchedTimeframes: item.matchedTimeframes,
   }));
 }
 
-function weakeningMarkdown(results) {
-  if (!results.length) return "本次没有交易对出现 LRC6 数值减弱。";
+function opportunityMarkdown(results) {
+  if (!results.length) return "本次没有发现与日线 LRC25 方向相反的周期。";
   const rows = results.map((item) => (
-    `| ${item.symbol} | ${item.side} | ${item.selectedTimeframe} | ${Number(item.selectedPreviousLrc6Angle).toFixed(6)}° | ${Number(item.selectedLrc6Angle).toFixed(6)}° |`
+    `| ${item.symbol} | ${item.dailySide} | ${Number(item.dailyLrc25Angle).toFixed(6)}° | ${item.selectedTimeframe} | ${item.side} | ${Number(item.selectedLrc25Angle).toFixed(6)}° |`
   ));
   return [
-    "| Symbol | Side | Timeframe | Previous LRC6 | Current LRC6 |",
-    "|---|---|---:|---:|---:|",
+    "| Symbol | Daily | Daily LRC25 | Opportunity TF | Side | TF LRC25 |",
+    "|---|---|---:|---:|---|---:|",
     ...rows,
   ].join("\n");
 }
@@ -77,102 +75,37 @@ const address = server.address();
 const baseUrl = `http://127.0.0.1:${address.port}`;
 
 try {
-  let latest;
-  let notification = "";
-  if (mode === "full") {
-    const universe = await requestJson(`${baseUrl}/api/symbols?source=okx`);
-    const created = await requestJson(`${baseUrl}/api/scan`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ source: "okx", categories: universe.categories.map((item) => item.name) }),
-    });
-    const job = await waitForJob(baseUrl, created);
-    const candidates = job.results.map((item) => ({
-      symbol: item.symbol,
-      side: item.side,
-      selectedTimeframe: item.selectedTimeframe,
-    }));
-    const weakening = job.results.filter((item) => item.selectedLrc6Weakening);
-    const baseline = {
-      date: singaporeDate,
-      createdAt: now.toISOString(),
-      source: "okx",
-      candidates,
-    };
-    await writeFile(baselinePath, `${JSON.stringify(baseline, null, 2)}\n`);
-    latest = {
-      date: singaporeDate,
-      time: singaporeTime,
-      generatedAt: now.toISOString(),
-      mode: "full",
-      status: "complete",
-      configured: universe.configuredCount,
-      available: universe.count,
-      unavailable: universe.unavailableCount,
-      total: job.total,
-      scanned: job.scanned,
-      failed: job.failed,
-      skippedUnavailable: job.skippedUnavailable,
-      matches: job.results.length,
-      baselineCandidates: candidates.length,
-      weakening: weakeningRows(weakening),
-      errors: job.errors,
-      notify: weakening.length > 0,
-    };
-    notification = [
-      `## OKX LRC6 减弱｜${singaporeDate} ${singaporeTime} SGT`,
-      "",
-      weakeningMarkdown(weakening),
-    ].filter(Boolean).join("\n");
-  } else {
-    let baseline;
-    try {
-      baseline = JSON.parse(await readFile(baselinePath, "utf8"));
-    } catch {
-      baseline = null;
-    }
-    if (!baseline || baseline.date !== singaporeDate || !Array.isArray(baseline.candidates)) {
-      latest = {
-        date: singaporeDate,
-        time: singaporeTime,
-        generatedAt: now.toISOString(),
-        mode: "weakening",
-        status: "baseline-missing",
-        baselineDate: baseline?.date || null,
-        weakening: [],
-        notify: false,
-      };
-    } else {
-      const created = await requestJson(`${baseUrl}/api/weakening-check`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ source: "okx", candidates: baseline.candidates }),
-      });
-      const job = await waitForJob(baseUrl, created);
-      latest = {
-        date: singaporeDate,
-        time: singaporeTime,
-        generatedAt: now.toISOString(),
-        mode: "weakening",
-        status: "complete",
-        baselineDate: baseline.date,
-        baselineCandidates: baseline.candidates.length,
-        total: job.total,
-        scanned: job.scanned,
-        failed: job.failed,
-        weakening: weakeningRows(job.results),
-        errors: job.errors,
-        notify: job.results.length > 0,
-      };
-      notification = [
-        `## OKX LRC6 减弱｜${singaporeDate} ${singaporeTime} SGT`,
-        "",
-        `仅复查 ${baseline.candidates.length} 个当日基线候选的已选周期；扫描 ${job.scanned}/${job.total}，失败 ${job.failed}，减弱 ${job.results.length}。`,
-        "",
-        weakeningMarkdown(job.results),
-      ].join("\n");
-    }
-  }
+  const universe = await requestJson(`${baseUrl}/api/symbols?source=okx`);
+  const created = await requestJson(`${baseUrl}/api/scan`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ source: "okx", categories: universe.categories.map((item) => item.name) }),
+  });
+  const job = await waitForJob(baseUrl, created);
+  const opportunities = opportunityRows(job.results);
+  const latest = {
+    date: singaporeDate,
+    time: singaporeTime,
+    generatedAt: now.toISOString(),
+    mode: "full",
+    status: "complete",
+    configured: universe.configuredCount,
+    available: universe.count,
+    unavailable: universe.unavailableCount,
+    total: job.total,
+    scanned: job.scanned,
+    failed: job.failed,
+    skippedUnavailable: job.skippedUnavailable,
+    matches: opportunities.length,
+    opportunities,
+    errors: job.errors,
+    notify: opportunities.length > 0,
+  };
+  const notification = [
+    `## OKX LRC25 反向机会｜${singaporeDate} ${singaporeTime} SGT`,
+    "",
+    opportunityMarkdown(job.results),
+  ].join("\n");
   await writeFile(outputPath, `${JSON.stringify(latest, null, 2)}\n`);
   await writeFile(notificationPath, notification);
   console.log(JSON.stringify(latest));

@@ -10,7 +10,7 @@ const state = {
   selectedSymbol: null,
   side: "all",
   search: "",
-  sort: "distance",
+  sort: "timeframe",
   jobId: null,
   pollTimer: null,
 };
@@ -23,7 +23,7 @@ const els = {
   candidateCount: $("#candidateCount"), longCount: $("#longCount"), shortCount: $("#shortCount"),
   scannedCount: $("#scannedCount"), searchInput: $("#searchInput"), sideFilters: $("#sideFilters"),
   sortButton: $("#sortButton"), resultList: $("#resultList"), emptyState: $("#emptyState"), detailContent: $("#detailContent"),
-  weakeningCount: $("#weakeningCount"), weakeningList: $("#weakeningList"), toast: $("#toast"),
+  toast: $("#toast"),
   sourceSwitch: $("#sourceSwitch"),
 };
 
@@ -123,7 +123,6 @@ async function startScan() {
   els.progress.hidden = false;
   updateProgress({ scanned: 0, total: 0, current: `读取 ${sourceCopy[state.source].name} 交易对配置` });
   renderResults();
-  renderWeakeningResults();
   try {
     const job = await api("/api/scan", {
       method: "POST",
@@ -145,7 +144,6 @@ async function pollScan() {
     updateProgress(job);
     renderSummary(job.scanned || 0);
     renderResults();
-    renderWeakeningResults();
     if (!state.selectedSymbol && state.results.length) selectSymbol(state.results[0].symbol);
     if (job.status === "complete") {
       finishScan();
@@ -182,25 +180,21 @@ function updateProgress(job) {
 function renderSummary(scanned) {
   const longs = state.results.filter((item) => item.side === "long").length;
   const shorts = state.results.filter((item) => item.side === "short").length;
-  const weakening = state.results.filter((item) => item.selectedLrc6Weakening).length;
   els.candidateCount.textContent = state.results.length;
   els.longCount.textContent = longs;
   els.shortCount.textContent = shorts;
   els.scannedCount.textContent = scanned;
-  els.weakeningCount.textContent = weakening;
 }
 
 function filteredResults() {
   const query = state.search.toLowerCase();
-  const dailyDistance = (item) => Number.isFinite(Number(item.dailyEma21DistancePct))
-    ? Number(item.dailyEma21DistancePct)
-    : Math.abs(Number(item.emaDistancePct));
+  const timeframeRank = { "4H": 0, "1H": 1, "15m": 2 };
   return state.results
     .filter((item) => state.side === "all" || item.side === state.side)
     .filter((item) => !query || `${item.symbol} ${item.name} ${item.category}`.toLowerCase().includes(query))
     .sort((a, b) => state.sort === "symbol"
       ? a.symbol.localeCompare(b.symbol)
-      : dailyDistance(a) - dailyDistance(b) || a.symbol.localeCompare(b.symbol));
+      : timeframeRank[a.selectedTimeframe] - timeframeRank[b.selectedTimeframe] || a.symbol.localeCompare(b.symbol));
 }
 
 function renderResults() {
@@ -212,24 +206,9 @@ function renderResults() {
   els.resultList.innerHTML = rows.map((item) => `
     <button class="result-row ${item.side === "short" ? "short" : ""} ${item.symbol === state.selectedSymbol ? "active" : ""}" type="button" data-symbol="${escapeHtml(item.symbol)}">
       <span><strong>${escapeHtml(item.symbol)}</strong><small>${escapeHtml(item.category)} · ${escapeHtml(item.name)}</small></span>
-      <span class="row-side"><b>D${item.side === "long" ? "多" : "空"} · ${escapeHtml(item.selectedTimeframe)}</b><small>距D1 EMA21 ${formatAbsPct(item.dailyEma21DistancePct ?? item.emaDistancePct)} · LRC25 ${formatAngle(item.selectedLrc25Angle)} · LRC6 ${formatAngle(item.selectedLrc6Angle)}</small></span>
+      <span class="row-side"><b>${escapeHtml(item.selectedTimeframe)} ${item.side === "long" ? "多" : "空"}</b><small>D1 LRC25 ${formatAngle(item.dailyLrc25Angle)} → ${formatAngle(item.selectedLrc25Angle)}</small></span>
     </button>`).join("");
   els.resultList.querySelectorAll(".result-row").forEach((row) => row.addEventListener("click", () => selectSymbol(row.dataset.symbol)));
-}
-
-function renderWeakeningResults() {
-  const rows = state.results.filter((item) => item.selectedLrc6Weakening);
-  els.weakeningCount.textContent = rows.length;
-  if (!rows.length) {
-    els.weakeningList.innerHTML = `<div class="empty-mini">${state.jobId ? "正在检测 LRC6 是否减弱…" : "暂无 LRC6 减弱结果"}</div>`;
-    return;
-  }
-  els.weakeningList.innerHTML = rows.map((item) => `
-    <button class="result-row weakening-row ${item.side === "short" ? "short" : ""} ${item.symbol === state.selectedSymbol ? "active" : ""}" type="button" data-symbol="${escapeHtml(item.symbol)}">
-      <span><strong>${escapeHtml(item.symbol)}</strong><small>D${item.side === "long" ? "多" : "空"} · ${escapeHtml(item.selectedTimeframe)}</small></span>
-      <span class="row-side"><b>LRC6 减弱</b><small>${formatAngle(item.selectedPreviousLrc6Angle)} → ${formatAngle(item.selectedLrc6Angle)}</small></span>
-    </button>`).join("");
-  els.weakeningList.querySelectorAll(".result-row").forEach((row) => row.addEventListener("click", () => selectSymbol(row.dataset.symbol)));
 }
 
 function selectSymbol(symbol) {
@@ -245,27 +224,20 @@ function selectSymbol(symbol) {
   $("#detailChange").textContent = formatPct(item.changePct);
   $("#detailChange").className = item.changePct >= 0 ? "positive" : "negative";
   $("#detailDate").textContent = `收盘 · ${item.asOf}`;
-  $("#signalBadge").textContent = `D${item.side === "long" ? "多" : "空"} · ${item.selectedTimeframe} LRC6${item.selectedLrc6Side === "long" ? "多" : "空"}`;
+  $("#signalBadge").textContent = `D1 ${item.dailySide === "long" ? "多" : "空"} → ${item.selectedTimeframe} ${item.side === "long" ? "多" : "空"}`;
   $("#signalBadge").className = `signal-badge ${item.side === "short" ? "short" : ""}`;
-  const distance = item.emaDistancePct;
-  $("#emaDistance").textContent = formatPct(distance);
-  $("#emaDistance").className = distance >= 0 ? "positive" : "negative";
-  $("#emaValue").textContent = `EMA21 ${formatPrice(item.ema21)}`;
-  $("#dailyDirection").textContent = item.dailySide === "long" ? "C > EMA21" : "C < EMA21";
+  $("#dailyLrc25Angle").textContent = formatAngle(item.dailyLrc25Angle);
+  $("#dailyLrc25Angle").className = item.dailySide === "long" ? "positive" : "negative";
+  $("#dailyDirection").textContent = item.dailySide === "long" ? "多 LONG" : "空 SHORT";
   $("#dailyDirection").className = item.dailySide === "long" ? "positive" : "negative";
   $("#lrcTimeframe").textContent = item.selectedTimeframe || "—";
   $("#lrc25Signal").textContent = item.selectedLrc25Side === "long" ? "多 LONG" : "空 SHORT";
   $("#lrc25Signal").className = item.selectedLrc25Side === "long" ? "positive" : "negative";
   $("#lrc25Meta").textContent = `LRC25 角度 ${formatAngle(item.selectedLrc25Angle)}`;
-  $("#lrc6Signal").textContent = item.selectedLrc6Side === "long" ? "多 LONG" : "空 SHORT";
-  $("#lrc6Signal").className = item.selectedLrc6Side === "long" ? "positive" : "negative";
-  $("#lrc6Meta").textContent = item.selectedLrc6Weakening
-    ? `减弱：${formatAngle(item.selectedPreviousLrc6Angle)} → ${formatAngle(item.selectedLrc6Angle)}`
-    : `前值 ${formatAngle(item.selectedPreviousLrc6Angle)} · 当前 ${formatAngle(item.selectedLrc6Angle)}`;
-  $("#statusValue").textContent = `LRC25${item.selectedLrc25Side === "long" ? "多" : "空"} / LRC6${item.selectedLrc6Side === "long" ? "多" : "空"}`;
+  $("#matchedTimeframes").textContent = item.matchedTimeframes.join(" / ");
+  $("#statusValue").textContent = `D1${item.dailySide === "long" ? "多" : "空"} / ${item.selectedTimeframe}${item.side === "long" ? "多" : "空"}`;
   $("#statusValue").className = item.side === "long" ? "positive" : "negative";
   renderResults();
-  renderWeakeningResults();
 }
 
 function formatPrice(value) {
@@ -275,7 +247,6 @@ function formatPrice(value) {
   return number.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 function formatPct(value) { return Number.isFinite(Number(value)) ? `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}%` : "—"; }
-function formatAbsPct(value) { return Number.isFinite(Number(value)) ? `${Math.abs(Number(value)).toFixed(2)}%` : "—"; }
 function formatAngle(value) { return Number.isFinite(Number(value)) ? `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}°` : "—"; }
 function escapeHtml(value) { return String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]); }
 function shortError(error) { return String(error?.message || error).replace(/^Bybit HTTP \d+:\s*/, "").slice(0, 180); }
@@ -292,7 +263,6 @@ els.sourceSwitch.addEventListener("click", (event) => {
   state.selectedCategories = new Set();
   renderSummary(0);
   renderResults();
-  renderWeakeningResults();
   els.emptyState.hidden = false;
   els.detailContent.hidden = true;
   connect();
@@ -307,10 +277,9 @@ els.sideFilters.addEventListener("click", (event) => {
   renderResults();
 });
 els.sortButton.addEventListener("click", () => {
-  state.sort = state.sort === "distance" ? "symbol" : "distance";
-  els.sortButton.textContent = state.sort === "distance" ? "距D1 EMA21：近→远" : "品种 A→Z";
+  state.sort = state.sort === "timeframe" ? "symbol" : "timeframe";
+  els.sortButton.textContent = state.sort === "timeframe" ? "周期：大→小" : "品种 A→Z";
   renderResults();
-  renderWeakeningResults();
 });
 
 connect();

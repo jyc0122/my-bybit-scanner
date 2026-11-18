@@ -1,4 +1,4 @@
-name: OKX hourly full scan and weakening alert
+name: OKX hourly LRC25 reversal scan
 
 on:
   schedule:
@@ -72,8 +72,6 @@ jobs:
           BYBIT_REQUEST_GAP_MS: 125
         run: >-
           node scripts/cloud-hourly.mjs
-          --mode=full
-          --baseline=state/baseline.json
           --output=state/latest.json
           --notification=state/notification.md
 
@@ -84,7 +82,7 @@ jobs:
           cd state
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add baseline.json latest.json
+          git add latest.json
           if git diff --cached --quiet; then
             echo "No state change"
           else
@@ -100,18 +98,18 @@ jobs:
         run: |
           SHOULD_NOTIFY=$(node -e "const x=require('./state/latest.json'); console.log(x.notify ? 'true' : 'false')")
           if [ "$SHOULD_NOTIFY" != "true" ]; then
-            echo "No weakening alert to publish"
+            echo "No LRC25 reversal opportunity to publish"
             exit 0
           fi
-          TITLE="OKX LRC6 减弱提醒"
+          TITLE="OKX LRC25 反向机会"
           ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
           if [ -z "$ISSUE_NUMBER" ]; then
-            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly full scan monitor 自动维护。每小时执行一次 OKX 全量扫描，只在发现 LRC6 数值减弱时追加提醒。")
+            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly LRC25 monitor 自动维护。每小时扫描一次，只在发现低周期 LRC25 与日线方向相反时追加提醒。")
             ISSUE_NUMBER=${ISSUE_URL##*/}
           fi
           gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
 
-      - name: Notify Telegram when LRC6 weakens
+      - name: Notify Telegram of LRC25 reversal opportunities
         if: steps.due.outputs.run == 'true'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

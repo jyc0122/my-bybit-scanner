@@ -1,17 +1,14 @@
-# Multi-Source LRC25 / LRC6 Scanner
+# Multi-Source LRC25 Direction Scanner
 
 这是从本机 cTrader scanner 独立复刻出的只读行情扫描器，可在 dashboard 中切换 `Bybit`、`Binance USDⓈ-M Futures` 与 `OKX USDT Perpetual`。原项目 `E:\ctradermcp\site` 不会被修改；本版本默认监听另一个端口 `8788`。
 
 扫描逻辑：
 
-- 最新日线收盘价在 `EMA21` 上方为多头，在下方为空头
-- 扫描 `4H`、`1D`，分别计算 `LRC25` 与 `LRC6` 角度（收盘价、窗口最高最低价标准化）
-- 日线空头时，同一检测周期必须同时满足 `LRC25 < -20°`、`LRC6 > 0°`，并且最近 5 根已收盘 K 线中至少一根最高价高于该根 K 线对应的 `EMA21`
-- 日线多头时，同一检测周期必须同时满足 `LRC25 > 20°`、`LRC6 < 0°`，并且最近 5 根已收盘 K 线中至少一根最低价低于该根 K 线对应的 `EMA21`
-- 如果两个周期同时符合，只显示最大的那个周期（`1D > 4H`）
-- 对已经入选的品种，在其最大符合周期中比较当前与上一根已收盘 K 线的 `LRC6`：方向保持不变且角度绝对值变小时，额外列入 dashboard 的“LRC6 减弱”区域
-- 自动化可把全量扫描结果作为当日基线传给 `POST /api/weakening-check`；该轻量接口只读取每个候选的已选周期，不重复读取全部周期
-- 扫描结果默认按最新日线收盘价与日线 `EMA21` 的绝对百分比距离，从近到远排列
+- 日线 `LRC25 > 0` 为多头基准，`LRC25 < 0` 为空头基准
+- 扫描 `15m`、`1H`、`4H` 的 `LRC25` 方向（收盘价、窗口最高最低价标准化）
+- 任一检测周期的 `LRC25` 方向与日线相反即可入选，不使用 `EMA21`、`LRC6`、近 5 根 K 线或 20°角度门槛
+- 如果多个周期同时反向，只显示最大的机会周期（`4H > 1H > 15m`），并保留全部反向周期供详情查看
+- 扫描结果默认按机会周期从大到小排列
 - 只使用已经收盘的 K 线，所有未收盘 K 线都会被过滤
 - dashboard 不再绘制日线 K 线图，结果详情只保留筛选所需指标
 - 数据来自 Bybit V5、Binance USDⓈ-M Futures 或 OKX 公共行情接口，不需要 API Key，也不会调用交易接口
@@ -24,7 +21,7 @@
 - Binance 模式会读取官方 `exchangeInfo`，只扫描配置清单中当前状态为 `TRADING`、合约类型为 `PERPETUAL`、报价资产为 `USDT` 的品种
 - OKX 模式会读取官方 `SWAP` 合约清单，只扫描当前 `live`、以 USDT 结算的永续合约；常见的千倍币命名会自动映射到 OKX 标的
 - 当前数据源不存在的配置品种会被计为“不可用并跳过”，不会被误记为扫描失败
-- 三个数据源使用相同的日线 EMA21、LRC25/LRC6、最大符合周期和日线距离排序规则
+- 三个数据源使用相同的日线 LRC25 基准、低周期反向判断和最大机会周期规则
 
 ## 交易对配置
 
@@ -69,20 +66,6 @@ node .\scripts\validate-symbols.mjs --scan --source=binance
 ```powershell
 node .\scripts\validate-symbols.mjs --scan --source=okx
 ```
-
-只复查既有候选的 LRC6 减弱（不会重新做全量扫描）：
-
-```json
-POST /api/weakening-check
-{
-  "source": "okx",
-  "candidates": [
-    { "symbol": "BTCUSDT", "side": "short", "selectedTimeframe": "4H" }
-  ]
-}
-```
-
-接口返回异步任务 `id`，继续通过 `GET /api/scan/{id}` 轮询；`results` 只包含当前已出现 LRC6 减弱的候选。
 
 ## 启动
 
@@ -139,9 +122,9 @@ docker run --rm -p 8788:8788 my-bybit-scanner
 `.github/workflows/okx-hourly.yml` 在 GitHub 云端以每小时第 `59` 分钟作为主扫描时间，不要求本机开机。由于 GitHub 可能延迟或丢弃 cron 事件，工作流会在每小时第 `14` 分钟进行一次补跑检查；如果 45 分钟内已有成功扫描，补跑会直接结束，不会重复扫描或推送：
 
 - 每次运行都执行 OKX 全量扫描，并把最新状态保存到专用 `automation-state` 分支；
-- 只有符合规则且 LRC6 数值减弱的交易对会进入通知，普通候选、失败项和“无减弱”状态不会发送；
-- 减弱结果会追加到仓库的 `OKX LRC6 减弱提醒` Issue；
+- 所有符合日线 LRC25 反向规则的机会都会进入通知；没有机会时不会发送；
+- 结果会追加到仓库的 `OKX LRC25 反向机会` Issue；
 - 配置 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID` 两个 Repository Actions Secrets 后，同一结果也会发送到 Telegram；未配置时会安全跳过 Telegram，不影响扫描；
 - 可在 Actions 页面使用 `Run workflow` 随时手动执行一次完整扫描。
 
-Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，并且只列出减弱区域的交易对。
+Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，并列出日线方向、最大反向周期及双方 LRC25 角度。

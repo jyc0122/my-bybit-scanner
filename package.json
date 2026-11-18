@@ -1,9 +1,9 @@
 {
-  "name": "multi-source-lrc25-lrc6-scanner",
+  "name": "multi-source-lrc25-direction-scanner",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Local read-only Bybit, Binance Futures, and OKX Perpetual EMA21/LRC25/LRC6 scanner",
+  "description": "Read-only multi-source scanner for lower-timeframe LRC25 reversals against daily LRC25",
   "scripts": {
     "start": "node server.mjs",
     "check": "node --check server.mjs && node --check public/app.js && node --check scripts/cloud-hourly.mjs && node --check scripts/telegram-notify.mjs",

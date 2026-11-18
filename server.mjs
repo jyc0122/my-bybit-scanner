@@ -330,27 +330,6 @@ export function normalizeOkxKlines(payload) {
     .filter((bar, index, bars) => index === bars.length - 1 || bar.ts !== bars[index + 1].ts);
 }
 
-function ema(values, period) {
-  const output = Array(values.length).fill(null);
-  if (values.length < period) return output;
-  let current = values.slice(0, period).reduce((sum, value) => sum + value, 0) / period;
-  output[period - 1] = current;
-  const alpha = 2 / (period + 1);
-  for (let index = period; index < values.length; index += 1) {
-    current = values[index] * alpha + current * (1 - alpha);
-    output[index] = current;
-  }
-  return output;
-}
-
-function enrichEma21Bars(bars) {
-  const ema21 = ema(bars.map((bar) => bar.c), 21);
-  return bars.map((bar, index) => ({
-    ...bar,
-    e21: ema21[index],
-  }));
-}
-
 function lrcAngle(bars, length = 25) {
   if (bars.length < length) return null;
   const window = bars.slice(-length);
@@ -372,85 +351,37 @@ function lrcAngle(bars, length = 25) {
   return Math.atan(normalizedRise) * 180 / Math.PI;
 }
 
-function evaluateLrcSetup(bars, timeframe, dailySide) {
+function evaluateLrc25Direction(bars, timeframe, dailySide) {
   if (bars.length < 25) {
     throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 25 are required`);
   }
   const lrc25Angle = lrcAngle(bars, 25);
-  const lrc6Angle = lrcAngle(bars, 6);
-  const previousLrc6Angle = lrcAngle(bars.slice(0, -1), 6);
   const lrc25Side = lrc25Angle > 0 ? "long" : lrc25Angle < 0 ? "short" : "neutral";
-  const lrc6Side = lrc6Angle > 0 ? "long" : lrc6Angle < 0 ? "short" : "neutral";
-  const previousLrc6Side = previousLrc6Angle > 0 ? "long" : previousLrc6Angle < 0 ? "short" : "neutral";
-  const requiredLrc25Side = dailySide;
-  const requiredLrc6Side = dailySide === "short" ? "long" : dailySide === "long" ? "short" : "neutral";
-  const lrc25MagnitudePassed = Number.isFinite(lrc25Angle) && Math.abs(lrc25Angle) > 20;
-  const recentEma21Bars = enrichEma21Bars(bars).slice(-5);
-  const ema21ReachPassed = dailySide === "short"
-    ? recentEma21Bars.some((bar) => Number.isFinite(bar.e21) && bar.h > bar.e21)
-    : dailySide === "long"
-      ? recentEma21Bars.some((bar) => Number.isFinite(bar.e21) && bar.l < bar.e21)
-      : false;
-  const lrc25Passed = requiredLrc25Side !== "neutral"
-    && lrc25Side === requiredLrc25Side
-    && lrc25MagnitudePassed;
-  const lrc6Passed = requiredLrc6Side !== "neutral" && lrc6Side === requiredLrc6Side;
-  const lrc6Weakening = lrc6Passed
-    && previousLrc6Side === requiredLrc6Side
-    && Math.abs(lrc6Angle) < Math.abs(previousLrc6Angle);
+  const passed = dailySide !== "neutral" && lrc25Side !== "neutral" && lrc25Side !== dailySide;
   return {
     timeframe,
-    passed: lrc25Passed && lrc6Passed && ema21ReachPassed,
-    lrc25Passed,
-    lrc25MagnitudePassed,
-    lrc6Passed,
-    ema21ReachPassed,
+    passed,
     lrc25Side,
-    lrc6Side,
-    previousLrc6Side,
-    requiredLrc25Side,
-    requiredLrc6Side,
     lrc25Angle,
-    lrc6Angle,
-    previousLrc6Angle,
-    lrc6Weakening,
     asOf: new Date(bars.at(-1).ts).toISOString().replace("T", " ").slice(0, 16) + " UTC",
   };
 }
 
-export function analyzeWeakeningCandidate(bars, timeframe, side) {
-  if (!["4H", "1D"].includes(timeframe)) throw new Error(`Unsupported candidate timeframe: ${timeframe}`);
-  if (!["long", "short"].includes(side)) throw new Error(`Unsupported candidate side: ${side}`);
-  const confirmation = evaluateLrcSetup(bars, timeframe, side);
-  return {
-    side,
-    selectedTimeframe: timeframe,
-    selectedLrc6Angle: confirmation.lrc6Angle,
-    selectedPreviousLrc6Angle: confirmation.previousLrc6Angle,
-    selectedLrc6Weakening: confirmation.lrc6Weakening,
-    asOf: confirmation.asOf,
-  };
-}
-
-export function analyzeSymbol(symbol, dailyBars, h4Bars) {
+export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   if (dailyBars.length < 25) throw new Error(`Only ${dailyBars.length} closed daily bars returned; 25 are required`);
-  const enriched = enrichEma21Bars(dailyBars);
-  const last = enriched.at(-1);
-  const previous = enriched.at(-2);
-  const dailySide = last.c > last.e21
-    ? "long"
-    : last.c < last.e21
-      ? "short"
-      : "neutral";
+  const last = dailyBars.at(-1);
+  const previous = dailyBars.at(-2);
+  const dailyLrc25Angle = lrcAngle(dailyBars, 25);
+  const dailySide = dailyLrc25Angle > 0 ? "long" : dailyLrc25Angle < 0 ? "short" : "neutral";
   const confirmations = [
-    evaluateLrcSetup(h4Bars, "4H", dailySide),
-    evaluateLrcSetup(dailyBars, "1D", dailySide),
+    evaluateLrc25Direction(m15Bars, "15m", dailySide),
+    evaluateLrc25Direction(h1Bars, "1H", dailySide),
+    evaluateLrc25Direction(h4Bars, "4H", dailySide),
   ];
   const matchedTimeframes = confirmations.filter((confirmation) => confirmation.passed);
   const selectedConfirmation = matchedTimeframes.at(-1) || null;
   const confirmationPassed = selectedConfirmation !== null;
-  const side = dailySide !== "neutral" && confirmationPassed ? dailySide : "neutral";
-  const emaDistancePct = (last.c / last.e21 - 1) * 100;
+  const side = selectedConfirmation?.lrc25Side || "neutral";
   return {
     symbol: symbol.symbol,
     name: symbol.name,
@@ -458,21 +389,15 @@ export function analyzeSymbol(symbol, dailyBars, h4Bars) {
     market: symbol.market,
     side,
     dailySide,
+    dailyLrc25Angle,
     close: last.c,
     changePct: previous ? (last.c / previous.c - 1) * 100 : 0,
-    ema21: last.e21,
-    emaDistancePct,
-    dailyEma21DistancePct: Math.abs(emaDistancePct),
     confirmationPassed,
     confirmations,
-    signalSide: selectedConfirmation?.lrc6Side || "neutral",
+    signalSide: side,
     selectedTimeframe: selectedConfirmation?.timeframe || null,
     selectedLrc25Side: selectedConfirmation?.lrc25Side || "neutral",
-    selectedLrc6Side: selectedConfirmation?.lrc6Side || "neutral",
     selectedLrc25Angle: selectedConfirmation?.lrc25Angle ?? null,
-    selectedLrc6Angle: selectedConfirmation?.lrc6Angle ?? null,
-    selectedPreviousLrc6Angle: selectedConfirmation?.previousLrc6Angle ?? null,
-    selectedLrc6Weakening: selectedConfirmation?.lrc6Weakening || false,
     matchedTimeframes: matchedTimeframes.map((item) => item.timeframe),
     qualifyingTimeframes: selectedConfirmation ? [selectedConfirmation.timeframe] : [],
     asOf: last.t,
@@ -481,7 +406,7 @@ export function analyzeSymbol(symbol, dailyBars, h4Bars) {
 
 async function fetchKlines(source, symbol, interval, limit) {
   if (source === "binance") {
-    const binanceInterval = { D: "1d", 240: "4h" }[interval];
+    const binanceInterval = { D: "1d", 15: "15m", 60: "1h", 240: "4h" }[interval];
     if (!binanceInterval) throw new Error(`Unsupported Binance interval: ${interval}`);
     const payload = await binanceGet("/fapi/v1/klines", {
       symbol: symbol.symbol,
@@ -491,7 +416,7 @@ async function fetchKlines(source, symbol, interval, limit) {
     return normalizeBinanceKlines(payload, binanceInterval);
   }
   if (source === "okx") {
-    const okxBar = { D: "1Dutc", 240: "4H" }[interval];
+    const okxBar = { D: "1Dutc", 15: "15m", 60: "1H", 240: "4H" }[interval];
     if (!okxBar) throw new Error(`Unsupported OKX interval: ${interval}`);
     const payload = await okxGet("/api/v5/market/candles", {
       instId: symbol.sourceSymbol || okxInstrumentIdForSymbol(symbol.symbol),
@@ -541,11 +466,13 @@ async function runScan(job, categories, requestedSource) {
         const symbol = selected[cursor++];
         job.current = symbol.symbol;
         try {
-          const [dailyBars, h4Bars] = await Promise.all([
+          const [dailyBars, m15Bars, h1Bars, h4Bars] = await Promise.all([
             fetchKlines(source, symbol, "D", 260),
+            fetchKlines(source, symbol, "15", 60),
+            fetchKlines(source, symbol, "60", 60),
             fetchKlines(source, symbol, "240", 60),
           ]);
-          const analysis = analyzeSymbol(symbol, dailyBars, h4Bars);
+          const analysis = analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars);
           analysis.dataSource = source;
           const ticker = tickers.get(`${symbol.market}:${symbol.symbol}`);
           analysis.turnover24h = Number(ticker?.turnover24h || ticker?.turnover24H || 0);
@@ -557,88 +484,13 @@ async function runScan(job, categories, requestedSource) {
           job.failed += 1;
           if (job.errors.length < 200) job.errors.push({ symbol: symbol.symbol, message: cleanError(error) });
         }
-        job.results.sort((a, b) => (
-          a.dailyEma21DistancePct - b.dailyEma21DistancePct
-          || a.symbol.localeCompare(b.symbol)
-        ));
+        const timeframeRank = { "4H": 0, "1H": 1, "15m": 2 };
+        job.results.sort((a, b) => timeframeRank[a.selectedTimeframe] - timeframeRank[b.selectedTimeframe]
+          || a.symbol.localeCompare(b.symbol));
         job.updatedAt = new Date().toISOString();
       }
     };
     await Promise.all(Array.from({ length: Math.min(SCAN_CONCURRENCY, selected.length) }, worker));
-    job.status = "complete";
-    job.current = "";
-    job.finishedAt = new Date().toISOString();
-  } catch (error) {
-    job.status = "failed";
-    job.message = cleanError(error);
-    job.finishedAt = new Date().toISOString();
-  }
-}
-
-function normalizeWeakeningCandidates(rawCandidates, universe) {
-  if (!Array.isArray(rawCandidates) || !rawCandidates.length) throw new Error("candidates must contain at least one baseline result");
-  if (rawCandidates.length > 500) throw new Error("candidates cannot contain more than 500 items");
-  const universeBySymbol = new Map(universe.map((item) => [item.symbol, item]));
-  const seen = new Set();
-  return rawCandidates.map((candidate, index) => {
-    const symbol = String(candidate?.symbol || "").trim().toUpperCase();
-    const side = String(candidate?.side || "").trim().toLowerCase();
-    const selectedTimeframe = String(candidate?.selectedTimeframe || "").trim();
-    if (seen.has(symbol)) return null;
-    seen.add(symbol);
-    const configured = universeBySymbol.get(symbol);
-    if (!configured) throw new Error(`candidates[${index}] is not in the configured universe: ${symbol || "(empty)"}`);
-    if (!["long", "short"].includes(side)) throw new Error(`candidates[${index}] has invalid side: ${side || "(empty)"}`);
-    if (!["4H", "1D"].includes(selectedTimeframe)) {
-      throw new Error(`candidates[${index}] has invalid selectedTimeframe: ${selectedTimeframe || "(empty)"}`);
-    }
-    return { ...configured, baselineSide: side, baselineTimeframe: selectedTimeframe };
-  }).filter(Boolean);
-}
-
-async function runWeakeningCheck(job, rawCandidates, requestedSource) {
-  try {
-    const source = normalizeSource(requestedSource);
-    const universe = await loadUniverse();
-    const candidates = normalizeWeakeningCandidates(rawCandidates, universe);
-    const available = await filterUniverseForSource(candidates, source);
-    job.source = source;
-    job.sourceName = sourceMetadata(source).name;
-    job.mode = "weakening-check";
-    job.skippedUnavailable = candidates.length - available.length;
-    job.status = "running";
-    job.total = available.length;
-    job.startedAt = new Date().toISOString();
-    let cursor = 0;
-    const worker = async () => {
-      while (cursor < available.length) {
-        const candidate = available[cursor++];
-        job.current = candidate.symbol;
-        try {
-          const interval = { "4H": "240", "1D": "D" }[candidate.baselineTimeframe];
-          const bars = await fetchKlines(source, candidate, interval, 60);
-          const weakening = analyzeWeakeningCandidate(bars, candidate.baselineTimeframe, candidate.baselineSide);
-          job.scanned += 1;
-          if (weakening.selectedLrc6Weakening) {
-            job.results.push({
-              symbol: candidate.symbol,
-              name: candidate.name,
-              category: candidate.category,
-              market: candidate.market,
-              dataSource: source,
-              ...weakening,
-            });
-          }
-        } catch (error) {
-          job.scanned += 1;
-          job.failed += 1;
-          if (job.errors.length < 200) job.errors.push({ symbol: candidate.symbol, message: cleanError(error) });
-        }
-        job.results.sort((a, b) => a.symbol.localeCompare(b.symbol));
-        job.updatedAt = new Date().toISOString();
-      }
-    };
-    await Promise.all(Array.from({ length: Math.min(SCAN_CONCURRENCY, available.length) }, worker));
     job.status = "complete";
     job.current = "";
     job.finishedAt = new Date().toISOString();
@@ -764,29 +616,6 @@ async function handleApi(request, response, url) {
     }
     return;
   }
-  if (request.method === "POST" && url.pathname === "/api/weakening-check") {
-    try {
-      const body = await readJson(request);
-      const source = normalizeSource(body.source);
-      const metadata = sourceMetadata(source);
-      const job = {
-        id: randomUUID(), status: "queued", mode: "weakening-check", total: 0, scanned: 0, failed: 0,
-        source, sourceName: metadata.name, skippedUnavailable: 0,
-        current: "", results: [], errors: [], message: "", startedAt: null,
-        updatedAt: new Date().toISOString(), finishedAt: null,
-      };
-      jobs.set(job.id, job);
-      runWeakeningCheck(job, body.candidates, source).catch((error) => {
-        job.status = "failed";
-        job.message = cleanError(error);
-      });
-      while (jobs.size > 8) jobs.delete(jobs.keys().next().value);
-      sendJson(response, 202, publicJob(job));
-    } catch (error) {
-      sendJson(response, 400, { message: cleanError(error) });
-    }
-    return;
-  }
   const jobMatch = url.pathname.match(/^\/api\/scan\/([0-9a-f-]+)$/i);
   if (request.method === "GET" && jobMatch) {
     const job = jobs.get(jobMatch[1]);
@@ -829,7 +658,7 @@ export function createScannerServer() {
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   createScannerServer().listen(PORT, HOST, () => {
-    console.log(`Multi-source LRC25/LRC6 Scanner: http://${HOST}:${PORT}`);
+    console.log(`Multi-source LRC25 Direction Scanner: http://${HOST}:${PORT}`);
     console.log(`Bybit market data: ${BYBIT_API_BASE}`);
     console.log(`Binance market data: ${BINANCE_API_BASE}`);
     console.log(`OKX market data: ${OKX_API_BASE}`);

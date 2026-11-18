@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071019">
-  <title>Multi-Source LRC25/6 Scanner</title>
+  <title>Multi-Source LRC25 Scanner</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <div class="shell">
     <header class="topbar">
       <div class="brand">
-        <span class="eyebrow">BYBIT + BINANCE · PUBLIC FUTURES DATA</span>
-        <h1>LRC25 / LRC6 Scanner</h1>
-        <p>扫描日线 EMA21 方向，并在 4H、1D 中寻找 LRC25 趋势与 LRC6 反向信号。</p>
+        <span class="eyebrow">BYBIT + BINANCE + OKX · PUBLIC FUTURES DATA</span>
+        <h1>LRC25 Direction Scanner</h1>
+        <p>以日线 LRC25 为基准，在 4H、1H、15m 中寻找方向相反的机会。</p>
       </div>
       <div class="connection-card" id="connectionCard">
         <span class="status-dot" id="statusDot"></span>
@@ -26,11 +26,11 @@
     </header>
 
     <section class="rule-strip" aria-label="扫描规则">
-      <div><span>周期</span><strong>4H / 1D</strong></div>
-      <div><span>多头</span><strong class="positive">D1 C &gt; EMA21</strong></div>
-      <div><span>空头</span><strong class="negative">D1 C &lt; EMA21</strong></div>
-      <div><span>日线空</span><strong>LRC25 &lt; -20° · LRC6 &gt; 0 · 近5根 H &gt; EMA21</strong></div>
-      <div><span>日线多</span><strong>LRC25 &gt; 20° · LRC6 &lt; 0 · 近5根 L &lt; EMA21</strong></div>
+      <div><span>基准</span><strong>日线 LRC25 方向</strong></div>
+      <div><span>周期</span><strong>4H / 1H / 15m</strong></div>
+      <div><span>日线空</span><strong class="positive">寻找 LRC25 &gt; 0 的周期</strong></div>
+      <div><span>日线多</span><strong class="negative">寻找 LRC25 &lt; 0 的周期</strong></div>
+      <div><span>角度</span><strong>只看正负方向 · 无 20° 门槛</strong></div>
       <div><span>多周期</span><strong>只显示符合条件的最大周期</strong></div>
       <div><span>模式</span><strong>只读扫描</strong></div>
     </section>
@@ -79,26 +79,13 @@
               <button type="button" data-side="long">多头</button>
               <button type="button" data-side="short">空头</button>
             </div>
-            <button class="sort-button" id="sortButton" type="button">距D1 EMA21：近→远</button>
+            <button class="sort-button" id="sortButton" type="button">周期：大→小</button>
           </div>
           <div class="result-list" id="resultList">
             <div class="empty-mini">选择并连接公共行情数据源后开始扫描</div>
           </div>
         </section>
 
-        <section class="panel weakening-panel">
-          <div class="panel-head">
-            <div>
-              <span class="kicker">LRC6 MOMENTUM</span>
-              <h2>LRC6 减弱</h2>
-            </div>
-            <span class="universe-count" id="weakeningCount">0</span>
-          </div>
-          <p class="panel-note">仅列出已经通过全部规则，且在最大符合周期中LRC6方向未变、绝对角度较上一根变小的品种。</p>
-          <div class="weakening-list" id="weakeningList">
-            <div class="empty-mini">扫描后显示LRC6减弱结果</div>
-          </div>
-        </section>
       </aside>
 
       <section class="detail" id="detailPanel">
@@ -125,19 +112,19 @@
           </section>
 
           <section class="metric-grid">
-            <article><span>CLOSE / EMA21</span><strong id="emaDistance">—</strong><small id="emaValue">EMA21 —</small></article>
-            <article><span>D1 DIRECTION</span><strong id="dailyDirection">—</strong><small>收盘价相对 EMA21</small></article>
-            <article class="touch-metric"><span>MAX LRC25 TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>4H / 1D 中最大的符合周期</small></article>
-            <article class="touch-metric"><span>LRC25 TREND</span><strong id="lrc25Signal">—</strong><small id="lrc25Meta">回归角度 —</small></article>
-            <article class="touch-metric"><span>LRC6 TRIGGER</span><strong id="lrc6Signal">—</strong><small id="lrc6Meta">回归角度 —</small></article>
-            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线方向 + LRC25 同向 + LRC6 反向</small></article>
+            <article><span>D1 LRC25 ANGLE</span><strong id="dailyLrc25Angle">—</strong><small>日线基准角度</small></article>
+            <article><span>D1 DIRECTION</span><strong id="dailyDirection">—</strong><small>日线 LRC25 正负方向</small></article>
+            <article class="touch-metric"><span>MAX OPPOSITE TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>4H / 1H / 15m 中最大的反向周期</small></article>
+            <article class="touch-metric"><span>OPPORTUNITY LRC25</span><strong id="lrc25Signal">—</strong><small id="lrc25Meta">回归角度 —</small></article>
+            <article class="touch-metric"><span>ALL MATCHES</span><strong id="matchedTimeframes">—</strong><small>全部反向周期</small></article>
+            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>日线 LRC25 与所选周期方向相反</small></article>
           </section>
         </div>
       </section>
     </main>
 
     <footer>
-      <span>数据：Bybit V5 / Binance USDⓈ-M Futures 公共行情 · 日线 EMA21 + LRC25/LRC6 · 多周期只显示最大周期</span>
+      <span>数据：Bybit V5 / Binance USDⓈ-M Futures / OKX 公共行情 · 纯 LRC25 反向周期扫描</span>
       <span>仅供研究，不构成投资建议</span>
     </footer>
   </div>
