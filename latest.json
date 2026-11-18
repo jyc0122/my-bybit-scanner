@@ -1,7 +1,7 @@
 {
   "date": "2026-11-18",
-  "time": "11:29:41",
-  "generatedAt": "2026-11-18T03:29:41.648Z",
+  "time": "20:50:44",
+  "generatedAt": "2026-11-18T12:50:44.587Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,29 +11,22 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 24,
-  "baselineCandidates": 24,
+  "matches": 21,
+  "baselineCandidates": 21,
   "weakening": [
+    {
+      "symbol": "QNTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 24.977916763355275,
+      "currentLrc6": 18.58629280719643
+    },
     {
       "symbol": "AKEUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
       "previousLrc6": 30.7907006497551,
       "currentLrc6": 15.142786923510089
-    },
-    {
-      "symbol": "MAGICUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 12.63794672619025,
-      "currentLrc6": 12.494682770057924
-    },
-    {
-      "symbol": "TRUMPUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 10.982871379517354,
-      "currentLrc6": 9.227931690289397
     }
   ],
   "errors": [],
