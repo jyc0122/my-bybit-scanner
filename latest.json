@@ -1,7 +1,7 @@
 {
   "date": "2026-11-18",
-  "time": "05:41:15",
-  "generatedAt": "2026-11-17T21:41:15.981Z",
+  "time": "11:29:41",
+  "generatedAt": "2026-11-18T03:29:41.648Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,64 +11,29 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 14,
-  "baselineCandidates": 14,
+  "matches": 24,
+  "baselineCandidates": 24,
   "weakening": [
     {
       "symbol": "AKEUSDT",
       "side": "short",
       "selectedTimeframe": "1D",
-      "previousLrc6": 36.298590672316706,
-      "currentLrc6": 30.7907006497551
-    },
-    {
-      "symbol": "CLUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 21.964057931488714,
-      "currentLrc6": 19.00911106339761
-    },
-    {
-      "symbol": "INJUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 27.3085938405891,
-      "currentLrc6": 13.31125785232965
-    },
-    {
-      "symbol": "GLWUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 9.922193471332243,
-      "currentLrc6": 4.21982862259542
+      "previousLrc6": 30.7907006497551,
+      "currentLrc6": 15.142786923510089
     },
     {
       "symbol": "MAGICUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 16.93945748175629,
-      "currentLrc6": 12.63794672619025
-    },
-    {
-      "symbol": "LITEUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 14.093278636794512,
-      "currentLrc6": 6.067971015393265
-    },
-    {
-      "symbol": "LABUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc6": 13.934006923673923,
-      "currentLrc6": 0.818455461688633
+      "previousLrc6": 12.63794672619025,
+      "currentLrc6": 12.494682770057924
     },
     {
       "symbol": "TRUMPUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 17.676108698653493,
-      "currentLrc6": 10.982871379517354
+      "previousLrc6": 10.982871379517354,
+      "currentLrc6": 9.227931690289397
     }
   ],
   "errors": [],
