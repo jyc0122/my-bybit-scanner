@@ -1,17 +1,12 @@
 {
-  "date": "2026-11-18",
-  "createdAt": "2026-11-18T13:53:23.284Z",
+  "date": "2026-11-19",
+  "createdAt": "2026-11-18T17:06:43.102Z",
   "source": "okx",
   "candidates": [
     {
       "symbol": "AMZNUSDT",
       "side": "long",
       "selectedTimeframe": "1D"
-    },
-    {
-      "symbol": "RKLBUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
     },
     {
       "symbol": "QQQUSDT",
@@ -26,11 +21,6 @@
     {
       "symbol": "SQQQUSDT",
       "side": "long",
-      "selectedTimeframe": "4H"
-    },
-    {
-      "symbol": "QNTUSDT",
-      "side": "short",
       "selectedTimeframe": "4H"
     },
     {
@@ -69,11 +59,6 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "AXTIUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H"
-    },
-    {
       "symbol": "ZHONGJIUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
@@ -104,7 +89,7 @@
       "selectedTimeframe": "4H"
     },
     {
-      "symbol": "SNXXUSDT",
+      "symbol": "BTWUSDT",
       "side": "short",
       "selectedTimeframe": "4H"
     }

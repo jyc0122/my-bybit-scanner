@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-18",
-  "time": "21:53:23",
-  "generatedAt": "2026-11-18T13:53:23.284Z",
+  "date": "2026-11-19",
+  "time": "01:06:43",
+  "generatedAt": "2026-11-18T17:06:43.102Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,15 +11,50 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 21,
-  "baselineCandidates": 21,
+  "matches": 18,
+  "baselineCandidates": 18,
   "weakening": [
     {
-      "symbol": "QNTUSDT",
+      "symbol": "QQQUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc6": 24.977916763355275,
-      "currentLrc6": 18.58629280719643
+      "previousLrc6": 26.441342310456456,
+      "currentLrc6": 11.810393234847549
+    },
+    {
+      "symbol": "TSMUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 24.06588504856181,
+      "currentLrc6": 0.2929710239503767
+    },
+    {
+      "symbol": "SQQQUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "previousLrc6": -25.70490017340187,
+      "currentLrc6": -10.134159618988608
+    },
+    {
+      "symbol": "MUUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 30.053857424770445,
+      "currentLrc6": 2.641671187999242
+    },
+    {
+      "symbol": "DRAMUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 30.811592408985366,
+      "currentLrc6": 6.505416326512745
+    },
+    {
+      "symbol": "TQQQUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 25.99150879083315,
+      "currentLrc6": 10.654573012214007
     },
     {
       "symbol": "AKEUSDT",
@@ -27,6 +62,55 @@
       "selectedTimeframe": "1D",
       "previousLrc6": 30.7907006497551,
       "currentLrc6": 15.142786923510089
+    },
+    {
+      "symbol": "CXMTUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 34.776408420238624,
+      "currentLrc6": 15.516704507336263
+    },
+    {
+      "symbol": "INTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 31.546101711967324,
+      "currentLrc6": 8.346779039532011
+    },
+    {
+      "symbol": "ZHONGJIUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 25.353415193356508,
+      "currentLrc6": 9.328942190204248
+    },
+    {
+      "symbol": "SOXLUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 28.635267805260565,
+      "currentLrc6": 9.133997811324456
+    },
+    {
+      "symbol": "ZHIPUUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 37.54862707858883,
+      "currentLrc6": 25.3730414697439
+    },
+    {
+      "symbol": "USELESSUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 34.31783884131135,
+      "currentLrc6": 17.533397251795666
+    },
+    {
+      "symbol": "INTWUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc6": 31.509578705712716,
+      "currentLrc6": 8.460605863143524
     }
   ],
   "errors": [],
