@@ -351,7 +351,7 @@ function lrcAngle(bars, length = 25) {
   return Math.atan(normalizedRise) * 180 / Math.PI;
 }
 
-function evaluateLrc25Direction(bars, timeframe, dailySide) {
+function evaluateLrc25State(bars, timeframe, dailySide) {
   if (bars.length < 26) {
     throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 26 are required`);
   }
@@ -361,13 +361,12 @@ function evaluateLrc25Direction(bars, timeframe, dailySide) {
   const previousLrc25Side = previousLrc25Angle > 0 ? "long" : previousLrc25Angle < 0 ? "short" : "neutral";
   const lrc25Weakening = previousLrc25Side === lrc25Side
     && Math.abs(lrc25Angle) < Math.abs(previousLrc25Angle);
-  const passed = dailySide !== "neutral"
+  const oppositeDaily = dailySide !== "neutral"
     && lrc25Side !== "neutral"
-    && lrc25Side !== dailySide
-    && lrc25Weakening;
+    && lrc25Side !== dailySide;
   return {
     timeframe,
-    passed,
+    oppositeDaily,
     lrc25Side,
     previousLrc25Side,
     lrc25Angle,
@@ -383,11 +382,28 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   const previous = dailyBars.at(-2);
   const dailyLrc25Angle = lrcAngle(dailyBars, 25);
   const dailySide = dailyLrc25Angle > 0 ? "long" : dailyLrc25Angle < 0 ? "short" : "neutral";
+  const m15State = evaluateLrc25State(m15Bars, "15m", dailySide);
+  const h1State = evaluateLrc25State(h1Bars, "1H", dailySide);
+  const h4State = evaluateLrc25State(h4Bars, "4H", dailySide);
   const confirmations = [
-    evaluateLrc25Direction(m15Bars, "15m", dailySide),
-    evaluateLrc25Direction(h1Bars, "1H", dailySide),
-    evaluateLrc25Direction(h4Bars, "4H", dailySide),
+    {
+      ...h1State,
+      confirmationTimeframe: "15m",
+      confirmationSide: m15State.lrc25Side,
+      passed: h1State.oppositeDaily
+        && h1State.lrc25Weakening
+        && m15State.lrc25Side === h1State.lrc25Side,
+    },
+    {
+      ...h4State,
+      confirmationTimeframe: "1H",
+      confirmationSide: h1State.lrc25Side,
+      passed: h4State.oppositeDaily
+        && h4State.lrc25Weakening
+        && h1State.lrc25Side === h4State.lrc25Side,
+    },
   ];
+  const timeframeStates = [m15State, h1State, h4State];
   const matchedTimeframes = confirmations.filter((confirmation) => confirmation.passed);
   const selectedConfirmation = matchedTimeframes.at(-1) || null;
   const confirmationPassed = selectedConfirmation !== null;
@@ -404,6 +420,7 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
     changePct: previous ? (last.c / previous.c - 1) * 100 : 0,
     confirmationPassed,
     confirmations,
+    timeframeStates,
     signalSide: side,
     selectedTimeframe: selectedConfirmation?.timeframe || null,
     selectedLrc25Side: selectedConfirmation?.lrc25Side || "neutral",
@@ -496,7 +513,7 @@ async function runScan(job, categories, requestedSource) {
           job.failed += 1;
           if (job.errors.length < 200) job.errors.push({ symbol: symbol.symbol, message: cleanError(error) });
         }
-        const timeframeRank = { "4H": 0, "1H": 1, "15m": 2 };
+        const timeframeRank = { "4H": 0, "1H": 1 };
         job.results.sort((a, b) => timeframeRank[a.selectedTimeframe] - timeframeRank[b.selectedTimeframe]
           || a.symbol.localeCompare(b.symbol));
         job.updatedAt = new Date().toISOString();

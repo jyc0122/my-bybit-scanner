@@ -104,7 +104,7 @@ jobs:
           TITLE="OKX LRC25 反向减弱机会"
           ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
           if [ -z "$ISSUE_NUMBER" ]; then
-            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly LRC25 monitor 自动维护。每小时扫描一次，只在反向低周期 LRC25 开始减弱时追加顺日线方向的机会提醒。")
+            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly LRC25 monitor 自动维护。每小时扫描一次，只在4H或1H反向 LRC25 获得下一低周期同向确认并开始减弱时追加顺日线方向的机会提醒；15m不作为机会周期。")
             ISSUE_NUMBER=${ISSUE_URL##*/}
           fi
           gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md

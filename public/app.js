@@ -188,7 +188,7 @@ function renderSummary(scanned) {
 
 function filteredResults() {
   const query = state.search.toLowerCase();
-  const timeframeRank = { "4H": 0, "1H": 1, "15m": 2 };
+  const timeframeRank = { "4H": 0, "1H": 1 };
   return state.results
     .filter((item) => state.side === "all" || item.side === state.side)
     .filter((item) => !query || `${item.symbol} ${item.name} ${item.category}`.toLowerCase().includes(query))

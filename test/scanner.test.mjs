@@ -101,13 +101,13 @@ test("daily LRC25 short selects the largest opposite lower timeframe", () => {
     symbol,
     bars("1D", "short"),
     bars("15m", "short"),
-    weakeningBars("1H", "long"),
+    bars("1H", "long"),
     weakeningBars("4H", "long"),
   );
   assert.equal(result.dailySide, "short");
   assert.ok(result.dailyLrc25Angle < 0);
   assert.equal(result.side, "short");
-  assert.deepEqual(result.matchedTimeframes, ["1H", "4H"]);
+  assert.deepEqual(result.matchedTimeframes, ["4H"]);
   assert.equal(result.selectedTimeframe, "4H");
   assert.ok(result.selectedLrc25Angle > 0);
   assert.ok(result.selectedPreviousLrc25Angle > result.selectedLrc25Angle);
@@ -118,13 +118,13 @@ test("daily LRC25 long selects 1H when 4H agrees and 1H plus 15m are opposite", 
   const result = analyzeSymbol(
     symbol,
     bars("1D", "long"),
-    weakeningBars("15m", "short"),
+    bars("15m", "short"),
     weakeningBars("1H", "short"),
     bars("4H", "long"),
   );
   assert.equal(result.dailySide, "long");
   assert.equal(result.side, "long");
-  assert.deepEqual(result.matchedTimeframes, ["15m", "1H"]);
+  assert.deepEqual(result.matchedTimeframes, ["1H"]);
   assert.equal(result.selectedTimeframe, "1H");
   assert.deepEqual(result.qualifyingTimeframes, ["1H"]);
 });
@@ -155,6 +155,34 @@ test("does not select an opposite LRC25 direction until that timeframe starts we
   assert.equal(result.side, "neutral");
 });
 
+test("never emits a 15m opportunity because 5m confirmation is not scanned", () => {
+  const result = analyzeSymbol(
+    symbol,
+    bars("1D", "short"),
+    weakeningBars("15m", "long"),
+    bars("1H", "short"),
+    bars("4H", "short"),
+  );
+  assert.equal(result.timeframeStates[0].lrc25Side, "long");
+  assert.equal(result.timeframeStates[0].lrc25Weakening, true);
+  assert.deepEqual(result.matchedTimeframes, []);
+  assert.equal(result.selectedTimeframe, null);
+});
+
+test("requires 1H direction confirmation before emitting a 4H opportunity", () => {
+  const result = analyzeSymbol(
+    symbol,
+    bars("1D", "short"),
+    bars("15m", "short"),
+    bars("1H", "short"),
+    weakeningBars("4H", "long"),
+  );
+  assert.equal(result.confirmations.at(-1).lrc25Weakening, true);
+  assert.equal(result.confirmations.at(-1).confirmationSide, "short");
+  assert.equal(result.confirmations.at(-1).passed, false);
+  assert.equal(result.selectedTimeframe, null);
+});
+
 test("uses LRC25 direction without the old 20 degree threshold", () => {
   const shallowLong = weakeningBars("4H", "long");
   shallowLong.at(-10).h += 500;
@@ -163,7 +191,7 @@ test("uses LRC25 direction without the old 20 degree threshold", () => {
     symbol,
     bars("1D", "short"),
     bars("15m", "short"),
-    bars("1H", "short"),
+    bars("1H", "long"),
     shallowLong,
   );
   assert.ok(result.selectedLrc25Angle > 0 && result.selectedLrc25Angle <= 20);
