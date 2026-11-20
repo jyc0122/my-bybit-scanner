@@ -1,7 +1,7 @@
 {
   "date": "2026-11-21",
-  "time": "02:54:04",
-  "generatedAt": "2026-11-20T18:54:04.407Z",
+  "time": "03:50:09",
+  "generatedAt": "2026-11-20T19:50:09.657Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,7 +11,7 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 5,
+  "matches": 3,
   "opportunities": [
     {
       "symbol": "AAPLUSDT",
@@ -41,26 +41,6 @@
       "selectedLrc25": -32.5539577765342,
       "matchedTimeframes": [
         "4H"
-      ]
-    },
-    {
-      "symbol": "AMZNUSDT",
-      "side": "long",
-      "selectedTimeframe": "1H",
-      "previousLrc25": -21.2739825175772,
-      "selectedLrc25": -21.007964417469804,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "BTWUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 28.392933361317517,
-      "selectedLrc25": 27.722984282471117,
-      "matchedTimeframes": [
-        "1H"
       ]
     }
   ],
