@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-20",
-  "time": "19:10:53",
-  "generatedAt": "2026-11-20T11:10:53.060Z",
+  "date": "2026-11-21",
+  "time": "00:31:06",
+  "generatedAt": "2026-11-20T16:31:06.035Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,15 +11,16 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 6,
+  "matches": 5,
   "opportunities": [
     {
-      "symbol": "AAPLUSDT",
+      "symbol": "METAUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -19.53526838890071,
-      "selectedLrc25": -18.380449862342953,
+      "previousLrc25": -31.890089950100606,
+      "selectedLrc25": -29.403416998187055,
       "matchedTimeframes": [
+        "1H",
         "4H"
       ]
     },
@@ -27,10 +28,9 @@
       "symbol": "RKLBUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -34.56836745275558,
-      "selectedLrc25": -34.332594145792186,
+      "previousLrc25": -34.09497795476554,
+      "selectedLrc25": -32.5539577765342,
       "matchedTimeframes": [
-        "1H",
         "4H"
       ]
     },
@@ -38,39 +38,29 @@
       "symbol": "UNITREEUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -39.36541880615371,
-      "selectedLrc25": -37.15006298724768,
+      "previousLrc25": -35.230964512815746,
+      "selectedLrc25": -33.004914610634515,
       "matchedTimeframes": [
         "1H",
         "4H"
       ]
     },
     {
-      "symbol": "AMZNUSDT",
-      "side": "long",
-      "selectedTimeframe": "1H",
-      "previousLrc25": -45.41986594409967,
-      "selectedLrc25": -44.034276431427415,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
       "symbol": "AVGOUSDT",
       "side": "long",
       "selectedTimeframe": "1H",
-      "previousLrc25": -40.337001102412174,
-      "selectedLrc25": -39.68787568796977,
+      "previousLrc25": -30.46997196338522,
+      "selectedLrc25": -24.28678400568029,
       "matchedTimeframes": [
         "1H"
       ]
     },
     {
-      "symbol": "CTUSDT",
+      "symbol": "BTWUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 28.721930118655415,
-      "selectedLrc25": 25.95125190156075,
+      "previousLrc25": 30.067371120888176,
+      "selectedLrc25": 29.36363371757849,
       "matchedTimeframes": [
         "1H"
       ]
