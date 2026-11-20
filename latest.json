@@ -1,7 +1,7 @@
 {
   "date": "2026-11-20",
-  "time": "10:54:17",
-  "generatedAt": "2026-11-20T02:54:17.129Z",
+  "time": "15:14:30",
+  "generatedAt": "2026-11-20T07:14:30.657Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,25 +11,16 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 4,
+  "matches": 5,
   "opportunities": [
     {
       "symbol": "AAPLUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -21.65318641052019,
-      "selectedLrc25": -20.32950176968326,
+      "previousLrc25": -20.32950176968326,
+      "selectedLrc25": -19.53526838890071,
       "matchedTimeframes": [
-        "4H"
-      ]
-    },
-    {
-      "symbol": "METAUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc25": -26.22954895328144,
-      "selectedLrc25": -24.750723450578686,
-      "matchedTimeframes": [
+        "1H",
         "4H"
       ]
     },
@@ -37,18 +28,38 @@
       "symbol": "UNITREEUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -43.862044655901755,
-      "selectedLrc25": -43.24868526556496,
+      "previousLrc25": -43.24868526556496,
+      "selectedLrc25": -39.36541880615371,
       "matchedTimeframes": [
         "4H"
       ]
     },
     {
-      "symbol": "SYRUPUSDT",
+      "symbol": "BTWUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 6.279744925338321,
-      "selectedLrc25": 3.158217186440684,
+      "previousLrc25": 8.25347049835132,
+      "selectedLrc25": 6.988537210819044,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "CLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 11.20877040755963,
+      "selectedLrc25": 8.410296045242148,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "TRUTHUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 23.15305421876103,
+      "selectedLrc25": 17.1806689636776,
       "matchedTimeframes": [
         "1H"
       ]
