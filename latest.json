@@ -1,7 +1,7 @@
 {
   "date": "2026-11-21",
-  "time": "14:17:19",
-  "generatedAt": "2026-11-21T06:17:19.026Z",
+  "time": "17:25:55",
+  "generatedAt": "2026-11-21T09:25:55.199Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,36 +11,16 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 3,
+  "matches": 1,
   "opportunities": [
     {
       "symbol": "BTWUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc25": 39.031725121354924,
-      "selectedLrc25": 38.49227875938148,
+      "previousLrc25": 38.49227875938148,
+      "selectedLrc25": 35.302262938450525,
       "matchedTimeframes": [
         "4H"
-      ]
-    },
-    {
-      "symbol": "UNITREEUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc25": -24.730660834552854,
-      "selectedLrc25": -18.726495241760556,
-      "matchedTimeframes": [
-        "4H"
-      ]
-    },
-    {
-      "symbol": "RKLBUSDT",
-      "side": "long",
-      "selectedTimeframe": "1H",
-      "previousLrc25": -33.9967576526508,
-      "selectedLrc25": -32.94230124386517,
-      "matchedTimeframes": [
-        "1H"
       ]
     }
   ],
