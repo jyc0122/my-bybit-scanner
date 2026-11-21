@@ -1,7 +1,7 @@
 {
   "date": "2026-11-21",
-  "time": "03:50:09",
-  "generatedAt": "2026-11-20T19:50:09.657Z",
+  "time": "09:14:25",
+  "generatedAt": "2026-11-21T01:14:25.047Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,34 +11,14 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 3,
+  "matches": 1,
   "opportunities": [
     {
-      "symbol": "AAPLUSDT",
-      "side": "long",
+      "symbol": "BTWUSDT",
+      "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc25": -15.002371917659724,
-      "selectedLrc25": -12.431549132432748,
-      "matchedTimeframes": [
-        "4H"
-      ]
-    },
-    {
-      "symbol": "METAUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc25": -31.890089950100606,
-      "selectedLrc25": -29.403416998187055,
-      "matchedTimeframes": [
-        "4H"
-      ]
-    },
-    {
-      "symbol": "RKLBUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc25": -34.09497795476554,
-      "selectedLrc25": -32.5539577765342,
+      "previousLrc25": 39.070703335043135,
+      "selectedLrc25": 39.031725121354924,
       "matchedTimeframes": [
         "4H"
       ]
