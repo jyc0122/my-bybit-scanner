@@ -1,7 +1,7 @@
 {
   "date": "2026-11-22",
-  "time": "16:25:11",
-  "generatedAt": "2026-11-22T08:25:11.729Z",
+  "time": "19:06:53",
+  "generatedAt": "2026-11-22T11:06:53.923Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,8 +11,18 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 7,
+  "matches": 69,
   "opportunities": [
+    {
+      "symbol": "BTWUSDT",
+      "side": "short",
+      "selectedTimeframe": "4H",
+      "previousLrc25": 37.25577312965037,
+      "selectedLrc25": 36.208151263426366,
+      "matchedTimeframes": [
+        "4H"
+      ]
+    },
     {
       "symbol": "CTUSDT",
       "side": "short",
@@ -20,35 +30,486 @@
       "previousLrc25": 28.19752400980161,
       "selectedLrc25": 27.216919001080676,
       "matchedTimeframes": [
+        "1H",
         "4H"
       ]
     },
     {
-      "symbol": "MINAUSDT",
+      "symbol": "ADAUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 4.217446413928352,
-      "selectedLrc25": 3.9561996122068166,
+      "previousLrc25": 9.101366526560208,
+      "selectedLrc25": 8.348316720303282,
       "matchedTimeframes": [
         "1H"
       ]
     },
     {
-      "symbol": "NVDAUSDT",
+      "symbol": "ARBUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 23.247673122583826,
-      "selectedLrc25": 23.115365273425272,
+      "previousLrc25": 14.29098476779532,
+      "selectedLrc25": 11.051028770715828,
       "matchedTimeframes": [
         "1H"
       ]
     },
     {
-      "symbol": "PUMPFUNUSDT",
+      "symbol": "ARMUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 5.063345727090712,
-      "selectedLrc25": 3.5790563022993465,
+      "previousLrc25": 18.137526206205177,
+      "selectedLrc25": 17.791694262137757,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 8.84181456019167,
+      "selectedLrc25": 8.040638693184729,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "BCHUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 13.659002496018108,
+      "selectedLrc25": 11.080855381747876,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "BMNRUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 21.863414526280323,
+      "selectedLrc25": 21.037511025421814,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "BNBUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 16.69420272895249,
+      "selectedLrc25": 13.55968149563443,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "BTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 12.400488940967413,
+      "selectedLrc25": 10.496185410861033,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "BZUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 22.473100056835793,
+      "selectedLrc25": 20.265697470947554,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "CBRSUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 23.24122371293106,
+      "selectedLrc25": 22.428512224463322,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "CLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 2.131080831104059,
+      "selectedLrc25": 0.28096743580359307,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "COHRUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.66813613154862,
+      "selectedLrc25": 20.407782064583962,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "COINUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 24.70596181938029,
+      "selectedLrc25": 22.77134962623021,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "CRCLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 15.3117449099229,
+      "selectedLrc25": 14.853959318298626,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "CRWVUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 25.3795634124023,
+      "selectedLrc25": 24.535303155739665,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "DELLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 18.789096975800977,
+      "selectedLrc25": 17.99987714637145,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 10.302201447958765,
+      "selectedLrc25": 7.491796989168772,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ETHUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 9.093475414589829,
+      "selectedLrc25": 8.857621723035729,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 26.335045806927162,
+      "selectedLrc25": 22.968485634542468,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "GRASSUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 23.123616676526208,
+      "selectedLrc25": 19.599180161832823,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "HBARUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 5.172829402595141,
+      "selectedLrc25": 1.1349317408581567,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "HOODUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 21.354952246081393,
+      "selectedLrc25": 20.840590761370656,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "HYPEUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 15.333504027745729,
+      "selectedLrc25": 13.545141094572397,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "INTCUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 26.358086356561877,
+      "selectedLrc25": 24.127988382373236,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "INTWUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 27.044499863885626,
+      "selectedLrc25": 24.7232427198996,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "IRENUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.219903848306664,
+      "selectedLrc25": 19.059749925970593,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "MINIMAXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 17.5901341806791,
+      "selectedLrc25": 16.439260110937948,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "MRVLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 22.553676171819706,
+      "selectedLrc25": 22.40602980768723,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.08666124170822,
+      "selectedLrc25": 17.709291705217346,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.56483739238788,
+      "selectedLrc25": 18.5014020243081,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "MUUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.374675770844654,
+      "selectedLrc25": 19.739717030424423,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "NBISUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 27.125380699337548,
+      "selectedLrc25": 26.161036302693883,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "NEARUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.89910949169834,
+      "selectedLrc25": 20.2656974709475,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ONDOUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 19.033360190151843,
+      "selectedLrc25": 18.26402551768806,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ORCLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 28.728551516689247,
+      "selectedLrc25": 27.213547065992564,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 26.522211588820607,
+      "selectedLrc25": 23.433058075815985,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "PYTHUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.325091462282764,
+      "selectedLrc25": 19.878040714138006,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "QCOMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 17.660824620054242,
+      "selectedLrc25": 17.341967995801404,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "QQQUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.082240814076574,
+      "selectedLrc25": 19.021484594581484,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "RAYDIUMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 7.379761961072509,
+      "selectedLrc25": 2.0292776788456615,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "RENDERUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 29.529981212100616,
+      "selectedLrc25": 28.152081075363476,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "RKLBUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 30.22079992383128,
+      "selectedLrc25": 28.714251031448704,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "SHIB1000USDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 16.105462956942784,
+      "selectedLrc25": 12.514382790142768,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "SKHYNIXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 24.04422326936781,
+      "selectedLrc25": 23.72839107595253,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "SOLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 4.761141620894869,
+      "selectedLrc25": 0.9911430561192343,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "SOXLUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 22.717010178478393,
+      "selectedLrc25": 22.462060258409412,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "SOXSUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H",
+      "previousLrc25": -26.111796163026597,
+      "selectedLrc25": -25.452786987849386,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "SQQQUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H",
+      "previousLrc25": -19.106794954077714,
+      "selectedLrc25": -18.568150771681758,
       "matchedTimeframes": [
         "1H"
       ]
@@ -57,8 +518,18 @@
       "symbol": "STRKUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 22.166201307108363,
-      "selectedLrc25": 20.57129630289651,
+      "previousLrc25": 13.811688209031471,
+      "selectedLrc25": 13.765469123318919,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "STXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 24.25211983850876,
+      "selectedLrc25": 20.378675230736818,
       "matchedTimeframes": [
         "1H"
       ]
@@ -67,18 +538,168 @@
       "symbol": "TIAUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 25.183037324887003,
-      "selectedLrc25": 24.881150383665016,
+      "previousLrc25": 21.12290233140041,
+      "selectedLrc25": 19.129264022236157,
       "matchedTimeframes": [
         "1H"
       ]
     },
     {
-      "symbol": "WIFUSDT",
+      "symbol": "TQQQUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 1.6542667217508364,
-      "selectedLrc25": 0.11609635494754707,
+      "previousLrc25": 19.11018753670505,
+      "selectedLrc25": 18.597866423807652,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "TRXUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 5.607939921003021,
+      "selectedLrc25": 2.8859693193937566,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "TSMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 16.941542392836602,
+      "selectedLrc25": 13.981778145492294,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "UNITREEUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 12.37454753639567,
+      "selectedLrc25": 8.161288062210573,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "UNIUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 14.266422680196332,
+      "selectedLrc25": 10.090839496758104,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "USELESSUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 10.340161462697711,
+      "selectedLrc25": 8.359102569646202,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "VIRTUALUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 5.566112983846868,
+      "selectedLrc25": 5.003828102429186,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "VVVUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 37.59197735059869,
+      "selectedLrc25": 35.72948215083026,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "WDCUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 14.425237217718468,
+      "selectedLrc25": 14.250374096395117,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "WUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.38366815815415,
+      "selectedLrc25": 18.17708122429876,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "XLMUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 11.48793046014431,
+      "selectedLrc25": 8.177758345196644,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "XRPUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 14.87057987369307,
+      "selectedLrc25": 10.761212224505822,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ZECUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 13.045035677860124,
+      "selectedLrc25": 10.150398406521301,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ZHIPUUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 30.937294415207123,
+      "selectedLrc25": 29.328848003622234,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ZHONGJIUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 20.467794492117708,
+      "selectedLrc25": 16.997299998840308,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "ZROUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 22.859252894786554,
+      "selectedLrc25": 22.635269950668093,
       "matchedTimeframes": [
         "1H"
       ]
