@@ -1,7 +1,7 @@
 {
   "date": "2026-11-22",
-  "time": "13:35:37",
-  "generatedAt": "2026-11-22T05:35:37.335Z",
+  "time": "16:25:11",
+  "generatedAt": "2026-11-22T08:25:11.729Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,24 +11,74 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 2,
+  "matches": 7,
   "opportunities": [
     {
       "symbol": "CTUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc25": 29.19703293558048,
-      "selectedLrc25": 28.19752400980161,
+      "previousLrc25": 28.19752400980161,
+      "selectedLrc25": 27.216919001080676,
       "matchedTimeframes": [
         "4H"
       ]
     },
     {
-      "symbol": "RENDERUSDT",
+      "symbol": "MINAUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 38.88178886815055,
-      "selectedLrc25": 37.41479705151146,
+      "previousLrc25": 4.217446413928352,
+      "selectedLrc25": 3.9561996122068166,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 23.247673122583826,
+      "selectedLrc25": 23.115365273425272,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "PUMPFUNUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 5.063345727090712,
+      "selectedLrc25": 3.5790563022993465,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "STRKUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 22.166201307108363,
+      "selectedLrc25": 20.57129630289651,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "TIAUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 25.183037324887003,
+      "selectedLrc25": 24.881150383665016,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "WIFUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 1.6542667217508364,
+      "selectedLrc25": 0.11609635494754707,
       "matchedTimeframes": [
         "1H"
       ]
