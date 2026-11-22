@@ -1,7 +1,7 @@
 {
   "date": "2026-11-22",
-  "time": "10:58:24",
-  "generatedAt": "2026-11-22T02:58:24.410Z",
+  "time": "13:35:37",
+  "generatedAt": "2026-11-22T05:35:37.335Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -14,21 +14,21 @@
   "matches": 2,
   "opportunities": [
     {
-      "symbol": "BTWUSDT",
+      "symbol": "CTUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc25": 38.10733894519162,
-      "selectedLrc25": 37.65861765430185,
+      "previousLrc25": 29.19703293558048,
+      "selectedLrc25": 28.19752400980161,
       "matchedTimeframes": [
         "4H"
       ]
     },
     {
-      "symbol": "CLUSDT",
+      "symbol": "RENDERUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 29.25295562519092,
-      "selectedLrc25": 27.451591156008156,
+      "previousLrc25": 38.88178886815055,
+      "selectedLrc25": 37.41479705151146,
       "matchedTimeframes": [
         "1H"
       ]
