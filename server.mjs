@@ -351,24 +351,52 @@ function lrcAngle(bars, length = 25) {
   return Math.atan(normalizedRise) * 180 / Math.PI;
 }
 
+function lrc25Side(angle) {
+  return angle > 0 ? "long" : angle < 0 ? "short" : "neutral";
+}
+
+function lrc25Timeline(bars) {
+  return bars.slice(24).map((bar, offset) => {
+    const index = offset + 24;
+    const angle = lrcAngle(bars.slice(0, index + 1), 25);
+    return { ts: bar.ts, angle, side: lrc25Side(angle) };
+  });
+}
+
+function lowerTimeframeVisitedDailySideDuringRun(higherBars, higherState, lowerBars, dailySide, higherDurationMs) {
+  const higherTimeline = lrc25Timeline(higherBars);
+  let beforeRunIndex = higherTimeline.length - 1;
+  while (beforeRunIndex >= 0 && higherTimeline[beforeRunIndex].side === higherState.lrc25Side) beforeRunIndex -= 1;
+  const runStartKnown = beforeRunIndex >= 0;
+  if (!runStartKnown) return { passed: false, runStartKnown: false, runStartAt: null };
+  const runStartAt = higherTimeline[beforeRunIndex + 1].ts;
+  const runEndExclusive = higherBars.at(-1).ts + higherDurationMs;
+  const passed = lrc25Timeline(lowerBars).some((point) => (
+    point.ts >= runStartAt
+    && point.ts < runEndExclusive
+    && point.side === dailySide
+  ));
+  return { passed, runStartKnown: true, runStartAt };
+}
+
 function evaluateLrc25State(bars, timeframe, dailySide) {
   if (bars.length < 26) {
     throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 26 are required`);
   }
   const lrc25Angle = lrcAngle(bars, 25);
   const previousLrc25Angle = lrcAngle(bars.slice(0, -1), 25);
-  const lrc25Side = lrc25Angle > 0 ? "long" : lrc25Angle < 0 ? "short" : "neutral";
-  const previousLrc25Side = previousLrc25Angle > 0 ? "long" : previousLrc25Angle < 0 ? "short" : "neutral";
-  const lrc25Weakening = previousLrc25Side === lrc25Side
+  const currentSide = lrc25Side(lrc25Angle);
+  const previousSide = lrc25Side(previousLrc25Angle);
+  const lrc25Weakening = previousSide === currentSide
     && Math.abs(lrc25Angle) < Math.abs(previousLrc25Angle);
   const oppositeDaily = dailySide !== "neutral"
-    && lrc25Side !== "neutral"
-    && lrc25Side !== dailySide;
+    && currentSide !== "neutral"
+    && currentSide !== dailySide;
   return {
     timeframe,
     oppositeDaily,
-    lrc25Side,
-    previousLrc25Side,
+    lrc25Side: currentSide,
+    previousLrc25Side: previousSide,
     lrc25Angle,
     previousLrc25Angle,
     lrc25Weakening,
@@ -381,18 +409,29 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   const last = dailyBars.at(-1);
   const previous = dailyBars.at(-2);
   const dailyLrc25Angle = lrcAngle(dailyBars, 25);
-  const dailySide = dailyLrc25Angle > 0 ? "long" : dailyLrc25Angle < 0 ? "short" : "neutral";
+  const dailySide = lrc25Side(dailyLrc25Angle);
   const m15State = evaluateLrc25State(m15Bars, "15m", dailySide);
   const h1State = evaluateLrc25State(h1Bars, "1H", dailySide);
   const h4State = evaluateLrc25State(h4Bars, "4H", dailySide);
+  const h1HistoryReversal = lowerTimeframeVisitedDailySideDuringRun(
+    h1Bars,
+    h1State,
+    m15Bars,
+    dailySide,
+    3_600_000,
+  );
   const confirmations = [
     {
       ...h1State,
       confirmationTimeframe: "15m",
       confirmationSide: m15State.lrc25Side,
+      historyReversalPassed: h1HistoryReversal.passed,
+      runStartKnown: h1HistoryReversal.runStartKnown,
+      runStartAt: h1HistoryReversal.runStartAt,
       passed: h1State.oppositeDaily
         && h1State.lrc25Weakening
-        && m15State.lrc25Side === h1State.lrc25Side,
+        && m15State.lrc25Side === h1State.lrc25Side
+        && h1HistoryReversal.passed,
     },
     {
       ...h4State,
@@ -497,9 +536,9 @@ async function runScan(job, categories, requestedSource) {
         try {
           const [dailyBars, m15Bars, h1Bars, h4Bars] = await Promise.all([
             fetchKlines(source, symbol, "D", 260),
-            fetchKlines(source, symbol, "15", 60),
-            fetchKlines(source, symbol, "60", 60),
-            fetchKlines(source, symbol, "240", 60),
+            fetchKlines(source, symbol, "15", 300),
+            fetchKlines(source, symbol, "60", 300),
+            fetchKlines(source, symbol, "240", 300),
           ]);
           const analysis = analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars);
           analysis.dataSource = source;

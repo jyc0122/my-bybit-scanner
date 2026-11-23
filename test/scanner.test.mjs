@@ -41,6 +41,42 @@ function weakeningBars(timeframe, side) {
   Object.assign(last, { o: close, h: close + 0.2, l: close - 0.2, c: close });
   return result;
 }
+
+function alignedSegmentedBars(timeframe, firstSide, currentSide, count, turnIndex, endTs) {
+  const stepMs = steps[timeframe];
+  const startTs = endTs - (count - 1) * stepMs;
+  let close = 1_000;
+  const result = Array.from({ length: count }, (_, index) => {
+    const direction = (index < turnIndex ? firstSide : currentSide) === "long" ? 1 : -1;
+    close += direction;
+    const ts = startTs + index * stepMs;
+    return {
+      t: new Date(ts).toISOString().slice(0, 10),
+      ts,
+      o: close - direction * 0.1,
+      h: close + 0.2,
+      l: close - 0.2,
+      c: close,
+      v: 1,
+      turnover: close,
+    };
+  });
+  const currentDirection = currentSide === "long" ? 1 : -1;
+  const last = result.at(-1);
+  const weakenedClose = last.c - currentDirection * 5;
+  Object.assign(last, { o: weakenedClose, h: weakenedClose + 0.2, l: weakenedClose - 0.2, c: weakenedClose });
+  return result;
+}
+
+function oneHourOpportunityBars(dailySide, includeHistoricalOpposite = true) {
+  const opportunityLrcSide = dailySide === "short" ? "long" : "short";
+  const endTs = 500 * steps["1H"];
+  const h1 = alignedSegmentedBars("1H", dailySide, opportunityLrcSide, 120, 70, endTs);
+  const m15 = includeHistoricalOpposite
+    ? alignedSegmentedBars("15m", dailySide, opportunityLrcSide, 300, 200, endTs)
+    : alignedSegmentedBars("15m", opportunityLrcSide, opportunityLrcSide, 300, 0, endTs);
+  return { m15, h1 };
+}
 const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
 
 test("loads, groups, and normalizes the configured symbol universe", async () => {
@@ -115,11 +151,12 @@ test("daily LRC25 short selects the largest opposite lower timeframe", () => {
 });
 
 test("daily LRC25 long selects 1H when 4H agrees and 1H plus 15m are opposite", () => {
+  const { m15, h1 } = oneHourOpportunityBars("long");
   const result = analyzeSymbol(
     symbol,
     bars("1D", "long"),
-    bars("15m", "short"),
-    weakeningBars("1H", "short"),
+    m15,
+    h1,
     bars("4H", "long"),
   );
   assert.equal(result.dailySide, "long");
@@ -127,6 +164,38 @@ test("daily LRC25 long selects 1H when 4H agrees and 1H plus 15m are opposite", 
   assert.deepEqual(result.matchedTimeframes, ["1H"]);
   assert.equal(result.selectedTimeframe, "1H");
   assert.deepEqual(result.qualifyingTimeframes, ["1H"]);
+  assert.equal(result.confirmations[0].historyReversalPassed, true);
+});
+
+test("1H short opportunity requires a prior negative 15m LRC25 during the current positive 1H run", () => {
+  const { m15, h1 } = oneHourOpportunityBars("short");
+  const result = analyzeSymbol(
+    symbol,
+    bars("1D", "short"),
+    m15,
+    h1,
+    bars("4H", "short"),
+  );
+  assert.equal(result.selectedTimeframe, "1H");
+  assert.equal(result.side, "short");
+  assert.equal(result.confirmations[0].lrc25Side, "long");
+  assert.equal(result.confirmations[0].confirmationSide, "long");
+  assert.equal(result.confirmations[0].historyReversalPassed, true);
+});
+
+test("rejects 1H opportunity when 15m never visited the daily direction during the current 1H run", () => {
+  const { m15, h1 } = oneHourOpportunityBars("short", false);
+  const result = analyzeSymbol(
+    symbol,
+    bars("1D", "short"),
+    m15,
+    h1,
+    bars("4H", "short"),
+  );
+  assert.equal(result.confirmations[0].lrc25Side, "long");
+  assert.equal(result.confirmations[0].confirmationSide, "long");
+  assert.equal(result.confirmations[0].historyReversalPassed, false);
+  assert.equal(result.selectedTimeframe, null);
 });
 
 test("does not select a symbol when every lower timeframe agrees with daily LRC25", () => {
