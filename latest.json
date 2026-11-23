@@ -1,7 +1,7 @@
 {
   "date": "2026-11-24",
-  "time": "02:40:15",
-  "generatedAt": "2026-11-23T18:40:15.871Z",
+  "time": "05:02:16",
+  "generatedAt": "2026-11-23T21:02:16.676Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,64 +11,34 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 12,
+  "matches": 5,
   "opportunities": [
-    {
-      "symbol": "AAPLUSDT",
-      "side": "long",
-      "selectedTimeframe": "4H",
-      "previousLrc25": -8.794007744408347,
-      "selectedLrc25": -2.805860332999869,
-      "matchedTimeframes": [
-        "4H"
-      ]
-    },
     {
       "symbol": "AVGOUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -27.109965750510923,
-      "selectedLrc25": -22.667634508096288,
+      "previousLrc25": -22.667634508096288,
+      "selectedLrc25": -19.958738460946975,
       "matchedTimeframes": [
         "4H"
       ]
     },
     {
-      "symbol": "ARBUSDT",
+      "symbol": "BTWUSDT",
       "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 5.631563387346504,
-      "selectedLrc25": 4.704685546995429,
+      "selectedTimeframe": "4H",
+      "previousLrc25": 30.097461581718626,
+      "selectedLrc25": 28.249394419251754,
       "matchedTimeframes": [
-        "1H"
+        "4H"
       ]
     },
     {
-      "symbol": "BOMEUSDT",
+      "symbol": "METAUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 24.109170279414535,
-      "selectedLrc25": 23.019599414843924,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "ETCUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 39.085988632748595,
-      "selectedLrc25": 38.66562965632565,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "MINAUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 14.763886915451923,
-      "selectedLrc25": 14.355233624494884,
+      "previousLrc25": 37.941399020363455,
+      "selectedLrc25": 37.633948511579234,
       "matchedTimeframes": [
         "1H"
       ]
@@ -77,58 +47,18 @@
       "symbol": "MINIMAXUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 44.20221807649359,
-      "selectedLrc25": 43.95813459920131,
+      "previousLrc25": 42.107675728922445,
+      "selectedLrc25": 40.59303019332633,
       "matchedTimeframes": [
         "1H"
       ]
     },
     {
-      "symbol": "PUMPFUNUSDT",
+      "symbol": "ZHONGJIUSDT",
       "side": "short",
       "selectedTimeframe": "1H",
-      "previousLrc25": 15.218347003003307,
-      "selectedLrc25": 14.920950401125575,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "PYTHUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 17.693841829205624,
-      "selectedLrc25": 17.21704753878262,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "SANDUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 22.027899416058368,
-      "selectedLrc25": 21.723142722022896,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "WLDUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 19.431753813039798,
-      "selectedLrc25": 19.114373061099695,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "WUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 31.395271837215734,
-      "selectedLrc25": 31.106181266861647,
+      "previousLrc25": 42.4375180174731,
+      "selectedLrc25": 42.02138788966435,
       "matchedTimeframes": [
         "1H"
       ]
