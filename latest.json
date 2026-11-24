@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-24",
-  "time": "18:57:55",
-  "generatedAt": "2026-11-24T10:57:55.261Z",
+  "date": "2026-11-25",
+  "time": "00:11:24",
+  "generatedAt": "2026-11-24T16:11:24.982Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,47 +11,16 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 4,
+  "matches": 1,
   "opportunities": [
     {
       "symbol": "AVGOUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "previousLrc25": -15.246054297792709,
-      "selectedLrc25": -8.92028369920243,
-      "matchedTimeframes": [
-        "1H",
-        "4H"
-      ]
-    },
-    {
-      "symbol": "BTWUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc25": 23.743675960938614,
-      "selectedLrc25": 21.752969499287065,
+      "previousLrc25": -4.433755236919073,
+      "selectedLrc25": -1.223502071958331,
       "matchedTimeframes": [
         "4H"
-      ]
-    },
-    {
-      "symbol": "CFXUSDT",
-      "side": "short",
-      "selectedTimeframe": "1H",
-      "previousLrc25": 15.000167692881806,
-      "selectedLrc25": 11.617146802860702,
-      "matchedTimeframes": [
-        "1H"
-      ]
-    },
-    {
-      "symbol": "VVVUSDT",
-      "side": "long",
-      "selectedTimeframe": "1H",
-      "previousLrc25": -21.581381850197623,
-      "selectedLrc25": -18.725937580827825,
-      "matchedTimeframes": [
-        "1H"
       ]
     }
   ],
