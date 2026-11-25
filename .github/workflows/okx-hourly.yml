@@ -92,6 +92,9 @@ jobs:
 
       - name: Notify through GitHub issue
         if: steps.due.outputs.run == 'true'
+        # GitHub Issue is a secondary notification channel. A temporary GitHub
+        # API failure must not prevent the following Telegram notification.
+        continue-on-error: true
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -102,12 +105,25 @@ jobs:
             exit 0
           fi
           TITLE="OKX LRC25 LRC100 路径机会"
-          ISSUE_NUMBER=$(gh issue list --state open --search "$TITLE in:title" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n 1)
+          # Use the REST API instead of `gh issue list`, which performs a
+          # GraphQL query and has occasionally failed even when the scan passed.
+          ISSUE_NUMBER=$(gh api --paginate --slurp \
+            "repos/$GITHUB_REPOSITORY/issues?state=open&per_page=100" \
+            | jq -r --arg title "$TITLE" \
+              '.[][] | select((has("pull_request") | not) and .title == $title) | .number' \
+            | head -n 1)
           if [ -z "$ISSUE_NUMBER" ]; then
-            ISSUE_URL=$(gh issue create --title "$TITLE" --assignee jyc0122 --body "由 OKX hourly LRC monitor 自动维护。每小时扫描15m、1H、4H；当前LRC25与LRC100同向且反向日线，并且本轮LRC100期间LRC25曾走过日线方向后，追加顺日线方向的机会提醒。")
-            ISSUE_NUMBER=${ISSUE_URL##*/}
+            BODY="由 OKX hourly LRC monitor 自动维护。每小时扫描15m、1H、4H；当前LRC25与LRC100同向且反向日线，并且本轮LRC100期间LRC25曾走过日线方向后，追加顺日线方向的机会提醒。"
+            ISSUE_NUMBER=$(jq -n \
+              --arg title "$TITLE" \
+              --arg body "$BODY" \
+              '{title: $title, body: $body, assignees: ["jyc0122"]}' \
+              | gh api --method POST "repos/$GITHUB_REPOSITORY/issues" --input - --jq '.number')
           fi
-          gh issue comment "$ISSUE_NUMBER" --body-file state/notification.md
+          jq -Rs '{body: .}' state/notification.md \
+            | gh api --method POST \
+              "repos/$GITHUB_REPOSITORY/issues/$ISSUE_NUMBER/comments" \
+              --input -
 
       - name: Notify Telegram of LRC25 LRC100 path opportunities
         if: steps.due.outputs.run == 'true'
