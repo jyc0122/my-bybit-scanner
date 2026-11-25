@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071019">
-  <title>Multi-Source LRC25 Scanner</title>
+  <title>Multi-Source LRC25/LRC100 Path Scanner</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
     <header class="topbar">
       <div class="brand">
         <span class="eyebrow">BYBIT + BINANCE + OKX · PUBLIC FUTURES DATA</span>
-        <h1>LRC25 Direction Scanner</h1>
-        <p>以日线 LRC25 为内部基准，寻找反向低周期 LRC25 开始减弱后的顺势机会。</p>
+        <h1>LRC25 / LRC100 Path Scanner</h1>
+        <p>以日线 LRC25 为基准，寻找低周期 LRC25 与 LRC100 反向共振后的顺势机会。</p>
       </div>
       <div class="connection-card" id="connectionCard">
         <span class="status-dot" id="statusDot"></span>
@@ -27,9 +27,9 @@
 
     <section class="rule-strip" aria-label="扫描规则">
       <div><span>基准</span><strong>日线 LRC25 方向</strong></div>
-      <div><span>机会</span><strong>4H / 1H</strong></div>
-      <div><span>4H确认</span><strong>1H 与 4H 的 LRC25 同向</strong></div>
-      <div><span>1H确认</span><strong>15m 当前同向，且本轮1H反向期间曾走过日线方向</strong></div>
+      <div><span>机会</span><strong>4H / 1H / 15m</strong></div>
+      <div><span>当前</span><strong>LRC25 与 LRC100 同向且反向日线</strong></div>
+      <div><span>路径</span><strong>本轮 LRC100 期间 LRC25 曾走过日线方向</strong></div>
       <div><span>角度</span><strong>只看正负方向 · 无 20° 门槛</strong></div>
       <div><span>多周期</span><strong>只显示符合条件的最大周期</strong></div>
       <div><span>模式</span><strong>只读扫描</strong></div>
@@ -113,18 +113,18 @@
 
           <section class="metric-grid">
             <article><span>OPPORTUNITY SIDE</span><strong id="opportunitySide">—</strong><small>顺日线方向的机会</small></article>
-            <article class="touch-metric"><span>MAX OPPORTUNITY TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>只显示 4H / 1H 机会</small></article>
+            <article class="touch-metric"><span>MAX OPPORTUNITY TIMEFRAME</span><strong id="lrcTimeframe">—</strong><small>4H / 1H / 15m 中最大的机会</small></article>
             <article class="touch-metric"><span>CURRENT LRC25</span><strong id="lrc25Signal">—</strong><small id="lrc25Meta">当前角度 —</small></article>
-            <article class="touch-metric"><span>PREVIOUS LRC25</span><strong id="previousLrc25Angle">—</strong><small>上一根已收盘 K 线角度</small></article>
+            <article class="touch-metric"><span>CURRENT LRC100</span><strong id="lrc100Signal">—</strong><small>当前 LRC100 角度</small></article>
             <article class="touch-metric"><span>ALL MATCHES</span><strong id="matchedTimeframes">—</strong><small>全部反向周期</small></article>
-            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>反向 LRC25 方向不变且绝对角度下降</small></article>
+            <article class="status-metric"><span>SCREEN STATUS</span><strong id="statusValue">—</strong><small>LRC100本轮期间LRC25完成反向再回归</small></article>
           </section>
         </div>
       </section>
     </main>
 
     <footer>
-      <span>数据：Bybit V5 / Binance USDⓈ-M Futures / OKX 公共行情 · LRC25 反向减弱机会扫描</span>
+      <span>数据：Bybit V5 / Binance USDⓈ-M Futures / OKX 公共行情 · LRC25 / LRC100 路径机会扫描</span>
       <span>仅供研究，不构成投资建议</span>
     </footer>
   </div>

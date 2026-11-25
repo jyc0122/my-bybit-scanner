@@ -47,8 +47,8 @@ function opportunityRows(results) {
     symbol: item.symbol,
     side: item.side,
     selectedTimeframe: item.selectedTimeframe,
-    previousLrc25: item.selectedPreviousLrc25Angle,
     selectedLrc25: item.selectedLrc25Angle,
+    selectedLrc100: item.selectedLrc100Angle,
     matchedTimeframes: item.matchedTimeframes,
   }));
 }
@@ -56,10 +56,10 @@ function opportunityRows(results) {
 function opportunityMarkdown(results) {
   if (!results.length) return "本次没有发现与日线 LRC25 方向相反的周期。";
   const rows = results.map((item) => (
-    `| ${item.symbol} | ${item.selectedTimeframe} | ${item.side} | ${Number(item.selectedPreviousLrc25Angle).toFixed(6)}° | ${Number(item.selectedLrc25Angle).toFixed(6)}° |`
+    `| ${item.symbol} | ${item.selectedTimeframe} | ${item.side} | ${Number(item.selectedLrc25Angle).toFixed(6)}° | ${Number(item.selectedLrc100Angle).toFixed(6)}° |`
   ));
   return [
-    "| Symbol | Timeframe | Opportunity | Previous LRC25 | Current LRC25 |",
+    "| Symbol | Timeframe | Opportunity | LRC25 | LRC100 |",
     "|---|---:|---|---:|---:|",
     ...rows,
   ].join("\n");
@@ -101,7 +101,7 @@ try {
     notify: opportunities.length > 0,
   };
   const notification = [
-    `## OKX LRC25 反向减弱机会｜${singaporeDate} ${singaporeTime} SGT`,
+    `## OKX LRC25 / LRC100 路径机会｜${singaporeDate} ${singaporeTime} SGT`,
     "",
     opportunityMarkdown(job.results),
   ].join("\n");

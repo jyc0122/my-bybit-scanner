@@ -1,19 +1,17 @@
-# Multi-Source LRC25 Direction Scanner
+# Multi-Source LRC25 / LRC100 Path Scanner
 
 这是从本机 cTrader scanner 独立复刻出的只读行情扫描器，可在 dashboard 中切换 `Bybit`、`Binance USDⓈ-M Futures` 与 `OKX USDT Perpetual`。原项目 `E:\ctradermcp\site` 不会被修改；本版本默认监听另一个端口 `8788`。
 
 扫描逻辑：
 
 - 日线 `LRC25 > 0` 为多头基准，`LRC25 < 0` 为空头基准
-- 扫描 `15m`、`1H`、`4H` 的 `LRC25` 方向（收盘价、窗口最高最低价标准化）
-- `4H` 机会：4H LRC25 与日线反向、1H LRC25 与4H同向确认，并且4H LRC25 方向不变、绝对角度较上一根变小
-- `1H` 机会：1H LRC25 与日线反向、15m LRC25 与1H同向确认，并且1H LRC25 方向不变、绝对角度较上一根变小
-- 额外路径条件：从本轮1H LRC25进入当前反向方向开始，15m LRC25必须至少曾经出现过一次日线方向；例如1H当前为正时，这段期间15m必须曾经为负
-- `15m` 是最低确认周期，不会产生15m机会，因为扫描器不读取5m确认
-- 例如日线 LRC25 为空、4H与1H的 LRC25 均为多，且4H从 `+40°` 减弱至 `+30°`，显示“4H 空头机会”
-- 如果4H和1H机会同时成立，只显示4H，并保留全部符合机会周期供详情查看
+- 分别扫描 `15m`、`1H`、`4H` 的 `LRC25` 与 `LRC100`（收盘价、窗口最高最低价标准化）
+- 当前周期的LRC25和LRC100必须同向，并且共同与日线LRC25方向相反
+- 在本轮LRC100持续保持当前反向方向期间，同周期LRC25必须至少曾经出现过一次日线方向，并在当前重新回到LRC100方向
+- 例如日线为空，1H LRC100当前大于0；本轮1H LRC100大于0期间，1H LRC25曾小于0且现在大于0，则显示“1H空头机会”
+- `15m`、`1H`、`4H` 都可以产生机会；多个周期同时符合时只显示最大周期（`4H > 1H > 15m`）
 - 日线 LRC25 只作为内部过滤，不在 dashboard、Issue 或 Telegram 结果中展示
-- 不使用 `EMA21`、`LRC6`、近 5 根 K 线或 20°角度门槛
+- 不使用 `EMA21`、`LRC6`、近5根K线、低一级周期确认、减弱条件或20°角度门槛
 - 扫描结果默认按机会周期从大到小排列
 - 只使用已经收盘的 K 线，所有未收盘 K 线都会被过滤
 - dashboard 不再绘制日线 K 线图，结果详情只保留筛选所需指标
@@ -128,9 +126,9 @@ docker run --rm -p 8788:8788 my-bybit-scanner
 `.github/workflows/okx-hourly.yml` 在 GitHub 云端以每小时第 `59` 分钟作为主扫描时间，不要求本机开机。由于 GitHub 可能延迟或丢弃 cron 事件，工作流会在每小时第 `14` 分钟进行一次补跑检查；如果 45 分钟内已有成功扫描，补跑会直接结束，不会重复扫描或推送：
 
 - 每次运行都执行 OKX 全量扫描，并把最新状态保存到专用 `automation-state` 分支；
-- 所有符合 LRC25 反向并开始减弱的机会都会进入通知；没有机会时不会发送；
-- 结果会追加到仓库的 `OKX LRC25 反向减弱机会` Issue；
+- 所有符合 LRC25 / LRC100 路径规则的机会都会进入通知；没有机会时不会发送；
+- 结果会追加到仓库的 `OKX LRC25 LRC100 路径机会` Issue；
 - 配置 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID` 两个 Repository Actions Secrets 后，同一结果也会发送到 Telegram；未配置时会安全跳过 Telegram，不影响扫描；
 - 可在 Actions 页面使用 `Run workflow` 随时手动执行一次完整扫描。
 
-Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，只列出机会周期、交易方向及该周期 LRC25 的前值与当前值，不展示日线数据。
+Telegram 凭据只能存放在仓库的 `Settings → Secrets and variables → Actions`，不要写入代码或 workflow 文件。Telegram 消息按长度自动分段，只列出机会周期、交易方向及该周期当前 LRC25、LRC100，不展示日线数据。

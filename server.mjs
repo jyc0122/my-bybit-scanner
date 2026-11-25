@@ -351,55 +351,50 @@ function lrcAngle(bars, length = 25) {
   return Math.atan(normalizedRise) * 180 / Math.PI;
 }
 
-function lrc25Side(angle) {
+function lrcSide(angle) {
   return angle > 0 ? "long" : angle < 0 ? "short" : "neutral";
 }
 
-function lrc25Timeline(bars) {
-  return bars.slice(24).map((bar, offset) => {
-    const index = offset + 24;
-    const angle = lrcAngle(bars.slice(0, index + 1), 25);
-    return { ts: bar.ts, angle, side: lrc25Side(angle) };
+function lrcTimeline(bars, length) {
+  return bars.slice(length - 1).map((bar, offset) => {
+    const index = offset + length - 1;
+    const angle = lrcAngle(bars.slice(0, index + 1), length);
+    return { ts: bar.ts, angle, side: lrcSide(angle) };
   });
 }
 
-function lowerTimeframeVisitedDailySideDuringRun(higherBars, higherState, lowerBars, dailySide, higherDurationMs) {
-  const higherTimeline = lrc25Timeline(higherBars);
-  let beforeRunIndex = higherTimeline.length - 1;
-  while (beforeRunIndex >= 0 && higherTimeline[beforeRunIndex].side === higherState.lrc25Side) beforeRunIndex -= 1;
-  const runStartKnown = beforeRunIndex >= 0;
-  if (!runStartKnown) return { passed: false, runStartKnown: false, runStartAt: null };
-  const runStartAt = higherTimeline[beforeRunIndex + 1].ts;
-  const runEndExclusive = higherBars.at(-1).ts + higherDurationMs;
-  const passed = lrc25Timeline(lowerBars).some((point) => (
-    point.ts >= runStartAt
-    && point.ts < runEndExclusive
-    && point.side === dailySide
-  ));
-  return { passed, runStartKnown: true, runStartAt };
-}
-
-function evaluateLrc25State(bars, timeframe, dailySide) {
-  if (bars.length < 26) {
-    throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 26 are required`);
+function evaluateLrcOpportunity(bars, timeframe, dailySide) {
+  if (bars.length < 100) {
+    throw new Error(`Only ${bars.length} closed ${timeframe} bars returned; 100 are required`);
   }
   const lrc25Angle = lrcAngle(bars, 25);
-  const previousLrc25Angle = lrcAngle(bars.slice(0, -1), 25);
-  const currentSide = lrc25Side(lrc25Angle);
-  const previousSide = lrc25Side(previousLrc25Angle);
-  const lrc25Weakening = previousSide === currentSide
-    && Math.abs(lrc25Angle) < Math.abs(previousLrc25Angle);
-  const oppositeDaily = dailySide !== "neutral"
-    && currentSide !== "neutral"
-    && currentSide !== dailySide;
+  const lrc100Angle = lrcAngle(bars, 100);
+  const lrc25CurrentSide = lrcSide(lrc25Angle);
+  const lrc100CurrentSide = lrcSide(lrc100Angle);
+  const lrc100Timeline = lrcTimeline(bars, 100);
+  let beforeRunIndex = lrc100Timeline.length - 1;
+  while (beforeRunIndex >= 0 && lrc100Timeline[beforeRunIndex].side === lrc100CurrentSide) beforeRunIndex -= 1;
+  const runStartKnown = beforeRunIndex >= 0;
+  const runStartAt = runStartKnown ? lrc100Timeline[beforeRunIndex + 1].ts : null;
+  const lrc25VisitedDailySide = runStartKnown && lrcTimeline(bars, 25).some((point) => (
+    point.ts >= runStartAt && point.side === dailySide
+  ));
+  const currentAlignmentPassed = dailySide !== "neutral"
+    && lrc100CurrentSide !== "neutral"
+    && lrc100CurrentSide !== dailySide
+    && lrc25CurrentSide === lrc100CurrentSide;
+  const passed = currentAlignmentPassed && lrc25VisitedDailySide;
   return {
     timeframe,
-    oppositeDaily,
-    lrc25Side: currentSide,
-    previousLrc25Side: previousSide,
+    passed,
+    currentAlignmentPassed,
+    runStartKnown,
+    runStartAt,
+    lrc25VisitedDailySide,
+    lrc25Side: lrc25CurrentSide,
+    lrc100Side: lrc100CurrentSide,
     lrc25Angle,
-    previousLrc25Angle,
-    lrc25Weakening,
+    lrc100Angle,
     asOf: new Date(bars.at(-1).ts).toISOString().replace("T", " ").slice(0, 16) + " UTC",
   };
 }
@@ -409,40 +404,12 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
   const last = dailyBars.at(-1);
   const previous = dailyBars.at(-2);
   const dailyLrc25Angle = lrcAngle(dailyBars, 25);
-  const dailySide = lrc25Side(dailyLrc25Angle);
-  const m15State = evaluateLrc25State(m15Bars, "15m", dailySide);
-  const h1State = evaluateLrc25State(h1Bars, "1H", dailySide);
-  const h4State = evaluateLrc25State(h4Bars, "4H", dailySide);
-  const h1HistoryReversal = lowerTimeframeVisitedDailySideDuringRun(
-    h1Bars,
-    h1State,
-    m15Bars,
-    dailySide,
-    3_600_000,
-  );
+  const dailySide = lrcSide(dailyLrc25Angle);
   const confirmations = [
-    {
-      ...h1State,
-      confirmationTimeframe: "15m",
-      confirmationSide: m15State.lrc25Side,
-      historyReversalPassed: h1HistoryReversal.passed,
-      runStartKnown: h1HistoryReversal.runStartKnown,
-      runStartAt: h1HistoryReversal.runStartAt,
-      passed: h1State.oppositeDaily
-        && h1State.lrc25Weakening
-        && m15State.lrc25Side === h1State.lrc25Side
-        && h1HistoryReversal.passed,
-    },
-    {
-      ...h4State,
-      confirmationTimeframe: "1H",
-      confirmationSide: h1State.lrc25Side,
-      passed: h4State.oppositeDaily
-        && h4State.lrc25Weakening
-        && h1State.lrc25Side === h4State.lrc25Side,
-    },
+    evaluateLrcOpportunity(m15Bars, "15m", dailySide),
+    evaluateLrcOpportunity(h1Bars, "1H", dailySide),
+    evaluateLrcOpportunity(h4Bars, "4H", dailySide),
   ];
-  const timeframeStates = [m15State, h1State, h4State];
   const matchedTimeframes = confirmations.filter((confirmation) => confirmation.passed);
   const selectedConfirmation = matchedTimeframes.at(-1) || null;
   const confirmationPassed = selectedConfirmation !== null;
@@ -459,13 +426,13 @@ export function analyzeSymbol(symbol, dailyBars, m15Bars, h1Bars, h4Bars) {
     changePct: previous ? (last.c / previous.c - 1) * 100 : 0,
     confirmationPassed,
     confirmations,
-    timeframeStates,
     signalSide: side,
     selectedTimeframe: selectedConfirmation?.timeframe || null,
     selectedLrc25Side: selectedConfirmation?.lrc25Side || "neutral",
+    selectedLrc100Side: selectedConfirmation?.lrc100Side || "neutral",
     selectedLrc25Angle: selectedConfirmation?.lrc25Angle ?? null,
-    selectedPreviousLrc25Angle: selectedConfirmation?.previousLrc25Angle ?? null,
-    selectedLrc25Weakening: selectedConfirmation?.lrc25Weakening || false,
+    selectedLrc100Angle: selectedConfirmation?.lrc100Angle ?? null,
+    selectedLrc25VisitedDailySide: selectedConfirmation?.lrc25VisitedDailySide || false,
     matchedTimeframes: matchedTimeframes.map((item) => item.timeframe),
     qualifyingTimeframes: selectedConfirmation ? [selectedConfirmation.timeframe] : [],
     asOf: last.t,
@@ -552,7 +519,7 @@ async function runScan(job, categories, requestedSource) {
           job.failed += 1;
           if (job.errors.length < 200) job.errors.push({ symbol: symbol.symbol, message: cleanError(error) });
         }
-        const timeframeRank = { "4H": 0, "1H": 1 };
+        const timeframeRank = { "4H": 0, "1H": 1, "15m": 2 };
         job.results.sort((a, b) => timeframeRank[a.selectedTimeframe] - timeframeRank[b.selectedTimeframe]
           || a.symbol.localeCompare(b.symbol));
         job.updatedAt = new Date().toISOString();
@@ -726,7 +693,7 @@ export function createScannerServer() {
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   createScannerServer().listen(PORT, HOST, () => {
-    console.log(`Multi-source LRC25 Direction Scanner: http://${HOST}:${PORT}`);
+    console.log(`Multi-source LRC25/LRC100 Path Scanner: http://${HOST}:${PORT}`);
     console.log(`Bybit market data: ${BYBIT_API_BASE}`);
     console.log(`Binance market data: ${BINANCE_API_BASE}`);
     console.log(`OKX market data: ${OKX_API_BASE}`);

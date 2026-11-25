@@ -1,9 +1,9 @@
 {
-  "name": "multi-source-lrc25-direction-scanner",
+  "name": "multi-source-lrc-path-scanner",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Read-only multi-source scanner for lower-timeframe LRC25 reversals against daily LRC25",
+  "description": "Read-only multi-source scanner for LRC25 and LRC100 path opportunities against daily LRC25",
   "scripts": {
     "start": "node server.mjs",
     "check": "node --check server.mjs && node --check public/app.js && node --check scripts/cloud-hourly.mjs && node --check scripts/telegram-notify.mjs",

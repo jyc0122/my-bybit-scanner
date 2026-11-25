@@ -14,17 +14,17 @@ const latest = JSON.parse(await readFile(inputPath, "utf8"));
 const opportunities = Array.isArray(latest.opportunities) ? latest.opportunities : [];
 
 if (!latest.notify || opportunities.length === 0) {
-  console.log("No LRC25 reversal opportunities; skipping Telegram notification.");
+  console.log("No LRC25/LRC100 path opportunities; skipping Telegram notification.");
   process.exit(0);
 }
 
 const sideLabel = (side) => side === "long" ? "多" : side === "short" ? "空" : side;
 const angle = (value) => Number.isFinite(Number(value)) ? `${Number(value).toFixed(2)}°` : "—";
-const header = `OKX LRC25 反向减弱机会 | ${latest.date} ${latest.time} SGT`;
+const header = `OKX LRC25 / LRC100 路径机会 | ${latest.date} ${latest.time} SGT`;
 const lines = opportunities.map((item) => [
   item.symbol,
   `${item.selectedTimeframe}${sideLabel(item.side)}机会`,
-  `LRC25 ${angle(item.previousLrc25)} → ${angle(item.selectedLrc25)}`,
+  `LRC25 ${angle(item.selectedLrc25)} | LRC100 ${angle(item.selectedLrc100)}`,
 ].join(" | "));
 
 const messages = [];
@@ -54,4 +54,4 @@ for (const text of messages) {
   }
 }
 
-console.log(`Sent ${opportunities.length} LRC25 opportunity pair(s) in ${messages.length} Telegram message(s).`);
+console.log(`Sent ${opportunities.length} LRC25/LRC100 opportunity pair(s) in ${messages.length} Telegram message(s).`);

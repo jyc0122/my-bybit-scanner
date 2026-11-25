@@ -188,7 +188,7 @@ function renderSummary(scanned) {
 
 function filteredResults() {
   const query = state.search.toLowerCase();
-  const timeframeRank = { "4H": 0, "1H": 1 };
+  const timeframeRank = { "4H": 0, "1H": 1, "15m": 2 };
   return state.results
     .filter((item) => state.side === "all" || item.side === state.side)
     .filter((item) => !query || `${item.symbol} ${item.name} ${item.category}`.toLowerCase().includes(query))
@@ -206,7 +206,7 @@ function renderResults() {
   els.resultList.innerHTML = rows.map((item) => `
     <button class="result-row ${item.side === "short" ? "short" : ""} ${item.symbol === state.selectedSymbol ? "active" : ""}" type="button" data-symbol="${escapeHtml(item.symbol)}">
       <span><strong>${escapeHtml(item.symbol)}</strong><small>${escapeHtml(item.category)} · ${escapeHtml(item.name)}</small></span>
-      <span class="row-side"><b>${escapeHtml(item.selectedTimeframe)} ${item.side === "long" ? "多头" : "空头"}机会</b><small>LRC25 ${formatAngle(item.selectedPreviousLrc25Angle)} → ${formatAngle(item.selectedLrc25Angle)}</small></span>
+      <span class="row-side"><b>${escapeHtml(item.selectedTimeframe)} ${item.side === "long" ? "多头" : "空头"}机会</b><small>LRC25 ${formatAngle(item.selectedLrc25Angle)} · LRC100 ${formatAngle(item.selectedLrc100Angle)}</small></span>
     </button>`).join("");
   els.resultList.querySelectorAll(".result-row").forEach((row) => row.addEventListener("click", () => selectSymbol(row.dataset.symbol)));
 }
@@ -231,11 +231,11 @@ function selectSymbol(symbol) {
   $("#lrcTimeframe").textContent = item.selectedTimeframe || "—";
   $("#lrc25Signal").textContent = formatAngle(item.selectedLrc25Angle);
   $("#lrc25Signal").className = item.selectedLrc25Side === "long" ? "positive" : "negative";
-  $("#lrc25Meta").textContent = "反向 LRC25 当前角度";
-  $("#previousLrc25Angle").textContent = formatAngle(item.selectedPreviousLrc25Angle);
-  $("#previousLrc25Angle").className = item.selectedLrc25Side === "long" ? "positive" : "negative";
+  $("#lrc25Meta").textContent = "当前 LRC25 角度";
+  $("#lrc100Signal").textContent = formatAngle(item.selectedLrc100Angle);
+  $("#lrc100Signal").className = item.selectedLrc100Side === "long" ? "positive" : "negative";
   $("#matchedTimeframes").textContent = item.matchedTimeframes.join(" / ");
-  $("#statusValue").textContent = "LRC25 已减弱";
+  $("#statusValue").textContent = "LRC25 路径已确认";
   $("#statusValue").className = item.side === "long" ? "positive" : "negative";
   renderResults();
 }

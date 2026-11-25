@@ -32,24 +32,22 @@ const steps = {
   "1D": 86_400_000,
 };
 
-const bars = (timeframe, side) => trendBars(60, side === "long" ? 1 : -1, steps[timeframe]);
-function weakeningBars(timeframe, side) {
-  const result = bars(timeframe, side);
-  const direction = side === "long" ? 1 : -1;
-  const last = result.at(-1);
-  const close = last.c - direction * 5;
-  Object.assign(last, { o: close, h: close + 0.2, l: close - 0.2, c: close });
-  return result;
-}
+const bars = (timeframe, side, count = 300) => trendBars(count, side === "long" ? 1 : -1, steps[timeframe]);
 
-function alignedSegmentedBars(timeframe, firstSide, currentSide, count, turnIndex, endTs) {
+function opportunityBars(timeframe, dailySide, includePath = true) {
   const stepMs = steps[timeframe];
-  const startTs = endTs - (count - 1) * stepMs;
+  const opportunitySide = dailySide === "short" ? "long" : "short";
   let close = 1_000;
-  const result = Array.from({ length: count }, (_, index) => {
-    const direction = (index < turnIndex ? firstSide : currentSide) === "long" ? 1 : -1;
-    close += direction;
-    const ts = startTs + index * stepMs;
+  return Array.from({ length: 300 }, (_, index) => {
+    let side;
+    let speed = 1;
+    if (index < 100) side = dailySide;
+    else if (!includePath || index < 200) { side = opportunitySide; speed = 2; }
+    else if (index < 230) side = dailySide;
+    else { side = opportunitySide; speed = 2; }
+    const direction = side === "long" ? 1 : -1;
+    close += direction * speed;
+    const ts = index * stepMs;
     return {
       t: new Date(ts).toISOString().slice(0, 10),
       ts,
@@ -61,21 +59,6 @@ function alignedSegmentedBars(timeframe, firstSide, currentSide, count, turnInde
       turnover: close,
     };
   });
-  const currentDirection = currentSide === "long" ? 1 : -1;
-  const last = result.at(-1);
-  const weakenedClose = last.c - currentDirection * 5;
-  Object.assign(last, { o: weakenedClose, h: weakenedClose + 0.2, l: weakenedClose - 0.2, c: weakenedClose });
-  return result;
-}
-
-function oneHourOpportunityBars(dailySide, includeHistoricalOpposite = true) {
-  const opportunityLrcSide = dailySide === "short" ? "long" : "short";
-  const endTs = 500 * steps["1H"];
-  const h1 = alignedSegmentedBars("1H", dailySide, opportunityLrcSide, 120, 70, endTs);
-  const m15 = includeHistoricalOpposite
-    ? alignedSegmentedBars("15m", dailySide, opportunityLrcSide, 300, 200, endTs)
-    : alignedSegmentedBars("15m", opportunityLrcSide, opportunityLrcSide, 300, 0, endTs);
-  return { m15, h1 };
 }
 const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "linear" };
 
@@ -132,73 +115,82 @@ test("maps configured aliases to OKX USDT perpetual instrument ids", () => {
   assert.equal(okxInstrumentIdForSymbol("RAYDIUMUSDT"), "RAY-USDT-SWAP");
 });
 
-test("daily LRC25 short selects the largest opposite lower timeframe", () => {
+test("daily short selects the largest LRC25/LRC100 path opportunity", () => {
+  const result = analyzeSymbol(
+    symbol,
+    bars("1D", "short"),
+    opportunityBars("15m", "short"),
+    opportunityBars("1H", "short"),
+    opportunityBars("4H", "short"),
+  );
+  assert.equal(result.dailySide, "short");
+  assert.equal(result.side, "short");
+  assert.deepEqual(result.matchedTimeframes, ["15m", "1H", "4H"]);
+  assert.equal(result.selectedTimeframe, "4H");
+  assert.ok(result.selectedLrc25Angle > 0);
+  assert.ok(result.selectedLrc100Angle > 0);
+  assert.equal(result.selectedLrc25VisitedDailySide, true);
+});
+
+test("daily short emits a 1H opportunity when LRC25 revisited positive during the current positive LRC100 run", () => {
   const result = analyzeSymbol(
     symbol,
     bars("1D", "short"),
     bars("15m", "short"),
-    bars("1H", "long"),
-    weakeningBars("4H", "long"),
+    opportunityBars("1H", "short"),
+    bars("4H", "short"),
   );
-  assert.equal(result.dailySide, "short");
-  assert.ok(result.dailyLrc25Angle < 0);
+  const confirmation = result.confirmations.find((item) => item.timeframe === "1H");
+  assert.equal(confirmation.lrc25Side, "long");
+  assert.equal(confirmation.lrc100Side, "long");
+  assert.equal(confirmation.lrc25VisitedDailySide, true);
+  assert.equal(result.selectedTimeframe, "1H");
   assert.equal(result.side, "short");
-  assert.deepEqual(result.matchedTimeframes, ["4H"]);
-  assert.equal(result.selectedTimeframe, "4H");
-  assert.ok(result.selectedLrc25Angle > 0);
-  assert.ok(result.selectedPreviousLrc25Angle > result.selectedLrc25Angle);
-  assert.equal(result.selectedLrc25Weakening, true);
 });
 
-test("daily LRC25 long selects 1H when 4H agrees and 1H plus 15m are opposite", () => {
-  const { m15, h1 } = oneHourOpportunityBars("long");
+test("applies the LRC25/LRC100 path rule symmetrically to long opportunities", () => {
   const result = analyzeSymbol(
     symbol,
     bars("1D", "long"),
-    m15,
-    h1,
+    bars("15m", "long"),
+    opportunityBars("1H", "long"),
     bars("4H", "long"),
   );
-  assert.equal(result.dailySide, "long");
   assert.equal(result.side, "long");
-  assert.deepEqual(result.matchedTimeframes, ["1H"]);
   assert.equal(result.selectedTimeframe, "1H");
-  assert.deepEqual(result.qualifyingTimeframes, ["1H"]);
-  assert.equal(result.confirmations[0].historyReversalPassed, true);
+  assert.ok(result.selectedLrc25Angle < 0);
+  assert.ok(result.selectedLrc100Angle < 0);
 });
 
-test("1H short opportunity requires a prior negative 15m LRC25 during the current positive 1H run", () => {
-  const { m15, h1 } = oneHourOpportunityBars("short");
+test("rejects a current LRC25/LRC100 alignment when LRC25 never visited the daily side during the LRC100 run", () => {
   const result = analyzeSymbol(
     symbol,
     bars("1D", "short"),
-    m15,
-    h1,
+    bars("15m", "short"),
+    opportunityBars("1H", "short", false),
     bars("4H", "short"),
   );
-  assert.equal(result.selectedTimeframe, "1H");
-  assert.equal(result.side, "short");
-  assert.equal(result.confirmations[0].lrc25Side, "long");
-  assert.equal(result.confirmations[0].confirmationSide, "long");
-  assert.equal(result.confirmations[0].historyReversalPassed, true);
-});
-
-test("rejects 1H opportunity when 15m never visited the daily direction during the current 1H run", () => {
-  const { m15, h1 } = oneHourOpportunityBars("short", false);
-  const result = analyzeSymbol(
-    symbol,
-    bars("1D", "short"),
-    m15,
-    h1,
-    bars("4H", "short"),
-  );
-  assert.equal(result.confirmations[0].lrc25Side, "long");
-  assert.equal(result.confirmations[0].confirmationSide, "long");
-  assert.equal(result.confirmations[0].historyReversalPassed, false);
+  const confirmation = result.confirmations.find((item) => item.timeframe === "1H");
+  assert.equal(confirmation.currentAlignmentPassed, true);
+  assert.equal(confirmation.lrc25VisitedDailySide, false);
+  assert.equal(confirmation.passed, false);
   assert.equal(result.selectedTimeframe, null);
 });
 
-test("does not select a symbol when every lower timeframe agrees with daily LRC25", () => {
+test("15m can independently produce an opportunity without 5m confirmation", () => {
+  const result = analyzeSymbol(
+    symbol,
+    bars("1D", "short"),
+    opportunityBars("15m", "short"),
+    bars("1H", "short"),
+    bars("4H", "short"),
+  );
+  assert.deepEqual(result.matchedTimeframes, ["15m"]);
+  assert.equal(result.selectedTimeframe, "15m");
+  assert.equal(result.side, "short");
+});
+
+test("does not select a symbol when LRC25 and LRC100 agree with daily", () => {
   const result = analyzeSymbol(
     symbol,
     bars("1D", "long"),
@@ -211,69 +203,28 @@ test("does not select a symbol when every lower timeframe agrees with daily LRC2
   assert.equal(result.selectedTimeframe, null);
 });
 
-test("does not select an opposite LRC25 direction until that timeframe starts weakening", () => {
+test("uses LRC direction without the old 20 degree threshold", () => {
+  const shallowLong = opportunityBars("4H", "short");
+  shallowLong.at(-10).h += 5_000;
+  shallowLong.at(-10).l -= 5_000;
   const result = analyzeSymbol(
     symbol,
     bars("1D", "short"),
     bars("15m", "short"),
     bars("1H", "short"),
-    bars("4H", "long"),
-  );
-  assert.equal(result.confirmations.at(-1).lrc25Side, "long");
-  assert.equal(result.confirmations.at(-1).lrc25Weakening, false);
-  assert.equal(result.side, "neutral");
-});
-
-test("never emits a 15m opportunity because 5m confirmation is not scanned", () => {
-  const result = analyzeSymbol(
-    symbol,
-    bars("1D", "short"),
-    weakeningBars("15m", "long"),
-    bars("1H", "short"),
-    bars("4H", "short"),
-  );
-  assert.equal(result.timeframeStates[0].lrc25Side, "long");
-  assert.equal(result.timeframeStates[0].lrc25Weakening, true);
-  assert.deepEqual(result.matchedTimeframes, []);
-  assert.equal(result.selectedTimeframe, null);
-});
-
-test("requires 1H direction confirmation before emitting a 4H opportunity", () => {
-  const result = analyzeSymbol(
-    symbol,
-    bars("1D", "short"),
-    bars("15m", "short"),
-    bars("1H", "short"),
-    weakeningBars("4H", "long"),
-  );
-  assert.equal(result.confirmations.at(-1).lrc25Weakening, true);
-  assert.equal(result.confirmations.at(-1).confirmationSide, "short");
-  assert.equal(result.confirmations.at(-1).passed, false);
-  assert.equal(result.selectedTimeframe, null);
-});
-
-test("uses LRC25 direction without the old 20 degree threshold", () => {
-  const shallowLong = weakeningBars("4H", "long");
-  shallowLong.at(-10).h += 500;
-  shallowLong.at(-10).l -= 500;
-  const result = analyzeSymbol(
-    symbol,
-    bars("1D", "short"),
-    bars("15m", "short"),
-    bars("1H", "long"),
     shallowLong,
   );
   assert.ok(result.selectedLrc25Angle > 0 && result.selectedLrc25Angle <= 20);
+  assert.ok(result.selectedLrc100Angle > 0 && result.selectedLrc100Angle <= 20);
   assert.equal(result.selectedTimeframe, "4H");
-  assert.equal(result.side, "short");
 });
 
-test("requires 26 closed bars to compare current and previous LRC25", () => {
+test("requires 100 closed bars for each opportunity timeframe", () => {
   assert.throws(() => analyzeSymbol(
     symbol,
     bars("1D", "short"),
-    trendBars(25, 1, steps["15m"]),
+    bars("15m", "long", 99),
     bars("1H", "long"),
     bars("4H", "long"),
-  ), /26 are required/);
+  ), /100 are required/);
 });
