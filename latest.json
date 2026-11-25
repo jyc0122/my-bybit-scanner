@@ -1,7 +1,7 @@
 {
   "date": "2026-11-25",
-  "time": "10:05:50",
-  "generatedAt": "2026-11-25T02:05:50.692Z",
+  "time": "13:24:07",
+  "generatedAt": "2026-11-25T05:24:07.562Z",
   "mode": "full",
   "status": "complete",
   "configured": 147,
@@ -11,14 +11,14 @@
   "scanned": 134,
   "failed": 0,
   "skippedUnavailable": 13,
-  "matches": 4,
+  "matches": 6,
   "opportunities": [
     {
-      "symbol": "AKEUSDT",
-      "side": "long",
+      "symbol": "BTWUSDT",
+      "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc25": -39.33338032430096,
-      "selectedLrc25": -37.12605820179041,
+      "previousLrc25": 15.15283410640106,
+      "selectedLrc25": 14.5919770108148,
       "matchedTimeframes": [
         "4H"
       ]
@@ -27,28 +27,48 @@
       "symbol": "MSFTUSDT",
       "side": "short",
       "selectedTimeframe": "4H",
-      "previousLrc25": 13.503899014458383,
-      "selectedLrc25": 10.131669904828051,
+      "previousLrc25": 10.131669904828051,
+      "selectedLrc25": 6.261112173628046,
       "matchedTimeframes": [
         "4H"
       ]
     },
     {
-      "symbol": "QNTUSDT",
-      "side": "short",
-      "selectedTimeframe": "4H",
-      "previousLrc25": 23.455311522544473,
-      "selectedLrc25": 22.025803670877195,
+      "symbol": "AMZNUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H",
+      "previousLrc25": -41.295598907937624,
+      "selectedLrc25": -39.94538190391914,
       "matchedTimeframes": [
-        "4H"
+        "1H"
+      ]
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H",
+      "previousLrc25": -36.50477951283294,
+      "selectedLrc25": -35.69651494537956,
+      "matchedTimeframes": [
+        "1H"
       ]
     },
     {
       "symbol": "COHRUSDT",
       "side": "long",
       "selectedTimeframe": "1H",
-      "previousLrc25": -39.268539308644314,
-      "selectedLrc25": -38.295081906985914,
+      "previousLrc25": -43.77120692629801,
+      "selectedLrc25": -42.57310897135591,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
+      "symbol": "TRUTHUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "previousLrc25": 17.170032586063808,
+      "selectedLrc25": 9.839874207645787,
       "matchedTimeframes": [
         "1H"
       ]
