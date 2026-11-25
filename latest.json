@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-25",
-  "time": "23:56:12",
-  "generatedAt": "2026-11-25T15:56:12.506Z",
+  "date": "2026-11-26",
+  "time": "00:05:36",
+  "generatedAt": "2026-11-25T16:05:36.319Z",
   "mode": "full",
   "status": "complete",
   "configured": 60,
@@ -17,8 +17,19 @@
       "symbol": "AMZNUSDT",
       "side": "long",
       "selectedTimeframe": "4H",
-      "selectedLrc25": -9.588548235017994,
-      "selectedLrc100": -29.353694298693174,
+      "selectedLrc25": -16.86815054913703,
+      "selectedLrc100": -26.6193760618751,
+      "matchedTimeframes": [
+        "15m",
+        "4H"
+      ]
+    },
+    {
+      "symbol": "COHRUSDT",
+      "side": "long",
+      "selectedTimeframe": "4H",
+      "selectedLrc25": -0.13619462921184625,
+      "selectedLrc100": -22.852414587529644,
       "matchedTimeframes": [
         "15m",
         "4H"
@@ -28,8 +39,8 @@
       "symbol": "AVGOUSDT",
       "side": "long",
       "selectedTimeframe": "1H",
-      "selectedLrc25": -30.296331965305573,
-      "selectedLrc100": -26.876461347544556,
+      "selectedLrc25": -31.22255719456837,
+      "selectedLrc100": -28.438945663058632,
       "matchedTimeframes": [
         "15m",
         "1H"
@@ -39,8 +50,8 @@
       "symbol": "BZUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "selectedLrc25": 37.64566914777202,
-      "selectedLrc100": 14.092154505710946,
+      "selectedLrc25": 38.95809954463247,
+      "selectedLrc100": 15.49692500752433,
       "matchedTimeframes": [
         "15m"
       ]
@@ -49,18 +60,8 @@
       "symbol": "CLUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "selectedLrc25": 37.125356010424866,
-      "selectedLrc100": 13.275612121479112,
-      "matchedTimeframes": [
-        "15m"
-      ]
-    },
-    {
-      "symbol": "COHRUSDT",
-      "side": "long",
-      "selectedTimeframe": "15m",
-      "selectedLrc25": -39.87146775329524,
-      "selectedLrc100": -25.87660360354995,
+      "selectedLrc25": 38.55215002018653,
+      "selectedLrc100": 14.824494677677096,
       "matchedTimeframes": [
         "15m"
       ]
