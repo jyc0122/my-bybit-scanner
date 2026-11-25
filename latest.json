@@ -1,17 +1,17 @@
 {
   "date": "2026-11-26",
-  "time": "00:05:36",
-  "generatedAt": "2026-11-25T16:05:36.319Z",
+  "time": "00:25:25",
+  "generatedAt": "2026-11-25T16:25:25.011Z",
   "mode": "full",
   "status": "complete",
-  "configured": 60,
-  "available": 57,
-  "unavailable": 3,
-  "total": 57,
-  "scanned": 57,
+  "configured": 147,
+  "available": 134,
+  "unavailable": 13,
+  "total": 134,
+  "scanned": 134,
   "failed": 0,
-  "skippedUnavailable": 3,
-  "matches": 5,
+  "skippedUnavailable": 13,
+  "matches": 9,
   "opportunities": [
     {
       "symbol": "AMZNUSDT",
@@ -36,6 +36,16 @@
       ]
     },
     {
+      "symbol": "AKEUSDT",
+      "side": "long",
+      "selectedTimeframe": "1H",
+      "selectedLrc25": -42.57401157188392,
+      "selectedLrc100": -35.06895362589861,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
       "symbol": "AVGOUSDT",
       "side": "long",
       "selectedTimeframe": "1H",
@@ -47,11 +57,21 @@
       ]
     },
     {
+      "symbol": "BTWUSDT",
+      "side": "short",
+      "selectedTimeframe": "1H",
+      "selectedLrc25": 45.48856225917063,
+      "selectedLrc100": 27.64161466771997,
+      "matchedTimeframes": [
+        "1H"
+      ]
+    },
+    {
       "symbol": "BZUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "selectedLrc25": 38.95809954463247,
-      "selectedLrc100": 15.49692500752433,
+      "selectedLrc25": 39.082447405110585,
+      "selectedLrc100": 16.49921531176117,
       "matchedTimeframes": [
         "15m"
       ]
@@ -60,8 +80,28 @@
       "symbol": "CLUSDT",
       "side": "short",
       "selectedTimeframe": "15m",
-      "selectedLrc25": 38.55215002018653,
-      "selectedLrc100": 14.824494677677096,
+      "selectedLrc25": 39.15411725146964,
+      "selectedLrc100": 16.05055139256644,
+      "matchedTimeframes": [
+        "15m"
+      ]
+    },
+    {
+      "symbol": "CTUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "selectedLrc25": 10.180804960565728,
+      "selectedLrc100": 29.52164025496989,
+      "matchedTimeframes": [
+        "15m"
+      ]
+    },
+    {
+      "symbol": "XPLUSDT",
+      "side": "short",
+      "selectedTimeframe": "15m",
+      "selectedLrc25": 17.2807383830713,
+      "selectedLrc100": 9.686592390119088,
       "matchedTimeframes": [
         "15m"
       ]
