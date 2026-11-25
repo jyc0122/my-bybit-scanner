@@ -81,9 +81,9 @@ const symbol = { symbol: "TESTUSDT", name: "Test", category: "Tests", market: "l
 
 test("loads, groups, and normalizes the configured symbol universe", async () => {
   const symbols = await loadUniverse();
-  assert.equal(symbols.length, 147);
+  assert.equal(symbols.length, 60);
   assert.ok(symbols.some((item) => item.symbol === "SKHYNIXUSDT" && item.category === "TradFi & Commodities"));
-  assert.ok(symbols.some((item) => item.symbol === "RAYDIUMUSDT" && item.category === "Crypto"));
+  assert.deepEqual(symbols.filter((item) => item.category === "Crypto").map((item) => item.symbol), ["BTCUSDT"]);
   assert.ok(symbols.every((item) => item.market === "linear"));
 });
 

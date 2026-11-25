@@ -33,7 +33,7 @@
 
 编辑 `config/symbols.json`。当前清单已经按 `TradFi & Commodities` 和 `Crypto` 分组；原始输入保存在 `config/requested-symbols.txt`，无法在 Bybit 当前 linear Trading 清单中匹配的项目记录在 `config/unavailable-symbols.json`。
 
-本次用户清单共 156 项，去重后 154 项；当前启用 147 个 Bybit 合约（Crypto 88、TradFi & Commodities 59），另有 7 项未找到可交易合约并保留在审计文件中。
+当前启用 60 个合约：TradFi & Commodities 59 个，Crypto 仅保留 `BTCUSDT`。原始请求清单和无法匹配项目仍保留在审计文件中。
 
 ```json
 {
