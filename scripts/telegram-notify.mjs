@@ -11,7 +11,15 @@ if (!token || !chatId) {
 }
 
 const latest = JSON.parse(await readFile(inputPath, "utf8"));
-const opportunities = Array.isArray(latest.opportunities) ? latest.opportunities : [];
+const opportunities = Array.isArray(latest.opportunities)
+  ? [...latest.opportunities].sort((left, right) => {
+      const leftLrc25 = Number(left.selectedLrc25);
+      const rightLrc25 = Number(right.selectedLrc25);
+      if (!Number.isFinite(leftLrc25)) return Number.isFinite(rightLrc25) ? 1 : 0;
+      if (!Number.isFinite(rightLrc25)) return -1;
+      return rightLrc25 - leftLrc25;
+    })
+  : [];
 
 if (!latest.notify || opportunities.length === 0) {
   console.log("No LRC25/LRC100 path opportunities; skipping Telegram notification.");
